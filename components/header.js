@@ -1,6 +1,9 @@
+import Link from "next/link";
+import { useRouter } from "next/router";
 import WalletModal from "./wallet_modal";
 
 const Header = () => {
+    const router = useRouter();
     return (
         <>
             <header>
@@ -11,10 +14,10 @@ const Header = () => {
                                 <div className="mobile-nav-toggler"><i className="fas fa-bars"></i></div>
                                 <div className="menu-wrap">
                                     <nav className="menu-nav">
-                                        <div className="logo"><a href="index.php">
+                                        <div className="logo"><Link href="/index">
                                             <picture><img src="assets/img/logo/logo-new.png" alt="" />
                                             </picture>
-                                        </a></div>
+                                        </Link></div>
                                         <div className="header-form">
                                             <form action="#">
                                                 <button><i className="flaticon-search"></i></button>
@@ -23,16 +26,16 @@ const Header = () => {
                                         </div>
                                         <div className="navbar-wrap main-menu d-none d-lg-flex">
                                             <ul className="navigation">
-                                                <li className="active"><a href="index.php">Home</a></li>
-                                                <li><a href="marketplace.php">Marketplace</a></li>
-                                                <li className="menu-item-has-children"><a href="explore.php">Explore</a>
+                                                <li className={router.pathname == '/' ? "active" :"" }><Link href="/">Home</Link></li>
+                                                <li className={router.pathname == '/marketplace' ? "active" :"" }><Link href="/marketplace">Marketplace</Link></li>
+                                                <li className={['/explore','/collections','/allnfts','/solananfts','/ethereumnfts','/fractionalnfts','/topnftvaults'].includes(router.pathname) ? "active menu-item-has-children" : "menu-item-has-children"}><Link href="/explore">Explore</Link>
                                                     <ul className="submenu">
-                                                        <li><a href="collections.php">Collection</a></li>
-                                                        <li><a href="allnfts.php">All NFTs</a></li>
-                                                        <li><a href="solananfts.php">Solana NFTs</a></li>
-                                                        <li><a href="ethereum.php">Ethereum NFTs</a></li>
-                                                        <li><a href="fractional-nfts.php">Fractional NFTs </a></li>
-                                                        <li><a href="topnftvaults.php">Top NFT Vaults</a></li>
+                                                        <li><Link href="/collections">Collections</Link></li>
+                                                        <li><Link href="/allnfts">All NFTs</Link></li>
+                                                        <li><Link href="/solananfts">Solana NFTs</Link></li>
+                                                        <li><Link href="/ethereumnfts">Ethereum NFTs</Link></li>
+                                                        <li><Link href="/fractionalnfts">Fractional NFTs </Link></li>
+                                                        <li><Link href="/topnftvaults">Top NFT Vaults</Link></li>
                                                     </ul>
 
                                                 </li>
@@ -40,7 +43,7 @@ const Header = () => {
                                                 <li className="menu-item-has-children"><a href="fractionalize.php">Fractionalize</a>
                                                 </li>
 
-                                                <li className="menu-item-has-children"><a href="#">Help</a>
+                                                <li className={['/blog'].includes(router.pathname) ? "active menu-item-has-children" : "menu-item-has-children"}><a href="#">Help</a>
                                                     <ul className="submenu">
                                                         <li><a href="#">Community</a>
                                                             <ul className="submenu">
@@ -48,6 +51,7 @@ const Header = () => {
                                                                 <li><a href="#">Twitter</a></li>
                                                             </ul>
                                                         </li>
+                                                        <li><Link href="/blog">Blog &amp; News</Link></li>
                                                     </ul>
                                                 </li>
                                             </ul>

@@ -1,8 +1,7 @@
-import WalletModal from "./wallet_modal";
+import Link from "next/link";
 
 const Footer = () => {
     return (<>
-    <WalletModal/>
         <footer>
             <div className="footer-top-wrap">
                 <div className="container">
@@ -10,7 +9,7 @@ const Footer = () => {
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-9">
                             <div className="footer-widget">
                                 <div className="footer-logo mb-25">
-                                    <a href="index.html"><picture><img src="assets/img/logo/logo.png" alt="" /></picture></a>
+                                    <Link href="/"><picture><img src="assets/img/logo/logo.png" alt="" /></picture></Link>
                                 </div>
                                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus veritatis sequi doloribus fuga.</p>
                                 <ul className="footer-social">
@@ -25,10 +24,10 @@ const Footer = () => {
                             <div className="footer-widget">
                                 <h4 className="fw-title">Useful Links</h4>
                                 <ul className="fw-links">
-                                    <li><a href="#">All NFTs</a></li>
+                                    <li><Link href="/allnfts">All NFTs</Link></li>
                                     <li><a href="#">How It Works</a></li>
-                                    <li><a href="requestnew-feature.php">New Features</a></li>
-                                    <li><a href="explore.php">Explore</a></li>
+                                    <li><Link href="/newfeature">New Features</Link></li>
+                                    <li><Link href="/explore">Explore</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -38,9 +37,9 @@ const Footer = () => {
                                 <ul className="fw-links">
                                     <li><a href="#">Help Center</a></li>
 
-                                    <li><a href="faq.php">FAQ</a></li>
-                                    <li><a href="blog.php">Blog</a></li>
-                                    <li><a href="about.php">About Us</a></li>
+                                    <li><Link href="/faq">FAQ</Link></li>
+                                    <li><Link href="/blog">Blog</Link></li>
+                                    <li><Link href="/about">About Us</Link></li>
                                 </ul>
                             </div>
                         </div>
@@ -66,9 +65,9 @@ const Footer = () => {
                         </div>
                         <div className="col-md-6">
                             <ul className="copyright-link-list">
-                                <li><a href="privacy-policy.php">Privacy Policy</a></li>
-                                <li><a href="terms-conditions.php">Terms And Condition</a></li>
-                                <li><a href="contact-us.php">Contact Us</a></li>
+                                <li><Link href="/privacypolicy">Privacy Policy</Link></li>
+                                <li><Link href="/terms">Terms And Condition</Link></li>
+                                <li><Link href="/contactus">Contact Us</Link></li>
                             </ul>
                         </div>
                     </div>

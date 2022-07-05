@@ -1,4 +1,5 @@
 import Script from "next/script";
+import Footer from "./footer";
 import Header from "./header";
 import ScrollButton from "./ScrollButton";
 
@@ -6,14 +7,15 @@ export default function Layout(props) {
     const { children } = props;
     return (
         <>
+            <Script src="assets/js/vendor/jquery-3.6.0.min.js"></Script>
             {/* <PreLoader/> */}
             <div className="main-content">
                 <Header />
                 <main>{children}</main>
                 <ScrollButton smooth/>
             </div>
-            <footer>Footer</footer>
-            <Script src="assets/js/vendor/jquery-3.6.0.min.js"></Script>
+            <Footer/>
+           
             <Script src="assets/js/bootstrap.min.js"></Script>
             <Script src="assets/js/isotope.pkgd.min.js"></Script>
             <Script src="assets/js/imagesloaded.pkgd.min.js"></Script>

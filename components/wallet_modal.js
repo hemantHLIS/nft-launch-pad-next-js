@@ -85,7 +85,7 @@ const WalletModal = () => {
                                             <p>Start exploring blockchain applications in seconds.  Trusted by over 1 million users worldwide.</p>
                                         </div>
                                     </button>
-                                    <a href="home.php" className="wallet-box">
+                                    <button className="wallet-box" style={{ textAlign: "left" }} onClick={login}>
                                         <div className="wallet-img">
                                             <picture><img src="assets/img/icons/c-wallet.png" alt="" /></picture>
                                         </div>
@@ -93,7 +93,7 @@ const WalletModal = () => {
                                             <h3>Wallet Connect</h3>
                                             <p>Open source protocol for connecting decentralised applications to mobile wallets.</p>
                                         </div>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
