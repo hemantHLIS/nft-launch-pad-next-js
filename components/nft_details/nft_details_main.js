@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-
+import LiveAuction from './live_auction';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 const NftDetailsMain = () => {
     const [options, setOptions] = useState({
@@ -140,7 +140,7 @@ const NftDetailsMain = () => {
                                             </h2>
                                             <div id="collapseTwo" className="accordion-collapse collapse" aria-labelledby="headingTwo" >
                                                 <div className="accordion-body bg-dark">
-                                                    <div className="activity-table-responsive ">
+                                                    <div className="activity-table-responsive my-custom-scrollbar table-wrapper-scroll-y">
 
                                                         <table className="table activity-table mt-0">
                                                             <thead>
@@ -149,7 +149,7 @@ const NftDetailsMain = () => {
 
                                                                     <th scope="col">Expiration</th>
                                                                     <th scope="col" >From</th>
-                                                                    <th scope="col" ></th>
+                                                                    <th scope="col" >Actions</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -221,7 +221,7 @@ const NftDetailsMain = () => {
                     </div>
                 </div>
             </section>
-            {/* <LiveAuction/> */}
+            <LiveAuction/>
         </>
     );
 }
