@@ -4,7 +4,7 @@ const { default: Layout } = require("../components/layout")
 
 const Collections = ()=>{
 return (
-    <CollectionsMain type="My Collections"/>
+    <CollectionsMain type="My Collections" internalLink="/collectiondetails"/>
 );
 }
 

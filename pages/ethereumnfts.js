@@ -4,7 +4,7 @@ const { default: Layout } = require("../components/layout")
 
 const EthereumNfts = () => {
 return (
-    <CollectionsMain type="Ethereum NFTs"/>
+    <CollectionsMain type="Ethereum NFTs" internalLink="/nftdetails"/>
 )
 }
 

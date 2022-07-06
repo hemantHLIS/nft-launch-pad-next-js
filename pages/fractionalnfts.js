@@ -4,7 +4,7 @@ const { default: Layout } = require("../components/layout")
 
 const FractionalNfts = () => {
 return (
-    <CollectionsMain type="Fractional NFTs"/>
+    <CollectionsMain type="Fractional NFTs" internalLink="/nftdetails"/>
 )
 }
 

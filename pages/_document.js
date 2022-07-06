@@ -1,10 +1,13 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 class LaunchPad extends Document {
   render() {
     return (
       <Html>
-        <Head></Head>
+        <Head>
+          <link rel="shortcut icon" href="assets/img/favicon.png" />
+        </Head>
         <body>
           <Main />
           <NextScript />

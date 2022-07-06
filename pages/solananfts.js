@@ -4,7 +4,7 @@ const { default: Layout } = require("../components/layout")
 
 const SolanaNfts = () => {
 return (
-    <CollectionsMain type="Solana NFTs"/>
+    <CollectionsMain type="Solana NFTs" internalLink="/nftdetails"/>
 )
 }
 

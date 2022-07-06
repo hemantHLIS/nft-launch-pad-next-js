@@ -1,5 +1,26 @@
-const VaultDetailsMain = () => {
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper';
+import 'swiper/css/bundle';
+import { useState } from 'react';
+import dynamic from 'next/dynamic'
 
+const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const VaultDetailsMain = () => {
+    const [options, setOptions] = useState({
+        chart: {
+            id: "basic-bar"
+        },
+        xaxis: {
+            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+        }
+    });
+
+    const [series, setSeries] = useState([
+        {
+            name: "series-1",
+            data: [30, 40, 45, 50, 49, 60, 70, 91]
+        }
+    ]);
     return (
         <>
             <section className="breadcrumb-area breadcrumb-bg breadcrumb-bg-two">
@@ -15,7 +36,22 @@ const VaultDetailsMain = () => {
             </section>
 
             <section className="vault-banner">
-                <div className="swiper mySwiper">
+                <Swiper
+                    spaceBetween={50}
+                    pagination={{
+                        clickable: true,
+                    }}
+                    modules={[Pagination]}
+                    slidesPerView={3}
+                    centeredSlides={true}
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                >
+                    <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection01.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
+                    <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection02.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
+                    <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection03.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
+                </Swiper>
+                {/* <div className="swiper mySwiper">
                     <div className="swiper-wrapper">
                         <div className="swiper-slide">
                             <picture><img src="assets/img/others/top_collection01.jpg" className="img-fluid" alt="" /></picture>
@@ -28,7 +64,7 @@ const VaultDetailsMain = () => {
                         </div>
                     </div>
                     <div className="swiper-pagination"></div>
-                </div>
+                </div> */}
             </section>
 
             <section className="market-single-area">
@@ -305,7 +341,7 @@ const VaultDetailsMain = () => {
                                                         <tbody>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Pet</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Pet</a>
                                                                 </th>
                                                                 <td>500,000 LOVE</td>
                                                                 <td>965%</td>
@@ -313,7 +349,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
                                                                 </th>
                                                                 <td>100,000 LOVE</td>
                                                                 <td>965%</td>
@@ -321,7 +357,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author03.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Cards</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author03.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Cards</a>
                                                                 </th>
                                                                 <td>300,000 LOVE</td>
                                                                 <td>965%</td>
@@ -329,7 +365,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Pet</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Pet</a>
                                                                 </th>
                                                                 <td>500,000 LOVE</td>
                                                                 <td>965%</td>
@@ -337,7 +373,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
                                                                 </th>
                                                                 <td>100,000 LOVE</td>
                                                                 <td>965%</td>
@@ -345,7 +381,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author03.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Cards</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author03.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Cards</a>
                                                                 </th>
                                                                 <td>300,000 LOVE</td>
                                                                 <td>965%</td>
@@ -353,7 +389,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Pet</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Pet</a>
                                                                 </th>
                                                                 <td>500,000 LOVE</td>
                                                                 <td>965%</td>
@@ -361,7 +397,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
                                                                 </th>
                                                                 <td>100,000 LOVE</td>
                                                                 <td>965%</td>
@@ -369,7 +405,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author03.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Cards</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author03.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Cards</a>
                                                                 </th>
                                                                 <td>300,000 LOVE</td>
                                                                 <td>965%</td>
@@ -377,7 +413,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
                                                                 </th>
                                                                 <td>100,000 LOVE</td>
                                                                 <td>965%</td>
@@ -423,7 +459,14 @@ const VaultDetailsMain = () => {
                                         <div id="collapse-F" className="collapse" data-bs-parent="#content" role="tabpanel"
                                             aria-labelledby="heading-F">
                                             <div className="card-body">
-                                                <div id="chart"></div>
+                                                <div id="chart">
+                                                <Chart
+                                                    options={options}
+                                                    series={series}
+                                                    type="line"
+                                                    height={350}
+                                                />
+                                                </div>
 
                                             </div>
                                         </div>
@@ -481,7 +524,7 @@ const VaultDetailsMain = () => {
                                                         <tbody>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -489,7 +532,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -497,7 +540,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -505,7 +548,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -513,7 +556,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>

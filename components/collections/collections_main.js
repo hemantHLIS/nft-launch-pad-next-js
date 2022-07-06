@@ -1,6 +1,9 @@
+import Link from "next/link";
+
 const CollectionsMain = (props) => {
     
-    const {type} = props;
+    const {type, internalLink} = props;
+    
     return (
         <>
             <section className="breadcrumb-area breadcrumb-bg breadcrumb-bg-two">
@@ -33,7 +36,7 @@ const CollectionsMain = (props) => {
                     </div>
                     <div className="row">
                         <div className="col-xl-3 col-lg-4 colmd-6">
-                            <a href="collectior-details.php" className="single-author">
+                            <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb">
                                     <picture>
                                     <img src="assets/img/others/c-bg.jpg" alt="author cover photo" />
@@ -50,10 +53,10 @@ const CollectionsMain = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </a>
+                            </a></Link>
                         </div>
                         <div className="col-xl-3 col-lg-4 colmd-6">
-                            <a href="collectior-details.php" className="single-author">
+                            <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
                                     <img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
                                 </div>
@@ -68,10 +71,10 @@ const CollectionsMain = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </a>
+                            </a></Link>
                         </div>
                         <div className="col-xl-3 col-lg-4 colmd-6">
-                            <a href="collectior-details.php" className="single-author">
+                           <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
                                     <img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
                                 </div>
@@ -86,10 +89,10 @@ const CollectionsMain = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </a>
+                            </a></Link>
                         </div>
                         <div className="col-xl-3 col-lg-4 colmd-6">
-                            <a href="collectior-details.php" className="single-author">
+                          <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
                                     <img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
                                 </div>
@@ -104,10 +107,10 @@ const CollectionsMain = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </a>
+                            </a></Link>
                         </div>
                         <div className="col-xl-3 col-lg-4 colmd-6">
-                            <a href="collectior-details.php" className="single-author">
+                           <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
                                     <img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
                                 </div>
@@ -122,10 +125,10 @@ const CollectionsMain = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </a>
+                            </a></Link>
                         </div>
                         <div className="col-xl-3 col-lg-4 colmd-6">
-                            <a href="collectior-details.php" className="single-author">
+                           <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
                                     <img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
                                 </div>
@@ -140,10 +143,10 @@ const CollectionsMain = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </a>
+                            </a></Link>
                         </div>
                         <div className="col-xl-3 col-lg-4 colmd-6">
-                            <a href="collectior-details.php" className="single-author">
+                           <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
                                     <img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
                                 </div>
@@ -158,10 +161,10 @@ const CollectionsMain = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </a>
+                            </a></Link>
                         </div>
                         <div className="col-xl-3 col-lg-4 colmd-6">
-                            <a href="collectior-details.php" className="single-author">
+                            <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
                                     <img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
                                 </div>
@@ -176,7 +179,7 @@ const CollectionsMain = (props) => {
                                         </p>
                                     </div>
                                 </div>
-                            </a>
+                            </a></Link>
                         </div>
                     </div>
                 </div>

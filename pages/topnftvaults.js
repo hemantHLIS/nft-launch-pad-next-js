@@ -4,7 +4,7 @@ const { default: Layout } = require("../components/layout")
 
 const Topnftvaults = () => {
 return (
-    <CollectionsMain type="Top NFT Vaults"/>
+    <CollectionsMain type="Top NFT Vaults" internalLink="/vaultdetails"/>
 )
 }
 

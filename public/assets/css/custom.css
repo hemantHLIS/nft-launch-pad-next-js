@@ -1503,3 +1503,12 @@ transform: scale(1);
 .market-single-area .activity-table tbody .author img{
     width: 40px;
 }
+#nftListingTable tbody>tr{
+    display:block;
+    float:left;
+     width: 500px; /*desired width*/ 
+}
+#nftListingTable thead>th{
+    display:block;
+     width: 500px; /*desired width*/ 
+}
