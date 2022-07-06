@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
@@ -50,7 +51,7 @@ const WalletModal = () => {
                                         <span>{user?.get('ethAddress').substr(0,6)+"..."+user?.get('ethAddress').substr(user?.get('ethAddress').length-4,user?.get('ethAddress').length)}</span>
                                     </div>
                                     <ul>
-                                        <li><a href="my-profile.php"><i className="far fa-user"></i> My Profile</a></li>
+                                        <li><Link href="/profile"><a href="/profile"><i className="far fa-user"></i> My Profile</a></Link></li>
                                         <li><a href="#"><i className="far fa-image"></i> My Items</a></li>
                                         <li><span style={{color:"#fff", fontSize: "14px", cursor:"pointer"}} onClick={logOut}><i className="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Disconnect</span></li>
                                     </ul>
