@@ -19,7 +19,7 @@ const FractionStep2Main = () => {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="fractional-tab">
-                                    <Link href="/fractionstep1"><a href="/fractionstep1" className="">Choose Standard <i className="fas fa-chevron-right"></i></a></Link>
+                                    <Link href="/fractionstep1"><a className="">Choose Standard <i className="fas fa-chevron-right"></i></a></Link>
                                     <a href="#" className="active">Select your NFTs</a>
                                 </div>
                             </div>

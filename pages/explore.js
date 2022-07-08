@@ -1,6 +1,6 @@
 import ExploreMain from "../components/explore/explore_main";
 
-const { default: Layout } = require("../components/layout");
+import Layout from "../components/layout";;
 
 const Explore = () => {
 

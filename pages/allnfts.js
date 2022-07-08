@@ -1,6 +1,6 @@
 import AllNftsMain from "../components/allnfts/all_nfts_main";
 
-const { default: Layout } = require("../components/layout")
+import Layout from "../components/layout";
 
 const AllNfts = () => {
 return (

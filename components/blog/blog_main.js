@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 
 const BlogMain = () => {
@@ -32,7 +33,7 @@ const BlogMain = () => {
                                         <li><i className="fi-sr-calendar"></i> Jan 12, 2022</li>
                                     </ul>
                                     <h4 className="title"><Link href="/blogdetails">Top 5 Most Popular NFT Games world most powerful ?</Link></h4>
-                                    <Link href="/blogdetails" ><a className="btn" href="/blogdetails">read more</a></Link>
+                                    <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +48,7 @@ const BlogMain = () => {
                                         <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
                                     </ul>
                                     <h4 className="title"><Link href="/blogdetails">NFTs, rare digital items worlds crypto collectibles</Link></h4>
-                                    <Link href="/blogdetails" ><a className="btn" href="/blogdetails">read more</a></Link>
+                                    <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
                         </div>
@@ -62,7 +63,7 @@ const BlogMain = () => {
                                         <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
                                     </ul>
                                     <h4 className="title"><Link href="/blogdetails">Crypto enthusiasts on a single platform to create</Link></h4>
-                                    <Link href="/blogdetails" ><a className="btn" href="/blogdetails">read more</a></Link>
+                                    <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +80,7 @@ const BlogMain = () => {
                                         <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
                                     </ul>
                                     <h4 className="title"><Link href="/blogdetails">Crypto enthusiasts on a single platform to create</Link></h4>
-                                    <Link href="/blogdetails" ><a className="btn" href="/blogdetails">read more</a></Link>
+                                    <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +95,7 @@ const BlogMain = () => {
                                         <li><i className="fi-sr-calendar"></i> Jan 12, 2022</li>
                                     </ul>
                                     <h4 className="title"><Link href="/blogdetails">Top 5 Most Popular NFT Games world most powerful ?</Link></h4>
-                                    <Link href="/blogdetails" ><a className="btn" href="/blogdetails">read more</a></Link>
+                                    <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +110,7 @@ const BlogMain = () => {
                                         <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
                                     </ul>
                                     <h4 className="title"><Link href="/blogdetails">NFTs, rare digital items worlds crypto collectibles</Link></h4>
-                                    <Link href="/blogdetails" ><a className="btn" href="/blogdetails">read more</a></Link>
+                                    <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
                         </div>

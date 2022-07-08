@@ -1,6 +1,6 @@
 import BlogMain from "../components/blog/blog_main";
 
-const { default: Layout } = require("../components/layout");
+import Layout from "../components/layout";;
 
 const Blog = () => {
 return (<BlogMain/>);

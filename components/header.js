@@ -40,7 +40,7 @@ const Header = () => {
 
                                                 </li>
 
-                                                <li className="menu-item-has-children"><Link href="/fractionstep1"><a href="/fractionstep1">Fractionalize</a></Link>
+                                                <li className="menu-item-has-children"><Link href="/fractionstep1"><a>Fractionalize</a></Link>
                                                 </li>
 
                                                 <li className={['/blog'].includes(router.pathname) ? "active menu-item-has-children" : "menu-item-has-children"}><a href="#">Help</a>

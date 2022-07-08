@@ -1,5 +1,4 @@
-const { default: Layout } = require("../components/layout");
-
+import Layout from "../components/layout";
 const About = () => {
     return (
         <>

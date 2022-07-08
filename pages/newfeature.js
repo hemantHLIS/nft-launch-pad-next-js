@@ -1,6 +1,6 @@
 import NewfeatureMain from "../components/request/newfeature_main";
 
-const { default: Layout } = require("../components/layout");
+import Layout from "../components/layout";;
 
 const Newfeature = () => {
     return (

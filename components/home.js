@@ -292,7 +292,7 @@ const Home = () => {
                                         <li><i className="fi-sr-calendar"></i> Jan 12, 2022</li>
                                     </ul>
                                     <h4 className="title"><a href="blog-details.html">Top 5 Most Popular NFT Games world most powerful ?</a></h4>
-                                    <Link href="/blogdetails" ><a className="btn" href="/blogdetails">read more</a></Link>
+                                    <Link href="/blogdetails" ><a className="btn">read more</a></Link>
                                 </div>
                             </div>
                         </div>
@@ -307,7 +307,7 @@ const Home = () => {
                                         <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
                                     </ul>
                                     <h4 className="title"><a href="blog-details.html">NFTs, rare digital items worlds crypto collectibles</a></h4>
-                                    <Link href="/blogdetails" ><a className="btn" href="/blogdetails">read more</a></Link>
+                                    <Link href="/blogdetails" ><a className="btn">read more</a></Link>
                                 </div>
                             </div>
                         </div>
@@ -322,7 +322,7 @@ const Home = () => {
                                         <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
                                     </ul>
                                     <h4 className="title"><a href="blog-details.html">Crypto enthusiasts on a single platform to create</a></h4>
-                                    <Link href="/blogdetails" ><a className="btn" href="/blogdetails">read more</a></Link>
+                                    <Link href="/blogdetails" ><a className="btn">read more</a></Link>
                                 </div>
                             </div>
                         </div>

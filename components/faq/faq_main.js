@@ -1,3 +1,4 @@
+
 import Link from "next/link";
 
 const FaqMain = () => {
@@ -19,7 +20,7 @@ const FaqMain = () => {
                 <div className="row justify-content-center">
                     <div className="col-lg-10">
                         <div className="submit-btn text-end mb-3">
-                           <Link href="/newfeature"><a href="/newfeature" className="btn">Submit Request</a></Link>
+                           <Link href="/newfeature"><a  className="btn">Submit Request</a></Link>
                         </div>
                         <div className="accordion faq-accordian" id="accordionExample">
                             <div className="accordion-item mb-3">
