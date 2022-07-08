@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Link from "next/link";
 
 const ProfileTabs = () => {
@@ -357,7 +358,7 @@ const internalLink = "/nftdetails";
                                     <div className="row">
 
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                            <a href="collectior-details.php" className="single-author">
+                                            <Link href="/collectiondetails"><a href="/collectiondetails" className="single-author">
                                                 <div className="thumb">
                                                 <picture><img src="assets/img/others/c-bg2.jpg" alt="author cover photo"/></picture>
                                                 </div>
@@ -372,10 +373,10 @@ const internalLink = "/nftdetails";
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                            <a href="collectior-details.php" className="single-author">
+                                        <Link href="/collectiondetails"><a href="/collectiondetails" className="single-author">
                                                 <div className="thumb">
                                                 <picture><img src="assets/img/others/c-bg.jpg" alt="author cover photo"/></picture>
                                                 </div>
@@ -390,10 +391,10 @@ const internalLink = "/nftdetails";
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                            <a href="collectior-details.php" className="single-author">
+                                        <Link href="/collectiondetails"><a href="/collectiondetails" className="single-author">
                                                 <div className="thumb">
                                                 <picture><img src="assets/img/others/c-bg1.jpg" alt="author cover photo"/></picture>
                                                 </div>
@@ -408,10 +409,10 @@ const internalLink = "/nftdetails";
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                            <a href="collectior-details.php" className="single-author">
+                                        <Link href="/collectiondetails"><a href="/collectiondetails" className="single-author">
                                                 <div className="thumb">
                                                 <picture><img src="assets/img/others/c-bg2.jpg" alt="author cover photo"/></picture>
                                                 </div>
@@ -426,10 +427,10 @@ const internalLink = "/nftdetails";
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                            <a href="collectior-details.php" className="single-author">
+                                        <Link href="/collectiondetails"><a href="/collectiondetails" className="single-author">
                                                 <div className="thumb">
                                                 <picture><img src="assets/img/others/c-bg.jpg" alt="author cover photo"/></picture>
                                                 </div>
@@ -444,10 +445,10 @@ const internalLink = "/nftdetails";
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                            <a href="collectior-details.php" className="single-author">
+                                        <Link href="/collectiondetails"><a href="/collectiondetails" className="single-author">
                                                 <div className="thumb">
                                                     <picture><img src="assets/img/others/c-bg1.jpg" alt="author cover photo"/></picture>
                                                 </div>
@@ -462,7 +463,7 @@ const internalLink = "/nftdetails";
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </a></Link>
                                         </div>
                                     </div>
                                 </div>
@@ -486,14 +487,14 @@ const internalLink = "/nftdetails";
                                                     <div className="shield-icon">
                                                     <picture><img src="assets/img/others/shield.png" alt=""/></picture>
                                                     </div>
-                                                    <a href="sell-nft-details.php"><picture><img src="assets/img/others/1top_collection01.jpg" alt=""/></picture></a>
+                                                    <Link href="/nftdetails"><a href="/nftdetails"><picture><img src="assets/img/others/1top_collection01.jpg" alt=""/></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
-                                                    <h5 className="title"><a href="sell-nft-details.php">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
+                                                    <h5 className="title"><Link href="/nftdetails"><a href="/nftdetails">NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="sell-nft-details.php" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a href="/nftdetails" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -505,14 +506,14 @@ const internalLink = "/nftdetails";
                                                     <div className="shield-icon">
                                                     <picture><img src="assets/img/others/shield.png" alt=""/></picture>
                                                     </div>
-                                                    <a href="sell-nft-details.php"><picture><img src="assets/img/others/2top_collection01.jpg" alt=""/></picture></a>
+                                                    <Link href="/nftdetails"><a href="/nftdetails"><picture><img src="assets/img/others/2top_collection01.jpg" alt=""/></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
-                                                    <h5 className="title"><a href="sell-nft-details.php">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
+                                                    <h5 className="title"><Link href="/nftdetails"><a href="/nftdetails">NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="sell-nft-details.php" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a href="/nftdetails" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -524,14 +525,14 @@ const internalLink = "/nftdetails";
                                                     <div className="shield-icon">
                                                     <picture><img src="assets/img/others/shield.png" alt=""/></picture>
                                                     </div>
-                                                    <a href="sell-nft-details.php"><picture><img src="assets/img/others/3top_collection01.jpg" alt=""/></picture></a>
+                                                    <Link href="/nftdetails"><a href="/nftdetails"><picture><img src="assets/img/others/3top_collection01.jpg" alt=""/></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
-                                                    <h5 className="title"><a href="sell-nft-details.php">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
+                                                    <h5 className="title"><Link href="/nftdetails"><a href="/nftdetails">NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="sell-nft-details.php" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a href="/nftdetails" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -543,14 +544,14 @@ const internalLink = "/nftdetails";
                                                     <div className="shield-icon">
                                                     <picture><img src="assets/img/others/shield.png" alt=""/></picture>
                                                     </div>
-                                                    <a href="sell-nft-details.php"><picture><img src="assets/img/others/4top_collection01.jpg" alt=""/></picture></a>
+                                                    <Link href="/nftdetails"><a href="/nftdetails"><picture><img src="assets/img/others/4top_collection01.jpg" alt=""/></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
-                                                    <h5 className="title"><a href="sell-nft-details.php">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
+                                                    <h5 className="title"><Link href="/nftdetails"><a href="/nftdetails">NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="sell-nft-details.php" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a href="/nftdetails" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -562,14 +563,14 @@ const internalLink = "/nftdetails";
                                                     <div className="shield-icon">
                                                     <picture><img src="assets/img/others/shield.png" alt=""/></picture>
                                                     </div>
-                                                    <a href="sell-nft-details.php"><picture><img src="assets/img/others/1top_collection01.jpg" alt=""/></picture></a>
+                                                    <Link href="/nftdetails"><a href="/nftdetails"><picture><img src="assets/img/others/1top_collection01.jpg" alt=""/></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
-                                                    <h5 className="title"><a href="sell-nft-details.php">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
+                                                    <h5 className="title"><Link href="/nftdetails"><a href="/nftdetails">NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="sell-nft-details.php" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a href="/nftdetails" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -581,14 +582,14 @@ const internalLink = "/nftdetails";
                                                     <div className="shield-icon">
                                                     <picture><img src="assets/img/others/shield.png" alt=""/></picture>
                                                     </div>
-                                                    <a href="sell-nft-details.php"><picture><img src="assets/img/others/2top_collection01.jpg" alt=""/></picture></a>
+                                                    <Link href="/nftdetails"><a href="/nftdetails"><picture><img src="assets/img/others/2top_collection01.jpg" alt=""/></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
-                                                    <h5 className="title"><a href="sell-nft-details.php">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
+                                                    <h5 className="title"><Link href="/nftdetails"><a href="/nftdetails">NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="sell-nft-details.php" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a href="/nftdetails" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
