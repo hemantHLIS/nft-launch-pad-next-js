@@ -1,23 +1,24 @@
-import '../styles/globals.css'
-import '../public/assets/css/bootstrap.min.css'
 import '../public/assets/css/animate.min.css'
+import '../public/assets/css/bootstrap.min.css'
 import '../public/assets/css/magnific-popup.css'
+import '../styles/globals.css'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import '../public/assets/css/fontawesome-all.min.css'
 import '../public/assets/css/uicons-solid-rounded.css'
 // import '../public/assets/css/jquery.mCustomScrollbar.min.css'
-import '../public/assets/css/flaticon.css'
-import '../public/assets/css/slick.css'
-import '../public/assets/css/default.css'
-import '../public/assets/css/style.css'
-import '../public/assets/css/custom.css'
-import '../public/assets/css/responsive.css'
 import React, { useEffect } from 'react'
-import LoadingScreen from '../components/loadingScreen'
 import { MoralisProvider } from 'react-moralis'
+import LoadingScreen from '../components/loadingScreen'
+import '../public/assets/css/custom.css'
+import '../public/assets/css/default.css'
+import '../public/assets/css/flaticon.css'
+import '../public/assets/css/responsive.css'
+import '../public/assets/css/slick.css'
+import '../public/assets/css/style.css'
+import { wrapper } from '../store/store'
 
 
-export default function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
@@ -39,3 +40,5 @@ export default function MyApp({ Component, pageProps }) {
     )}
   </>);
 }
+
+export default wrapper.withRedux(MyApp);

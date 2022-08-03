@@ -1,5 +1,6 @@
 import { Moralis } from "moralis";
 import { useState } from "react";
+import LaunchpadModel from "../utils/launchpad_model";
 
 const ProfileAside = () => {
 
@@ -7,10 +8,8 @@ const ProfileAside = () => {
     const [gender, SetGender] = useState("");
     const callMyProfile= async()=>{
 
-        const LaunchpadUser1 = Moralis.Object.extend("LaunchpadUser1");
-        const launchpaduser = new LaunchpadUser1();   
-
-        const query = new Moralis.Query(launchpaduser);
+        
+        const query = new Moralis.Query(LaunchpadModel.UserQuery);
         const users = await query.find();  
         setName(users[0].get("name"));    
         SetGender(users[0].get("gender"));

@@ -1,26 +1,42 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { useMoralis } from "react-moralis";
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { Moralis } from "moralis";
+import { getUser, loginUser } from "../store/user/action";
+import { wrapper } from "../store/store";
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+    store.dispatch(getUser());
+});
+
 const WalletModal = () => {
-    const [name,setName]=useState();
+    const dispatch = useDispatch();
+    const data = useSelector((state) => state.launchUser);
+    const { launchUser } = data;
+    const [name, setName] = useState();
     const [modalOpen, setModalOpen] = useState(false);
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
     useEffect(() => {
+        console.log('launchUser==>' + JSON.stringify(data));
+        dispatch(getUser());
         if (isAuthenticated) {
             // add your logic here
+            dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAuthenticated]);
+    }, [isAuthenticated, dispatch]);
+
 
     const login = async () => {
         if (!isAuthenticated) {
 
-            await authenticate({ signingMessage: "Log in using Moralis" })
+            await authenticate({ signingMessage: "Log in to NFT Launchpad" })
                 .then(function (user) {
                     console.log("logged in user:", user);
                     console.log(user?.get("ethAddress"));
+                    dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
                     setModalOpen(!modalOpen);
                 })
                 .catch(function (error) {
@@ -34,10 +50,10 @@ const WalletModal = () => {
         console.log("logged out");
     }
 
-    const displayName=async()=>{
-        
+    const displayName = async () => {
+
         const LaunchpadUser1 = Moralis.Object.extend("LaunchpadUser1");
-        const launchpaduser = new LaunchpadUser1(); 
+        const launchpaduser = new LaunchpadUser1();
         const query = new Moralis.Query(launchpaduser);
         const users = await query.find();
         setName(users[0].get("name"));
@@ -58,13 +74,13 @@ const WalletModal = () => {
                             </a>
                                 <div className="profile-box">
                                     <div className="profile-name" >
-                                        <h3>{name} <span style={{cursor:"pointer"}} onClick={()=>navigator.clipboard.writeText(user?.get('ethAddress'))}><i className="far fa-clone"></i></span></h3>
-                                        <span>{user?.get('ethAddress').substr(0,6)+"..."+user?.get('ethAddress').substr(user?.get('ethAddress').length-4,user?.get('ethAddress').length)}</span>
+                                        <h3>{launchUser?.username}<span style={{ cursor: "pointer" }} onClick={() => navigator.clipboard.writeText(launchUser?.wallet_address)}><i className="far fa-clone"></i></span></h3>
+                                        <span>{launchUser?.wallet_address.substr(0, 6) + "..." + launchUser?.wallet_address.substr(launchUser?.wallet_address.length - 4, launchUser?.wallet_address.length)}</span>
                                     </div>
                                     <ul>
                                         <li><Link href="/profile"><a><i className="far fa-user"></i> My Profile</a></Link></li>
                                         <li><a href="#"><i className="far fa-image"></i> My Items</a></li>
-                                        <li><span style={{color:"#fff", fontSize: "14px", cursor:"pointer"}} onClick={logOut}><i className="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Disconnect</span></li>
+                                        <li><span style={{ color: "#fff", fontSize: "14px", cursor: "pointer" }} onClick={logOut}><i className="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Disconnect</span></li>
                                     </ul>
                                 </div>
                             </li>
