@@ -1,8 +1,20 @@
-
+import { useState } from "react";
 import Link from "next/link";
+import { Moralis } from "moralis";
 
 const BlogMain = () => {
-
+    const [title, setTitle] = useState();
+    const [date, setDate] = useState();
+    const [bloggerName, setBloggerName] = useState();
+    const blogDetails=async()=>{
+        const LaunchpadBlog = Moralis.Object.extend("LaunchpadBlog");
+        const launchpadblog = new LaunchpadBlog();
+        const query = new Moralis.Query(launchpadblog);
+        const result = await query.find();
+        setTitle(result[0].get("title"));
+        setDate(result[0].get("date"));
+        setBloggerName(result[0].get("blogBy"));
+    }
     return (
         <>
             <section className="breadcrumb-area breadcrumb-bg breadcrumb-bg-two">
@@ -16,7 +28,7 @@ const BlogMain = () => {
                     </div>
                 </div>
             </section>
-            <section className="latest-news-area">
+            <section className="latest-news-area" onLoad={blogDetails}>
                 <div className="container">
 
                     <div className="row justify-content-center">
@@ -29,10 +41,10 @@ const BlogMain = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-                                        <li><i className="flaticon-user"></i><Link href="/blog">Admin</Link></li>
-                                        <li><i className="fi-sr-calendar"></i> Jan 12, 2022</li>
+                                        <li><i className="flaticon-user"></i><Link href="/blog"><a>{bloggerName}</a></Link></li>
+                                        <li><i className="fi-sr-calendar"></i>{date}</li>
                                     </ul>
-                                    <h4 className="title"><Link href="/blogdetails">Top 5 Most Popular NFT Games world most powerful ?</Link></h4>
+                                    <h4 className="title"><Link href="/blogdetails"><a>{title}</a></Link></h4>
                                     <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
@@ -44,10 +56,10 @@ const BlogMain = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-                                        <li><i className="flaticon-user"></i><Link href="/blog">Admin</Link></li>
-                                        <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
+                                        <li><i className="flaticon-user"></i><Link href="/blog"><a>{bloggerName}</a></Link></li>
+                                        <li><i className="fi-sr-calendar"></i> {date}</li>
                                     </ul>
-                                    <h4 className="title"><Link href="/blogdetails">NFTs, rare digital items worlds crypto collectibles</Link></h4>
+                                    <h4 className="title"><Link href="/blogdetails"><a>{title}</a></Link></h4>
                                     <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
@@ -59,10 +71,10 @@ const BlogMain = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-                                        <li><i className="flaticon-user"></i><Link href="/blog">Admin</Link></li>
-                                        <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
+                                        <li><i className="flaticon-user"></i><Link href="/blog"><a>{bloggerName}</a></Link></li>
+                                        <li><i className="fi-sr-calendar"></i>{date}</li>
                                     </ul>
-                                    <h4 className="title"><Link href="/blogdetails">Crypto enthusiasts on a single platform to create</Link></h4>
+                                    <h4 className="title"><Link href="/blogdetails"><a>{title}</a></Link></h4>
                                     <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
@@ -76,10 +88,10 @@ const BlogMain = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-                                        <li><i className="flaticon-user"></i><Link href="/blog">Admin</Link></li>
-                                        <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
+                                        <li><i className="flaticon-user"></i><Link href="/blog"><a>{bloggerName}</a></Link></li>
+                                        <li><i className="fi-sr-calendar"></i>{date}</li>
                                     </ul>
-                                    <h4 className="title"><Link href="/blogdetails">Crypto enthusiasts on a single platform to create</Link></h4>
+                                    <h4 className="title"><Link href="/blogdetails"><a>{title}</a></Link></h4>
                                     <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
@@ -91,10 +103,10 @@ const BlogMain = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-                                        <li><i className="flaticon-user"></i><Link href="/blog">Admin</Link></li>
-                                        <li><i className="fi-sr-calendar"></i> Jan 12, 2022</li>
+                                        <li><i className="flaticon-user"></i><Link href="/blog"><a>{bloggerName}</a></Link></li>
+                                        <li><i className="fi-sr-calendar"></i>{date}</li>
                                     </ul>
-                                    <h4 className="title"><Link href="/blogdetails">Top 5 Most Popular NFT Games world most powerful ?</Link></h4>
+                                    <h4 className="title"><Link href="/blogdetails"><a>{title}</a></Link></h4>
                                     <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>
@@ -106,10 +118,10 @@ const BlogMain = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-                                        <li><i className="flaticon-user"></i><Link href="/blog">Admin</Link></li>
-                                        <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
+                                        <li><i className="flaticon-user"></i><Link href="/blog"><a>{bloggerName}</a></Link></li>
+                                        <li><i className="fi-sr-calendar"></i><a>{bloggerName}</a></li>
                                     </ul>
-                                    <h4 className="title"><Link href="/blogdetails">NFTs, rare digital items worlds crypto collectibles</Link></h4>
+                                    <h4 className="title"><Link href="/blogdetails"><a>{title}</a></Link></h4>
                                     <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>

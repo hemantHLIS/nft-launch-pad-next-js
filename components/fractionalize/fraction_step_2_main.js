@@ -1,6 +1,32 @@
 import Link from "next/link";
+import React, { useState, useEffect } from 'react'
+import { useMoralis ,useMoralisWeb3Api} from "react-moralis";
+import NFTTokenLIst from "./NFTTokenLIst";
 
 const FractionStep2Main = () => {
+    const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
+    const Web3Api = useMoralisWeb3Api();
+
+    const [nftListing,setNftListing] = useState([])
+
+    useEffect(() => {
+    if (isAuthenticated) {
+      // add your logic here
+     getAllNftData(); 
+
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
+
+    
+    const getAllNftData = async () => {
+      const userEthNFTs = await Web3Api.account.getNFTs({
+        chain: "rinkeby",
+      });
+      setNftListing(userEthNFTs.result)
+      console.log(userEthNFTs.result)
+    }
+
 
     return (<>
         <section className="breadcrumb-area breadcrumb-bg breadcrumb-bg-two">
@@ -32,8 +58,9 @@ const FractionStep2Main = () => {
                                                 <p>Choose the NFT(s) to send to a new vault, select your desired fraction type, set your vault’s details, then continue to fractionalize. Once complete, all fractions will appear in your wallet. Be aware, you cannot add to the NFTs in a vault once created. Read our guides for more information.</p>
                                             </div>
                                            
-                                            <div className="row mt-5 justify-content-center ">
-                                    <div className="col-xl-4 col-md-6 col-sm-6">
+                                                <NFTTokenLIst myData={nftListing}/>
+                                            
+                                    {/* <div className="col-xl-4 col-md-6 col-sm-6">
                                         <div className="top-collection-item">
                                             <div className="collection-item-thumb">
                                                 <div className="shield-icon">
@@ -51,8 +78,8 @@ const FractionStep2Main = () => {
                                                 </ul>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className="col-xl-4 col-md-6 col-sm-6">
+                                    </div> */}
+                                    {/* <div className="col-xl-4 col-md-6 col-sm-6">
                                         <div className="top-collection-item">
                                             <div className="collection-item-thumb">
                                                 <div className="shield-icon">
@@ -89,9 +116,9 @@ const FractionStep2Main = () => {
                                             </ul>
                                         </div>
                                     </div>
-                                    </div>
+                                    </div> */}
                                     
-                                </div>
+                                {/* </div> */}
                                         </div>
                                     </div>
                                     <div className="col-lg-3 col-md-4">
