@@ -1,7 +1,27 @@
 import Link from "next/link";
+import { Moralis } from "moralis";
+import { useState } from "react";
 
 const BlogDetailsMain = () => {
-
+    const [title, setTitle] = useState();
+    const [role, setRole] = useState();
+    const [date, setDate] = useState();
+    const [desc, setDesc] = useState();
+    const [bloggerName, setBloggerName] = useState();
+    const [aboutBlogger, setAboutBlogger] = useState();
+    const blogDetails=async()=>{
+        const LaunchpadBlog = Moralis.Object.extend("LaunchpadBlog");
+        const launchpadblog = new LaunchpadBlog();
+        const query = new Moralis.Query(launchpadblog);
+        const result = await query.find();
+        setTitle(result[0].get("title"));
+        setRole(result[0].get("role"));
+        setDate(result[0].get("date"));
+        setDesc(result[0].get("description"));
+        setBloggerName(result[0].get("blogBy"));
+        setAboutBlogger(result[0].get("aboutBlogger"))
+    }
+    
     return (<>
         <section className="breadcrumb-area breadcrumb-bg breadcrumb-bg-two">
             <div className="container">
@@ -17,7 +37,7 @@ const BlogDetailsMain = () => {
         <section className="blog-details-area pt-80 pb-80">
             <div className="container">
                 <div className="row">
-                    <div className="col-xxl-9 col-lg-8">
+                    <div className="col-xxl-9 col-lg-8" onLoad={blogDetails}>
                         <div className="standard-blog-item blog-details-content">
                             <div className="blog-thumb">
                                 <picture>
@@ -26,20 +46,20 @@ const BlogDetailsMain = () => {
                             <div className="standard-blog-content">
                                 <ul className="standard-blog-meta">
                                     <li><a href="#"><i className="flaticon-supermarket"></i>NFT Marketplace</a></li>
-                                    <li><a href="#"><i className="flaticon-avatar"></i>Admin</a></li>
-                                    <li><a href="#"><i className="flaticon-calendar"></i>Mar 10, 2022</a></li>
+                                    <li><a href="#"><i className="flaticon-avatar"></i>{role}</a></li>
+                                    <li><a href="#"><i className="flaticon-calendar"></i>{date}</a></li>
                                 </ul>
-                                <h4 className="title">Marketplace is the online shop for the video</h4>
-                                <p>Wallet that is functional for NFT purcasin You have Coinbase account at this point.Lorem ipsum nsectetur. Non fungible tokens or NFTs are cryptographic assets on a blockchain with unique identification codes a metadata that distinguish them from each other Unlike cryptocurren.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
-                                <p>Dallet that is functional for NFT purcasin You have Coinbase account at this point.Lorem ipsum nsectetur. Non fungible tokens or NFTs are cryptographic assets on a blockchain with unique identification codes a metadata that distinguish them from each other Unlike cryptocurren.</p>
+                                <h4 className="title">{title}</h4>
+                                <p>{desc}</p>
+                                <p>{desc}</p>
                                 <blockquote>
                                     “ Wallet that is functional for NFT purcasin You have Coinbase account at this point.Lorem ipsum nsectetur. Non fungible tokens or NFTs are cryptographic assets on a blockchain with unique identification codes “
                                     <footer>jon Bernthal</footer>
                                 </blockquote>
-                                <p>Mallet that is functional for NFT purcasin You have Coinbase account at this point.Lorem ipsum nsectetur. Non fungible tokens or NFTs are cryptographic assets on a blockchain with unique identification codes a metadata that distinguish them from each other Unlike cryptocurren.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                <p>{desc}</p>
                                 <h4 className="small-title">The online shop for the video</h4>
-                                <p>Gallet that is functional for NFT purcasin You have Coinbase account at this point.Lorem ipsum nsectetur. Non fungible tokens or NFTs are cryptographic assets on a blockchain with unique identification codes a metadata that distinguish them from each other Unlike cryptocurren.</p>
-                                <p>Wallet that is functional for NFT purcasin You have Coinbase account at this point.Lorem ipsum nsectetur. Non fungible tokens or NFTs are cryptographic assets on a blockchain with unique identification codes a metadata that distinguish them from each other Unlike cryptocurren.There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                <p>{desc}</p>
+                                <p>{desc}</p>
                                 <div className="blog-line"></div>
                                 <div className="blog-details-bottom">
                                     <div className="blog-details-tags">
@@ -66,8 +86,8 @@ const BlogDetailsMain = () => {
                                 <img src="assets/img/blog/post_avatar_img.png" alt="img" /></picture>
                             </div>
                             <div className="post-avatar-content">
-                                <h5>Thomas Herlihy</h5>
-                                <p>Non-core vaccines are given dependng on the dog&apos;s exposure risk. These include vaccines against Bordetella.
+                                <h5>{bloggerName}</h5>
+                                <p>{aboutBlogger}
                                 </p>
                                 <ul className="post-avatar-social">
                                     <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>

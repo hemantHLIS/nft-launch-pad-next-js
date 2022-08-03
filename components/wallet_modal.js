@@ -2,7 +2,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useMoralis } from "react-moralis";
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
+import { Moralis } from "moralis";
 const WalletModal = () => {
+    const [name,setName]=useState();
     const [modalOpen, setModalOpen] = useState(false);
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
     useEffect(() => {
@@ -32,13 +34,22 @@ const WalletModal = () => {
         console.log("logged out");
     }
 
+    const displayName=async()=>{
+        
+        const LaunchpadUser1 = Moralis.Object.extend("LaunchpadUser1");
+        const launchpaduser = new LaunchpadUser1(); 
+        const query = new Moralis.Query(launchpaduser);
+        const users = await query.find();
+        setName(users[0].get("name"));
+    }
+
     return (
         <>
             {!isAuthenticated ?
                 <li className="header-btn"><button onClick={() => setModalOpen(!modalOpen)} className="btn">Connect Wallet</button></li>
                 :
                 <>
-                    <div className="header-action d-none d-md-block">
+                    <div className="header-action d-none d-md-block" onLoad={displayName}>
                         <ul className="profile-menu">
                             <li className=""><a href="#" className="menu-profile">
                                 <picture>
@@ -46,8 +57,8 @@ const WalletModal = () => {
                                 </picture>
                             </a>
                                 <div className="profile-box">
-                                    <div className="profile-name">
-                                        <h3>John Doe <span style={{cursor:"pointer"}} onClick={()=>navigator.clipboard.writeText(user?.get('ethAddress'))}><i className="far fa-clone"></i></span></h3>
+                                    <div className="profile-name" >
+                                        <h3>{name} <span style={{cursor:"pointer"}} onClick={()=>navigator.clipboard.writeText(user?.get('ethAddress'))}><i className="far fa-clone"></i></span></h3>
                                         <span>{user?.get('ethAddress').substr(0,6)+"..."+user?.get('ethAddress').substr(user?.get('ethAddress').length-4,user?.get('ethAddress').length)}</span>
                                     </div>
                                     <ul>

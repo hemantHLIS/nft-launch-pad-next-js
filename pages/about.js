@@ -1,5 +1,16 @@
 import Layout from "../components/layout";
+import { Moralis } from "moralis";
+import { useState } from "react";
 const About = () => {
+    const [about, setAbout] = useState()
+    const aboutUs=async()=>{
+        const LaunchpadAboutUs = Moralis.Object.extend("LaunchpadAboutUs");
+        const aboutus = new LaunchpadAboutUs();
+        const query = new Moralis.Query(aboutus);
+        const result = await query.find(); 
+        setAbout(result[0].get("About"));
+    };
+    
     return (
         <>
             <section className="breadcrumb-area breadcrumb-bg breadcrumb-bg-two">
@@ -13,7 +24,7 @@ const About = () => {
                     </div>
                 </div>
             </section>
-            <section className="latest-news-area">
+            <section className="latest-news-area" onLoad={aboutUs}>
                 <div className="container">
 
                     <div className="row justify-content-center">
@@ -24,20 +35,10 @@ const About = () => {
                             </div>
                             <div className="about-description">
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    {about}
                                 </p>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                    {about}
                                 </p>
                             </div>
                         </div>

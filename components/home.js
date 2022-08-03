@@ -1,6 +1,19 @@
 import Link from "next/link";
-
+import React, { useState } from 'react';
+import { Moralis } from "moralis";
 const Home = () => {
+    const [title, setTitle] = useState();
+    const [date, setDate] = useState();
+    const [bloggerName, setBloggerName] = useState();
+    const blogDetails=async()=>{
+        const LaunchpadBlog = Moralis.Object.extend("LaunchpadBlog");
+        const launchpadblog = new LaunchpadBlog();
+        const query = new Moralis.Query(launchpadblog);
+        const result = await query.find();
+        setTitle(result[0].get("title"));
+        setDate(result[0].get("date"));
+        setBloggerName(result[0].get("blogBy"));
+    }
     return (
         <>
             <div className="banner-bg">
@@ -271,7 +284,7 @@ const Home = () => {
 
 
 
-            <section className="latest-news-area">
+            <section className="latest-news-area" onLoad={blogDetails}>
                 <div className="container">
                     <div className="row">
                         <div className="col-md-7">
@@ -288,10 +301,10 @@ const Home = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-                                        <li><i className="flaticon-user"></i><a href="blog.html">Admin</a></li>
-                                        <li><i className="fi-sr-calendar"></i> Jan 12, 2022</li>
+                                        <li><i className="flaticon-user"></i><a href="blog.html">{bloggerName}</a></li>
+                                        <li><i className="fi-sr-calendar"></i>{date}</li>
                                     </ul>
-                                    <h4 className="title"><a href="blog-details.html">Top 5 Most Popular NFT Games world most powerful ?</a></h4>
+                                    <h4 className="title"><a href="blog-details.html">{title}</a></h4>
                                     <Link href="/blogdetails" ><a className="btn">read more</a></Link>
                                 </div>
                             </div>
@@ -303,10 +316,10 @@ const Home = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-                                        <li><i className="flaticon-user"></i><a href="blog.html">Admin</a></li>
-                                        <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
+                                        <li><i className="flaticon-user"></i><a href="blog.html">{bloggerName}</a></li>
+                                        <li><i className="fi-sr-calendar"></i>{date}</li>
                                     </ul>
-                                    <h4 className="title"><a href="blog-details.html">NFTs, rare digital items worlds crypto collectibles</a></h4>
+                                    <h4 className="title"><a href="blog-details.html">{title}</a></h4>
                                     <Link href="/blogdetails" ><a className="btn">read more</a></Link>
                                 </div>
                             </div>
@@ -318,10 +331,10 @@ const Home = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-                                        <li><i className="flaticon-user"></i><a href="blog.html">Admin</a></li>
-                                        <li><i className="fi-sr-calendar"></i> Jan 19, 2022</li>
+                                        <li><i className="flaticon-user"></i><a href="blog.html">{bloggerName}</a></li>
+                                        <li><i className="fi-sr-calendar"></i>{date}</li>
                                     </ul>
-                                    <h4 className="title"><a href="blog-details.html">Crypto enthusiasts on a single platform to create</a></h4>
+                                    <h4 className="title"><a href="blog-details.html">{title}</a></h4>
                                     <Link href="/blogdetails" ><a className="btn">read more</a></Link>
                                 </div>
                             </div>
