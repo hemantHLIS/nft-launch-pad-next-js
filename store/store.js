@@ -2,8 +2,12 @@ import { composeWithDevTools } from "@redux-devtools/extension";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import {  applyMiddleware, combineReducers, createStore } from "redux";
 import launchUser from './user/reducer';
+import fractionalize from './fractionalize/reducer';
+import modal_config from './modals/reducer';
 const combineReducer = combineReducers({
-    launchUser
+    launchUser,
+    fractionalize,
+    modal_config
 });
 
 const reducer = (state, action)=>{

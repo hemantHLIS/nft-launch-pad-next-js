@@ -1,7 +1,9 @@
 export const userActionTypes = {
     LOGIN: "LOGIN",
     GET: "GET",
-    LOGOUT : "LOGOUT"
+    LOGOUT : "LOGOUT",
+    WALLET_MODAL_STATUS: "WALLET_MODAL_STATUS",
+    SET_WALLET_MODAL_STATUS: "SET_WALLET_MODAL_STATUS"
 };
 
 export const loginUser = (newUser) => {
@@ -13,4 +15,11 @@ export const logOutUser = () => {
 
 export const getUser = () => {
     return {type: userActionTypes.GET};
+}
+
+export const getWalletModalStatus = () => {
+    return {type: userActionTypes.WALLET_MODAL_STATUS};
+}
+export const setWalletModalStatus = (newConfig) => {
+    return {type: userActionTypes.WALLET_MODAL_STATUS, modal_config: newConfig};
 }

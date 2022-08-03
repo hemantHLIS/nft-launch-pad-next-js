@@ -6,21 +6,26 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { Moralis } from "moralis";
 import { getUser, loginUser } from "../store/user/action";
 import { wrapper } from "../store/store";
+import { getModalConfigs, setModalConfigs } from "../store/modals/action";
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getUser());
+    store.dispatch(getModalConfigs());
 });
 
 const WalletModal = () => {
     const dispatch = useDispatch();
     const data = useSelector((state) => state.launchUser);
     const { launchUser } = data;
+    const modalData = useSelector((state)=>state.modal_config);
+    const { modal_config } = modalData;
     const [name, setName] = useState();
-    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(modal_config.wallet);
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
     useEffect(() => {
-        console.log('launchUser==>' + JSON.stringify(data));
+        console.log('launchUser==>' + JSON.stringify(modal_config));
         dispatch(getUser());
+        dispatch(getModalConfigs());
         if (isAuthenticated) {
             // add your logic here
             dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
@@ -47,6 +52,7 @@ const WalletModal = () => {
 
     const logOut = async () => {
         await logout();
+        dispatch(loginUser({...launchUser, wallet_address:'0x0'}));
         console.log("logged out");
     }
 
@@ -59,10 +65,14 @@ const WalletModal = () => {
         setName(users[0].get("name"));
     }
 
+    const changeModalState = (status) =>{
+        dispatch(setModalConfigs({...modal_config,wallet:status}));
+    }
+
     return (
         <>
             {!isAuthenticated ?
-                <li className="header-btn"><button onClick={() => setModalOpen(!modalOpen)} className="btn">Connect Wallet</button></li>
+                <li className="header-btn"><button onClick={() => changeModalState(true)} className="btn">Connect Wallet</button></li>
                 :
                 <>
                     <div className="header-action d-none d-md-block" onLoad={displayName}>
@@ -91,14 +101,14 @@ const WalletModal = () => {
                 </>
             }
 
-            <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen}>
+            <Modal toggle={() => changeModalState(!modal_config.wallet)} isOpen={modal_config.wallet}>
 
                 <ModalBody>
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header pb-0">
                                 <h4 className="modal-title" id="exampleModalLabel">Connect your wallet </h4>
-                                <button type="button" className="btn-close" onClick={() => setModalOpen(!modalOpen)} aria-label="Close"></button>
+                                <button type="button" className="btn-close" onClick={() => changeModalState(false)} aria-label="Close"></button>
                             </div>
                             <div className="modal-body pt-0">
                                 <p>Connect with one of available wallet providers or create a new wallet.</p>
