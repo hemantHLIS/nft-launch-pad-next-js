@@ -143,6 +143,11 @@
     background: linear-gradient(#000, #000) padding-box, linear-gradient(90deg, #37aee2 0, #2be84b 100%) border-box;
 }
 
+.top-collection-item.active {
+    border-color: #2be04b;
+    box-shadow: 8px 8px 8px #2be04b;
+}
+
 /*.week-features-item::before {
     content: "";
     position: absolute;

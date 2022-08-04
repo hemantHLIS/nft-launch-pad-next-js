@@ -42,7 +42,8 @@ const WalletModal = () => {
                     console.log("logged in user:", user);
                     console.log(user?.get("ethAddress"));
                     dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
-                    setModalOpen(!modalOpen);
+                    dispatch(setModalConfigs({...modal_config,wallet:false}));
+                   
                 })
                 .catch(function (error) {
                     console.log(error);
