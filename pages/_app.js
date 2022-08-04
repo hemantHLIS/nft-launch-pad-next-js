@@ -1,4 +1,5 @@
 import '../public/assets/css/animate.min.css'
+import "react-notifications/lib/notifications.css";
 import '../public/assets/css/bootstrap.min.css'
 import '../public/assets/css/magnific-popup.css'
 import '../styles/globals.css'
@@ -16,6 +17,7 @@ import '../public/assets/css/responsive.css'
 import '../public/assets/css/slick.css'
 import '../public/assets/css/style.css'
 import { wrapper } from '../store/store'
+import { NotificationContainer } from 'react-notifications'
 
 
 const MyApp = ({ Component, pageProps }) => {
@@ -34,6 +36,7 @@ const MyApp = ({ Component, pageProps }) => {
         <MoralisProvider serverUrl="https://8n6ovswvsngx.usemoralis.com:2053/server" appId="0qmWMPK74AQxrbZDdRnQsDqHWg506zMME0j0cr4s">
           {getLayout(<Component {...pageProps} />)}
         </MoralisProvider>
+        <NotificationContainer/>
       </React.Fragment>
     ) : (
       <LoadingScreen />

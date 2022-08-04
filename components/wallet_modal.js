@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { useMoralis } from "react-moralis";
+import { useMoralis,useMoralisWeb3Api } from "react-moralis";
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { Moralis } from "moralis";
 import { getUser, loginUser } from "../store/user/action";
@@ -15,6 +15,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
 
 const WalletModal = () => {
     const dispatch = useDispatch();
+    const Web3Api = useMoralisWeb3Api();
     const data = useSelector((state) => state.launchUser);
     const { launchUser } = data;
     const modalData = useSelector((state)=>state.modal_config);
@@ -22,13 +23,24 @@ const WalletModal = () => {
     const [name, setName] = useState();
     const [modalOpen, setModalOpen] = useState(modal_config.wallet);
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
+    
+    async function getAllNftData() {
+        await Web3Api.account.getNFTs({
+            chain: "rinkeby",
+        }).then(resp=>{
+
+            dispatch(loginUser({...launchUser,wallet_address: user?.get('ethAddress'), nfts:resp.result}));
+        });
+    }
     useEffect(() => {
-        console.log('launchUser==>' + JSON.stringify(modal_config));
         dispatch(getUser());
         dispatch(getModalConfigs());
         if (isAuthenticated) {
-            // add your logic here
-            dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
+
+            // get user nfts
+            getAllNftData();
+
+            dispatch(setModalConfigs({ ...modal_config, wallet: false }));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAuthenticated, dispatch]);
@@ -38,11 +50,11 @@ const WalletModal = () => {
         if (!isAuthenticated) {
 
             await authenticate({ signingMessage: "Log in to NFT Launchpad" })
-                .then(function (user) {
-                    console.log("logged in user:", user);
-                    console.log(user?.get("ethAddress"));
+                .then(async function (user) {
                     dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
                     dispatch(setModalConfigs({...modal_config,wallet:false}));
+                    // get user nfts
+                    await getAllNftData();
                    
                 })
                 .catch(function (error) {

@@ -3,10 +3,10 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { fractionalizeActionTypes, getMode, setMode } from "../../store/fractionalize/action";
 import { wrapper } from "../../store/store";
-import { getUser } from "../../store/user/action";
+import { getUser, loginUser } from "../../store/user/action";
 import { getModalConfigs, setModalConfigs } from "../../store/modals/action";
 import { useRouter } from "next/router";
-
+import { useMoralis, useMoralisWeb3Api } from "react-moralis";
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getMode());
     store.dispatch(getUser());
@@ -16,6 +16,8 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
 const FractionStep1Main = () => {
     const router = useRouter();
     const dispatch = useDispatch();
+    const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
+    const Web3Api = useMoralisWeb3Api();
     const data = useSelector((state) => state.fractionalize);
     const modalData = useSelector((state) => state.modal_config);
     const userData = useSelector((state) => state.launchUser);
@@ -28,17 +30,12 @@ const FractionStep1Main = () => {
         } else {
             // change mode
             dispatch(setMode({ ...fractionalize, mode: newMode }));
-            
+            dispatch(setModalConfigs({ ...modal_config, wallet: false }));
             //navigate to other page
             router.push('/fractionstep2');
         }
 
     }
-
-    useEffect(() => {
-
-        console.log(fractionalize.mode);
-    });
 
     return (<>
         <section className="breadcrumb-area breadcrumb-bg breadcrumb-bg-two">

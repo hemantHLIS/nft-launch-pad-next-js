@@ -1,7 +1,9 @@
 
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const ProfileTabs = () => {
+    const {query} = useRouter();
 const internalLink = "/nftdetails";
     return (
         <>
@@ -10,28 +12,28 @@ const internalLink = "/nftdetails";
                     <div className="author-product-meta">
                         <ul className="nav nav-tabs" role="tablist">
                             <li className="nav-item">
-                                <a id="tab-A" href="#pane-A" className="nav-link active" data-bs-toggle="tab" role="tab">Fractions</a>
+                                <a id="tab-A" href="#pane-A" className={query.tab == 'fractions' || query.tab == undefined ?"nav-link active":"nav-link"} data-bs-toggle="tab" role="tab">Fractions</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-B" href="#pane-B" className="nav-link" data-bs-toggle="tab" role="tab">Vaults Created</a>
+                                <a id="tab-B" href="#pane-B" className={query.tab == 'vaults'?"nav-link active":"nav-link"} data-bs-toggle="tab" role="tab">Vaults Created</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-C" href="#pane-C" className="nav-link" data-bs-toggle="tab" role="tab">Collectibles</a>
+                                <a id="tab-C" href="#pane-C" className={query.tab == 'collectibles'?"nav-link active":"nav-link"} data-bs-toggle="tab" role="tab">Collectibles</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-C" href="#pane-D" className="nav-link" data-bs-toggle="tab" role="tab">Active Bids</a>
+                                <a id="tab-C" href="#pane-D" className={query.tab == 'activebids'?"nav-link active":"nav-link"} data-bs-toggle="tab" role="tab">Active Bids</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-C" href="#pane-E" className="nav-link" data-bs-toggle="tab" role="tab">Past Bids</a>
+                                <a id="tab-C" href="#pane-E" className={query.tab == 'postbids'?"nav-link active":"nav-link"} data-bs-toggle="tab" role="tab">Past Bids</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-C" href="#pane-F" className="nav-link" data-bs-toggle="tab" role="tab">Activity</a>
+                                <a id="tab-C" href="#pane-F" className={query.tab == 'activity'?"nav-link active":"nav-link"} data-bs-toggle="tab" role="tab">Activity</a>
                             </li>
 
                         </ul>
                     </div>
                     <div id="content" className="tab-content" role="tablist">
-                        <div id="pane-A" className="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                        <div id="pane-A" className={query.tab == undefined || query.tab == 'fractions' ?"card tab-pane fade show active":"card tab-pane fade"} role="tabpanel" aria-labelledby="tab-A">
                             <div className="card-header" role="tab" id="heading-A">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-A" aria-expanded="true" aria-controls="collapse-A">
@@ -181,7 +183,7 @@ const internalLink = "/nftdetails";
                                 </div>
                             </div>
                         </div>
-                        <div id="pane-B" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
+                        <div id="pane-B" className={query.tab == 'vaults' ?"card tab-pane fade show active":"card tab-pane fade"} role="tabpanel" aria-labelledby="tab-B">
                             <div className="card-header" role="tab" id="heading-B">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-B" aria-expanded="false"
@@ -344,7 +346,7 @@ const internalLink = "/nftdetails";
                                 </div>
                             </div>
                         </div>
-                        <div id="pane-C" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
+                        <div id="pane-C" className={query.tab == 'collectibles' ?"card tab-pane fade show active":"card tab-pane fade"} role="tabpanel" aria-labelledby="tab-C">
                             <div className="card-header" role="tab" id="heading-C">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-C" aria-expanded="true" aria-controls="collapse-C">
@@ -469,7 +471,7 @@ const internalLink = "/nftdetails";
                                 </div>
                             </div>
                         </div>
-                        <div id="pane-D" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-D">
+                        <div id="pane-D" className={query.tab == 'activebids' ?"card tab-pane fade show active":"card tab-pane fade"} role="tabpanel" aria-labelledby="tab-D">
                             <div className="card-header" role="tab" id="heading-D">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-D" aria-expanded="true" aria-controls="collapse-D">
@@ -599,7 +601,7 @@ const internalLink = "/nftdetails";
                                 </div>
                             </div>
                         </div>
-                        <div id="pane-E" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-E">
+                        <div id="pane-E" className={query.tab == 'postbids' ?"card tab-pane fade show active":"card tab-pane fade"} role="tabpanel" aria-labelledby="tab-E">
                             <div className="card-header" role="tab" id="heading-E">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-E" aria-expanded="true" aria-controls="collapse-E">
@@ -613,7 +615,7 @@ const internalLink = "/nftdetails";
                                     <h3 className="text-white">Under Construction</h3></div>
                             </div>
                         </div>
-                        <div id="pane-F" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-F">
+                        <div id="pane-F" className={query.tab == 'activity' ?"card tab-pane fade show active":"card tab-pane fade"} role="tabpanel" aria-labelledby="tab-F">
                             <div className="card-header" role="tab" id="heading-F">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-F" aria-expanded="true" aria-controls="collapse-F">

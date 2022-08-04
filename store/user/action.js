@@ -7,6 +7,7 @@ export const userActionTypes = {
 };
 
 export const loginUser = (newUser) => {
+    console.log('newUser=>'+JSON.stringify(newUser));
     return { type: userActionTypes.LOGIN, launchUser: newUser };
 }
 export const logOutUser = () => {

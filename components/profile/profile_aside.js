@@ -9,7 +9,7 @@ const ProfileAside = () => {
     const callMyProfile= async()=>{
 
         
-        const query = new Moralis.Query(LaunchpadModel.UserQuery);
+        const query = LaunchpadModel.UserQuery;
         const users = await query.find();  
         setName(users[0].get("name"));    
         SetGender(users[0].get("gender"));

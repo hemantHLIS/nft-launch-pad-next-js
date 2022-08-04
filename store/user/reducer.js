@@ -6,7 +6,8 @@ const userInitialState = {
         balance: '',
         photo: '',
         username: 'nftminer',
-        gender: ''
+        gender: '',
+        nfts: []
     },
 
 }
