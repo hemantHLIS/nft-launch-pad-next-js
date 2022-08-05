@@ -33,6 +33,8 @@ const VaultDetailsMain = () => {
     const { vault_config } = vaultData.vault_config;
     const [vaultTokenBalance, setVaultTokenBalance] = useState(0);
     const [vaultTokenTransfers, setVaultTokenTransfers] = useState([]);
+    const [owners, setOwners] = useState([]);
+    const [ownersBal, setOwnersBal] = useState([]);
     const [options, setOptions] = useState({
         chart: {
             id: "basic-bar"
@@ -81,11 +83,37 @@ const VaultDetailsMain = () => {
     const fetchTokenTransfers = async () => {
         const tq = LaunchpadModel.EthTokenTransfersQuery;
         tq.equalTo("token_address",String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase());
+        tq.descending("updatedAt");
         tq.limit(11);
         const result = await tq.find();
+        // var ownersSet = new Set();
+        // result.forEach(element => {
+        //    if(element.get('from_address') != '0x0000000000000000000000000000000000000000'){ 
+        //     ownersSet.add(element.get('from_address'));
+        //    }
+        //    if(element.get('to_address') != '0x0000000000000000000000000000000000000000'){
+        //     ownersSet.add(element.get('to_address'));
+        //    }
+        // });
+
+        // setOwners(ownersSet);
+        // var obs = new Set();
+        // ownersSet.forEach(async (element) => {
+        //     const options = {
+        //         chain: "rinkeby",
+        //         token_addresses: [vault_config?.vault?.get('vaultDetails').vault],
+        //         address: element
+        //     };
+        //     const balances = await Web3Api.account.getTokenBalances(options);
+        //     obs.add({address: element, value: balances[0]?.balance});
+        // });
+        // setOwnersBal(obs);
+        // console.log('000000000000'+JSON.stringify(obs));
         console.log('===========2=2'+JSON.stringify(result));
         setVaultTokenTransfers(result);
     };
+
+   
 
     useEffect(() => {
 
@@ -180,7 +208,7 @@ const VaultDetailsMain = () => {
                                     <h4>Proof of Authenticity</h4>
                                     <ul>
                                         <li><p><picture><img src="assets/img/others/checked.png" alt="" /></picture> Verified by fractional</p></li>
-                                        <li><a href="#"><picture><img src="assets/img/others/line-chart.png" alt="" /></picture> View on Etherscan</a></li>
+                                        <li><a href={"https://rinkeby.etherscan.io/address/"+vault_config?.vault?.get('vaultDetails').vault} target="_blank"><picture><img src="assets/img/others/line-chart.png" alt="" /></picture> View on Etherscan</a></li>
                                         <li><a href="#"><picture><img src="assets/img/others/sailboat.png" alt="" /></picture> View on Opensea</a></li>
                                     </ul>
                                 </div>
@@ -354,7 +382,7 @@ const VaultDetailsMain = () => {
                                                                 <th scope="row" className="author" style={{color:'grey'}}>
                                                                     {moment(v.get('updatedAt')).format('DD-MMM-YYYY HH:mm A')}
                                                                 </th>
-                                                                <td className="text-danger">{v.get('from_address').substr(0,5)}</td>
+                                                                <td className="text-danger">{v.get('from_address').substr(0,5)+'..'+v.get('from_address').substr(v.get('from_address').length-5,v.get('from_address').length)}</td>
                                                                 <td>{v.get('to_address').substr(0,5)+'..'+v.get('to_address').substr(v.get('to_address').length-5,v.get('to_address').length)}</td>
                                                                 <td>{BigNumber(Moralis.Units.FromWei(v.get('value'), 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
                                                             </tr>))}
