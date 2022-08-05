@@ -7,6 +7,7 @@ import { Moralis } from "moralis";
 import { getUser, loginUser } from "../store/user/action";
 import { wrapper } from "../store/store";
 import { getModalConfigs, setModalConfigs } from "../store/modals/action";
+import LaunchpadModel from "./utils/launchpad_model";
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getUser());
@@ -24,14 +25,33 @@ const WalletModal = () => {
     const [modalOpen, setModalOpen] = useState(modal_config.wallet);
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
     
+    const fetchNativeBalance = async () => {
+        // get mainnet native balance for the current user
+        // const balance = await Web3Api.account.getNativeBalance();
+        // console.log(balance);
+        // // get BSC native balance for a given address
+        const options = {
+          chain: "rinkeby"
+        };
+        const bscBalance = await Web3Api.account.getNativeBalance(options);
+        return bscBalance;
+      };
+
     async function getAllNftData() {
         await Web3Api.account.getNFTs({
             chain: "rinkeby",
-        }).then(resp=>{
+        }).then( async resp=>{
+            const vaultQuery = LaunchpadModel.VaultQuery;
+            vaultQuery.equalTo('curator',user?.get('ethAddress'));
+            const result = await vaultQuery.find();
 
-            dispatch(loginUser({...launchUser,wallet_address: user?.get('ethAddress'), nfts:resp.result}));
+            // get user balance as well here
+            const balance = await fetchNativeBalance();
+
+            dispatch(loginUser({...launchUser,wallet_address: user?.get('ethAddress'), nfts:resp.result, vaults:result, balance: balance}));
         });
     }
+
     useEffect(() => {
         dispatch(getUser());
         dispatch(getModalConfigs());
@@ -84,7 +104,7 @@ const WalletModal = () => {
 
     return (
         <>
-            {!isAuthenticated ?
+            {launchUser?.wallet_address === '0x0'  ?
                 <li className="header-btn"><button onClick={() => changeModalState(true)} className="btn">Connect Wallet</button></li>
                 :
                 <>
@@ -98,7 +118,7 @@ const WalletModal = () => {
                                 <div className="profile-box">
                                     <div className="profile-name" >
                                         <h3>{launchUser?.username}<span style={{ cursor: "pointer" }} onClick={() => navigator.clipboard.writeText(launchUser?.wallet_address)}><i className="far fa-clone"></i></span></h3>
-                                        <span>{launchUser?.wallet_address.substr(0, 6) + "..." + launchUser?.wallet_address.substr(launchUser?.wallet_address.length - 4, launchUser?.wallet_address.length)}</span>
+                                        <span>{launchUser?.wallet_address?.substr(0, 6) + "..." + launchUser?.wallet_address?.substr(launchUser?.wallet_address?.length - 4, launchUser?.wallet_address?.length)}</span>
                                     </div>
                                     <ul>
                                         <li><Link href="/profile"><a><i className="far fa-user"></i> My Profile</a></Link></li>

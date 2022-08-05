@@ -32,7 +32,7 @@ const FractionStep2Main = () => {
     const { modal_config } = modalData;
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, isInitialized } = useMoralis();
     const Web3Api = useMoralisWeb3Api();
-    const [nftIndex, setNftIndex] = useState({ index: -1, token_address: '0x0', token_id: 0 });
+    const [nftIndex, setNftIndex] = useState({ index: -1, token_address: '0x0', token_id: 0, token_name: '', token_symbol:'' });
     const [render, setRender] = useState(true);
     const [contDisabled, setContDisabled] = useState(false);
     
@@ -53,14 +53,33 @@ const FractionStep2Main = () => {
             console.log(err);
         }
     }
+    const fetchNativeBalance = async () => {
+        // get mainnet native balance for the current user
+        // const balance = await Web3Api.account.getNativeBalance();
+        // console.log(balance);
+        // // get BSC native balance for a given address
+        const options = {
+          chain: "rinkeby"
+        };
+        const bscBalance = await Web3Api.account.getNativeBalance(options);
+        return bscBalance;
+      };
+
     async function getAllNftData() {
         await Web3Api.account.getNFTs({
             chain: "rinkeby",
-        }).then(resp=>{
+        }).then( async resp=>{
+            const vaultQuery = LaunchpadModel.VaultQuery;
+            vaultQuery.equalTo('curator',user?.get('ethAddress'));
+            const result = await vaultQuery.find();
 
-            dispatch(loginUser({...launchUser,wallet_address: user?.get('ethAddress'), nfts:resp.result}));
+            // get user balance as well here
+            const balance = await fetchNativeBalance();
+
+            dispatch(loginUser({...launchUser,wallet_address: user?.get('ethAddress'), nfts:resp.result, vaults:result, balance: balance}));
         });
     }
+
 
     useEffect(() => {
         if (launchUser.wallet_address === '0x0') {
@@ -102,7 +121,9 @@ const FractionStep2Main = () => {
 
                  try {
                   
-                    await factoryContract.methods.createVault(vaultName,vaultSymbol,new BigNumber(vaultSupply).shiftedBy(18),new BigNumber(vaultReservePrice).shiftedBy(18),nftIndex.token_address, nftIndex.token_id,new BigNumber(vaultCuratorFee).shiftedBy(18)).send({from: user?.get('ethAddress')}).then(async (resp)=>{
+                    await factoryContract.methods.createVault(vaultName,vaultSymbol,new BigNumber(vaultSupply).shiftedBy(18),new BigNumber(vaultReservePrice).shiftedBy(18),nftIndex.token_address, nftIndex.token_id,new BigNumber(vaultCuratorFee).shiftedBy(3)).send({from: user?.get('ethAddress')}).then(async (resp)=>{
+                        console.log('resp===>'+JSON.stringify(resp));
+                        console.log('values===>'+resp.events.Mint.returnValues);
                         NotificationManager.success('NFT successfull fractionalized...Vault created successfully');
 
                         
@@ -116,12 +137,15 @@ const FractionStep2Main = () => {
                         newVault.set('curatorFee',vaultCuratorFee);
                         newVault.set('nft',nftIndex.token_address);
                         newVault.set('nftId',nftIndex.token_id);
+                        newVault.set('nftName',nftIndex.token_name);
+                        newVault.set('nftSymbol',nftIndex.token_symbol);
+                        newVault.set('vaultDetails', resp.events.Mint.returnValues);
                         
                         await newVault.save();
                         
                         // refresh nft data
                         await getAllNftData();
-                        setNftIndex({index:-1, token_address:'',token_id:0});
+                        setNftIndex({index:-1, token_address:'',token_id:0, token_name: '', token_symbol: ''});
                         // route to vaults
                         router.push('/profile?tab=vaults');
                     })
@@ -175,10 +199,10 @@ const FractionStep2Main = () => {
                                         <p>Choose the NFT(s) to send to a new vault, select your desired fraction type, set your vault’s details, then continue to fractionalize. Once complete, all fractions will appear in your wallet. Be aware, you cannot add to the NFTs in a vault once created. Read our guides for more information.</p>
                                     </div>
 
-                                    <div className="row mt-5  justify-content-center">
+                                    <div className="row mt-5 ">
                                         {launchUser.nfts && launchUser.nfts.map((item, i) => {
                                             return (
-                                                <div className="col-xl-4 col-md-6 col-sm-6" key={'nftindex' + i} style={{ cursor: 'pointer' }} onClick={() => setNftIndex({ index: i, token_address: item.token_address, token_id: item.token_id })}>
+                                                <div className="col-xl-4 col-md-6 col-sm-6" key={'nftindex' + i} style={{ cursor: 'pointer' }} onClick={() => setNftIndex({ index: i, token_address: item.token_address, token_id: item.token_id, token_name: item.token_name, token_symbol: item.token_symbol })}>
                                                     <div className={i == nftIndex.index ? "top-collection-item active" : "top-collection-item"}>
                                                         <div className="collection-item-thumb">
                                                             <div className="shield-icon">
@@ -245,7 +269,7 @@ const FractionStep2Main = () => {
                                                     <input id="price" onChange={(e)=>setVaultReservePrice(e.target.value)} type="number" placeholder="0.0" step="0.01" required />
                                                 </div>
                                                 <div className="form-grp">
-                                                    <label htmlFor="price">CURATOR FEE IN ETH</label>
+                                                    <label htmlFor="price">CURATOR FEE(%)</label>
                                                     <input id="price" onChange={(e)=>setVaultCuratorFee(e.target.value)} type="number" step="0.01" placeholder="0.0" required/>
                                                 </div>
 
@@ -279,7 +303,7 @@ const FractionStep2Main = () => {
                                                     <input id="price" onChange={(e)=>setVaultReservePrice(e.target.value)} type="text" placeholder="0.0" />
                                                 </div>
                                                 <div className="form-grp">
-                                                    <label htmlFor="price">CURATOR FEE IN ETH</label>
+                                                    <label htmlFor="price">CURATOR FEE(%)</label>
                                                     <input id="price" onChange={(e)=>setVaultCuratorFee(e.target.value)} type="text" placeholder="0.0" />
                                                 </div>
 

@@ -3,11 +3,12 @@ import { userActionTypes } from "./action";
 const userInitialState = {
     launchUser: {
         wallet_address: '0x0',
-        balance: '',
+        balance: 0,
         photo: '',
         username: 'nftminer',
         gender: '',
-        nfts: []
+        nfts: [],
+        vaults: []
     },
 
 }

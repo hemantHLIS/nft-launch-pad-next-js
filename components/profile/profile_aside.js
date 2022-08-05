@@ -2,7 +2,7 @@ import { Moralis } from "moralis";
 import { useState } from "react";
 import LaunchpadModel from "../utils/launchpad_model";
 
-const ProfileAside = () => {
+const ProfileAside = ({userData}) => {
 
     const [name, setName] = useState("");
     const [gender, SetGender] = useState("");
@@ -34,7 +34,7 @@ const ProfileAside = () => {
                     </li>
                     <li>
                         <p>Vaults</p>
-                        <span>235</span>
+                        <span>{userData?.vaults?.length}</span>
                     </li>
                 </ul>
                 <div>
