@@ -6,7 +6,7 @@ export default function aboutStepComponent(props) {
             {props.data.map((item) => {
                 console.log(item);
                 return (
-                    <div className="col-xl-3 col-lg-4 col-md-6">
+                    <div className="col-xl-3 col-lg-4 col-md-6" key={item.id}>
                         <div className="sell-nfts-item">
                             <picture><img src={item.image} alt="" className="icon" /></picture>
                             <span className="step-count">{item.step}</span>

@@ -203,12 +203,12 @@ const VaultDetailsMain = () => {
                                 </div>
                             </div>
                             <div className="market-single-content">
-                                {/* <p>What even is an NFT? NFT stands for non-fungible token, which basically means that it&apos;s one-of-kind digital asset that belongs to you and you only. The most popular NFTs right now include artwork and music also include videos.</p> */}
+                                {/* target="_blank" <p>What even is an NFT? NFT stands for non-fungible token, which basically means that it&apos;s one-of-kind digital asset that belongs to you and you only. The most popular NFTs right now include artwork and music also include videos.</p> */}
                                 <div className="proof-authority">
                                     <h4>Proof of Authenticity</h4>
                                     <ul>
-                                        <li><p><picture><img src="assets/img/others/checked.png" alt="" /></picture> Verified by fractional</p></li>
-                                        <li><a href={"https://rinkeby.etherscan.io/address/"+vault_config?.vault?.get('vaultDetails').vault} target="_blank"><picture><img src="assets/img/others/line-chart.png" alt="" /></picture> View on Etherscan</a></li>
+                                        <li><p><picture><img src="assets/img/others/checked.png" alt="" /></picture> Verified by fractional</p></li> 
+                                        <li><a href={"https://rinkeby.etherscan.io/address/"+vault_config?.vault?.get('vaultDetails').vault} rel="noreferrer"><picture><img src="assets/img/others/line-chart.png" alt="" /></picture> View on Etherscan</a></li>
                                         <li><a href="#"><picture><img src="assets/img/others/sailboat.png" alt="" /></picture> View on Opensea</a></li>
                                     </ul>
                                 </div>
@@ -378,7 +378,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {vaultTokenTransfers.length>0 && vaultTokenTransfers.map((v,i)=>(<tr>
+                                                            {vaultTokenTransfers.length>0 && vaultTokenTransfers.map((v,i)=>(<tr key={item.id}>
                                                                 <th scope="row" className="author" style={{color:'grey'}}>
                                                                     {moment(v.get('updatedAt')).format('DD-MMM-YYYY HH:mm A')}
                                                                 </th>
