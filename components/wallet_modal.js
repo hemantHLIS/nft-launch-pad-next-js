@@ -1,27 +1,81 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useMoralis } from "react-moralis";
+import { useSelector, useDispatch } from 'react-redux'
+import { useMoralis,useMoralisWeb3Api } from "react-moralis";
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
 import { Moralis } from "moralis";
+import { getUser, loginUser } from "../store/user/action";
+import { wrapper } from "../store/store";
+import { getModalConfigs, setModalConfigs } from "../store/modals/action";
+import LaunchpadModel from "./utils/launchpad_model";
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+    store.dispatch(getUser());
+    store.dispatch(getModalConfigs());
+});
+
 const WalletModal = () => {
-    const [name,setName]=useState();
-    const [modalOpen, setModalOpen] = useState(false);
+    const dispatch = useDispatch();
+    const Web3Api = useMoralisWeb3Api();
+    const data = useSelector((state) => state.launchUser);
+    const { launchUser } = data;
+    const modalData = useSelector((state)=>state.modal_config);
+    const { modal_config } = modalData;
+    const [name, setName] = useState();
+    const [modalOpen, setModalOpen] = useState(modal_config.wallet);
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
+    
+    const fetchNativeBalance = async () => {
+        // get mainnet native balance for the current user
+        // const balance = await Web3Api.account.getNativeBalance();
+        // console.log(balance);
+        // // get BSC native balance for a given address
+        const options = {
+          chain: "rinkeby"
+        };
+        const bscBalance = await Web3Api.account.getNativeBalance(options);
+        return bscBalance;
+      };
+
+    async function getAllNftData() {
+        await Web3Api.account.getNFTs({
+            chain: "rinkeby",
+        }).then( async resp=>{
+            const vaultQuery = LaunchpadModel.VaultQuery;
+            vaultQuery.equalTo('curator',user?.get('ethAddress'));
+            const result = await vaultQuery.find();
+
+            // get user balance as well here
+            const balance = await fetchNativeBalance();
+
+            dispatch(loginUser({...launchUser,wallet_address: user?.get('ethAddress'), nfts:resp.result, vaults:result, balance: balance}));
+        });
+    }
+
     useEffect(() => {
+        dispatch(getUser());
+        dispatch(getModalConfigs());
         if (isAuthenticated) {
-            // add your logic here
+
+            // get user nfts
+            getAllNftData();
+
+            dispatch(setModalConfigs({ ...modal_config, wallet: false }));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAuthenticated]);
+    }, [isAuthenticated, dispatch]);
+
 
     const login = async () => {
         if (!isAuthenticated) {
 
-            await authenticate({ signingMessage: "Log in using Moralis" })
-                .then(function (user) {
-                    console.log("logged in user:", user);
-                    console.log(user?.get("ethAddress"));
-                    setModalOpen(!modalOpen);
+            await authenticate({ signingMessage: "Log in to NFT Launchpad" })
+                .then(async function (user) {
+                    dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
+                    dispatch(setModalConfigs({...modal_config,wallet:false}));
+                    // get user nfts
+                    await getAllNftData();
+                   
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -31,22 +85,27 @@ const WalletModal = () => {
 
     const logOut = async () => {
         await logout();
+        dispatch(loginUser({...launchUser, wallet_address:'0x0'}));
         console.log("logged out");
     }
 
-    const displayName=async()=>{
-        
+    const displayName = async () => {
+
         const LaunchpadUser1 = Moralis.Object.extend("LaunchpadUser1");
-        const launchpaduser = new LaunchpadUser1(); 
+        const launchpaduser = new LaunchpadUser1();
         const query = new Moralis.Query(launchpaduser);
         const users = await query.find();
         setName(users[0].get("name"));
     }
 
+    const changeModalState = (status) =>{
+        dispatch(setModalConfigs({...modal_config,wallet:status}));
+    }
+
     return (
         <>
-            {!isAuthenticated ?
-                <li className="header-btn"><button onClick={() => setModalOpen(!modalOpen)} className="btn">Connect Wallet</button></li>
+            {launchUser?.wallet_address === '0x0'  ?
+                <li className="header-btn"><button onClick={() => changeModalState(true)} className="btn">Connect Wallet</button></li>
                 :
                 <>
                     <div className="header-action d-none d-md-block" onLoad={displayName}>
@@ -58,13 +117,13 @@ const WalletModal = () => {
                             </a>
                                 <div className="profile-box">
                                     <div className="profile-name" >
-                                        <h3>{name} <span style={{cursor:"pointer"}} onClick={()=>navigator.clipboard.writeText(user?.get('ethAddress'))}><i className="far fa-clone"></i></span></h3>
-                                        <span>{user?.get('ethAddress').substr(0,6)+"..."+user?.get('ethAddress').substr(user?.get('ethAddress').length-4,user?.get('ethAddress').length)}</span>
+                                        <h3>{launchUser?.username}<span style={{ cursor: "pointer" }} onClick={() => navigator.clipboard.writeText(launchUser?.wallet_address)}><i className="far fa-clone"></i></span></h3>
+                                        <span>{launchUser?.wallet_address?.substr(0, 6) + "..." + launchUser?.wallet_address?.substr(launchUser?.wallet_address?.length - 4, launchUser?.wallet_address?.length)}</span>
                                     </div>
                                     <ul>
                                         <li><Link href="/profile"><a><i className="far fa-user"></i> My Profile</a></Link></li>
                                         <li><a href="#"><i className="far fa-image"></i> My Items</a></li>
-                                        <li><span style={{color:"#fff", fontSize: "14px", cursor:"pointer"}} onClick={logOut}><i className="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Disconnect</span></li>
+                                        <li><span style={{ color: "#fff", fontSize: "14px", cursor: "pointer" }} onClick={logOut}><i className="fas fa-sign-out-alt"></i>&nbsp;&nbsp;Disconnect</span></li>
                                     </ul>
                                 </div>
                             </li>
@@ -75,14 +134,14 @@ const WalletModal = () => {
                 </>
             }
 
-            <Modal toggle={() => setModalOpen(!modalOpen)} isOpen={modalOpen}>
+            <Modal toggle={() => changeModalState(!modal_config.wallet)} isOpen={modal_config.wallet}>
 
                 <ModalBody>
                     <div className="modal-dialog modal-dialog-centered">
                         <div className="modal-content">
                             <div className="modal-header pb-0">
                                 <h4 className="modal-title" id="exampleModalLabel">Connect your wallet </h4>
-                                <button type="button" className="btn-close" onClick={() => setModalOpen(!modalOpen)} aria-label="Close"></button>
+                                <button type="button" className="btn-close" onClick={() => changeModalState(false)} aria-label="Close"></button>
                             </div>
                             <div className="modal-body pt-0">
                                 <p>Connect with one of available wallet providers or create a new wallet.</p>

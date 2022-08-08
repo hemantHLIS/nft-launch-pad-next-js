@@ -4,7 +4,7 @@ import VaultDetailsMain from "../components/vault/vault_details_main";
 const Vaultdetails = () => {
 
     return (
-            <VaultDetailsMain />
+        <VaultDetailsMain />
     );
 
 }

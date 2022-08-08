@@ -1,16 +1,15 @@
 import { Moralis } from "moralis";
 import { useState } from "react";
+import LaunchpadModel from "../utils/launchpad_model";
 
-const ProfileAside = () => {
+const ProfileAside = ({userData}) => {
 
     const [name, setName] = useState("");
     const [gender, SetGender] = useState("");
     const callMyProfile= async()=>{
 
-        const LaunchpadUser1 = Moralis.Object.extend("LaunchpadUser1");
-        const launchpaduser = new LaunchpadUser1();   
-
-        const query = new Moralis.Query(launchpaduser);
+        
+        const query = LaunchpadModel.UserQuery;
         const users = await query.find();  
         setName(users[0].get("name"));    
         SetGender(users[0].get("gender"));
@@ -35,7 +34,7 @@ const ProfileAside = () => {
                     </li>
                     <li>
                         <p>Vaults</p>
-                        <span>235</span>
+                        <span>{userData?.vaults?.length}</span>
                     </li>
                 </ul>
                 <div>

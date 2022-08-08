@@ -512,7 +512,7 @@ label {
 	margin-left: 0;
 }
 .header-action ul li a {
-	color: #222;
+	/* color: #222; */
 	font-size: 14px;
 }
 .header-action .header-btn .btn {

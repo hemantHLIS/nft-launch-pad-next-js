@@ -1,8 +1,21 @@
 
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { changeCurrentVault, vaultActions } from "../../store/vault/action";
 
-const ProfileTabs = () => {
-const internalLink = "/nftdetails";
+const ProfileTabs = ({ userData, vault_config }) => {
+    const { query } = useRouter();
+    const dispatch = useDispatch();
+    const router = useRouter();
+   
+    const switchVault = (newVault) => {
+        dispatch(changeCurrentVault({type:vaultActions.CHANGE_VAULT,vault_config: {...vault_config,vault:newVault}}));
+        console.log(JSON.stringify(newVault));
+        router.push('/vaultdetails');
+    }
+
     return (
         <>
             <div className="col-xl-9 col-lg-8">
@@ -10,28 +23,28 @@ const internalLink = "/nftdetails";
                     <div className="author-product-meta">
                         <ul className="nav nav-tabs" role="tablist">
                             <li className="nav-item">
-                                <a id="tab-A" href="#pane-A" className="nav-link active" data-bs-toggle="tab" role="tab">Fractions</a>
+                                <a id="tab-A" href="#pane-A" className={query.tab == 'fractions' || query.tab == undefined ? "nav-link active" : "nav-link"} data-bs-toggle="tab" role="tab">Fractions</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-B" href="#pane-B" className="nav-link" data-bs-toggle="tab" role="tab">Vaults Created</a>
+                                <a id="tab-B" href="#pane-B" className={query.tab == 'vaults' ? "nav-link active" : "nav-link"} data-bs-toggle="tab" role="tab">Vaults Created</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-C" href="#pane-C" className="nav-link" data-bs-toggle="tab" role="tab">Collectibles</a>
+                                <a id="tab-C" href="#pane-C" className={query.tab == 'collectibles' ? "nav-link active" : "nav-link"} data-bs-toggle="tab" role="tab">Collectibles</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-C" href="#pane-D" className="nav-link" data-bs-toggle="tab" role="tab">Active Bids</a>
+                                <a id="tab-C" href="#pane-D" className={query.tab == 'activebids' ? "nav-link active" : "nav-link"} data-bs-toggle="tab" role="tab">Active Bids</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-C" href="#pane-E" className="nav-link" data-bs-toggle="tab" role="tab">Past Bids</a>
+                                <a id="tab-C" href="#pane-E" className={query.tab == 'postbids' ? "nav-link active" : "nav-link"} data-bs-toggle="tab" role="tab">Past Bids</a>
                             </li>
                             <li className="nav-item">
-                                <a id="tab-C" href="#pane-F" className="nav-link" data-bs-toggle="tab" role="tab">Activity</a>
+                                <a id="tab-C" href="#pane-F" className={query.tab == 'activity' ? "nav-link active" : "nav-link"} data-bs-toggle="tab" role="tab">Activity</a>
                             </li>
 
                         </ul>
                     </div>
                     <div id="content" className="tab-content" role="tablist">
-                        <div id="pane-A" className="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                        <div id="pane-A" className={query.tab == undefined || query.tab == 'fractions' ? "card tab-pane fade show active" : "card tab-pane fade"} role="tabpanel" aria-labelledby="tab-A">
                             <div className="card-header" role="tab" id="heading-A">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-A" aria-expanded="true" aria-controls="collapse-A">
@@ -42,146 +55,146 @@ const internalLink = "/nftdetails";
                             <div id="collapse-A" className="collapse show" data-bs-parent="#content" role="tabpanel"
                                 aria-labelledby="heading-A">
                                 <div className="card-body">
-                                <div className="row justify-content-center ">
-                                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                    <div className="top-collection-item">
-                                        <div className="collection-item-thumb">
-                                            <div className="shield-icon">
-                                                <picture> <img src="assets/img/others/shield.png" alt="" /></picture>
+                                    <div className="row justify-content-center ">
+                                        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                            <div className="top-collection-item">
+                                                <div className="collection-item-thumb">
+                                                    <div className="shield-icon">
+                                                        <picture> <img src="assets/img/others/shield.png" alt="" /></picture>
+                                                    </div>
+                                                    <Link href="/nftdetails">
+                                                        <picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></Link>
+                                                </div>
+                                                <div className="collection-item-content">
+                                                    <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
+                                                </div>
+                                                <div className="collection-item-bottom">
+                                                    <ul>
+                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="wishlist"><a href="#">59</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <Link href="/nftdetails">
-                                                <picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></Link>
                                         </div>
-                                        <div className="collection-item-content">
-                                            <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
-                                        </div>
-                                        <div className="collection-item-bottom">
-                                            <ul>
-                                                <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
-                                                <li className="wishlist"><a href="#">59</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                    <div className="top-collection-item">
-                                        <div className="collection-item-thumb">
-                                            <div className="shield-icon">
-                                                <picture>
-                                                    <img src="assets/img/others/shield.png" alt="" /></picture>
+                                        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                            <div className="top-collection-item">
+                                                <div className="collection-item-thumb">
+                                                    <div className="shield-icon">
+                                                        <picture>
+                                                            <img src="assets/img/others/shield.png" alt="" /></picture>
+                                                    </div>
+                                                    <Link href="/nftdetails"><picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></Link>
+                                                </div>
+                                                <div className="collection-item-content">
+                                                    <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
+                                                </div>
+                                                <div className="collection-item-bottom">
+                                                    <ul>
+                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="wishlist"><a href="#">59</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <Link href="/nftdetails"><picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></Link>
                                         </div>
-                                        <div className="collection-item-content">
-                                            <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
-                                        </div>
-                                        <div className="collection-item-bottom">
-                                            <ul>
-                                                <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
-                                                <li className="wishlist"><a href="#">59</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                    <div className="top-collection-item">
-                                        <div className="collection-item-thumb">
-                                            <div className="shield-icon">
-                                                <picture>
-                                                    <img alt="" src="assets/img/others/shield.png" />
-                                                </picture>
+                                        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                            <div className="top-collection-item">
+                                                <div className="collection-item-thumb">
+                                                    <div className="shield-icon">
+                                                        <picture>
+                                                            <img alt="" src="assets/img/others/shield.png" />
+                                                        </picture>
+                                                    </div>
+                                                    <Link href="/nftdetails">
+                                                        <picture>
+                                                            <img src="assets/img/others/3top_collection01.jpg" alt="" />
+                                                        </picture></Link>
+                                                </div>
+                                                <div className="collection-item-content">
+                                                    <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
+                                                </div>
+                                                <div className="collection-item-bottom">
+                                                    <ul>
+                                                        <li className="avatar"><a href="#" className="thumb">
+                                                            <picture>
+                                                                <img src="assets/img/others/top_col_avatar.png" alt="" />
+                                                            </picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="wishlist"><a href="#">59</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <Link href="/nftdetails">
-                                                <picture>
-                                                    <img src="assets/img/others/3top_collection01.jpg" alt="" />
-                                                </picture></Link>
                                         </div>
-                                        <div className="collection-item-content">
-                                            <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
-                                        </div>
-                                        <div className="collection-item-bottom">
-                                            <ul>
-                                                <li className="avatar"><a href="#" className="thumb">
-                                                    <picture>
-                                                        <img src="assets/img/others/top_col_avatar.png" alt="" />
-                                                    </picture></a>By <a href="#" className="name">Jonson</a></li>
-                                                <li className="wishlist"><a href="#">59</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                    <div className="top-collection-item">
-                                        <div className="collection-item-thumb">
-                                            <div className="shield-icon">
-                                                <picture>
-                                                    <img alt="" src="assets/img/others/shield.png" />
-                                                </picture>
+                                        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                            <div className="top-collection-item">
+                                                <div className="collection-item-thumb">
+                                                    <div className="shield-icon">
+                                                        <picture>
+                                                            <img alt="" src="assets/img/others/shield.png" />
+                                                        </picture>
+                                                    </div>
+                                                    <Link href="/nftdetails">
+                                                        <picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></Link>
+                                                </div>
+                                                <div className="collection-item-content">
+                                                    <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
+                                                </div>
+                                                <div className="collection-item-bottom">
+                                                    <ul>
+                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="wishlist"><a href="#">59</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <Link href="/nftdetails">
-                                                <picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></Link>
                                         </div>
-                                        <div className="collection-item-content">
-                                            <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
-                                        </div>
-                                        <div className="collection-item-bottom">
-                                            <ul>
-                                                <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
-                                                <li className="wishlist"><a href="#">59</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                    <div className="top-collection-item">
-                                        <div className="collection-item-thumb">
-                                            <div className="shield-icon">
-                                                <picture>
-                                                    <img alt="" src="assets/img/others/shield.png" />
-                                                </picture>
+                                        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                            <div className="top-collection-item">
+                                                <div className="collection-item-thumb">
+                                                    <div className="shield-icon">
+                                                        <picture>
+                                                            <img alt="" src="assets/img/others/shield.png" />
+                                                        </picture>
+                                                    </div>
+                                                    <Link href="/nftdetails">
+                                                        <picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></Link>
+                                                </div>
+                                                <div className="collection-item-content">
+                                                    <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
+                                                </div>
+                                                <div className="collection-item-bottom">
+                                                    <ul>
+                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="wishlist"><a href="#">59</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <Link href="/nftdetails">
-                                                <picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></Link>
                                         </div>
-                                        <div className="collection-item-content">
-                                            <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
-                                        </div>
-                                        <div className="collection-item-bottom">
-                                            <ul>
-                                                <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
-                                                <li className="wishlist"><a href="#">59</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
-                                    <div className="top-collection-item">
-                                        <div className="collection-item-thumb">
-                                            <div className="shield-icon"><picture>
-                                                <img src="assets/img/others/shield.png" alt="" /></picture>
+                                        <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                                            <div className="top-collection-item">
+                                                <div className="collection-item-thumb">
+                                                    <div className="shield-icon"><picture>
+                                                        <img src="assets/img/others/shield.png" alt="" /></picture>
+                                                    </div>
+                                                    <Link href="/nftdetails">
+                                                        <picture><img src="assets/img/others/4top_collection01.jpg" alt="" /></picture></Link>
+                                                </div>
+                                                <div className="collection-item-content">
+                                                    <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
+                                                </div>
+                                                <div className="collection-item-bottom">
+                                                    <ul>
+                                                        <li className="avatar"><a href="#" className="thumb">
+                                                            <picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="wishlist"><a href="#">59</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                            <Link href="/nftdetails">
-                                                <picture><img src="assets/img/others/4top_collection01.jpg" alt="" /></picture></Link>
                                         </div>
-                                        <div className="collection-item-content">
-                                            <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
-                                        </div>
-                                        <div className="collection-item-bottom">
-                                            <ul>
-                                                <li className="avatar"><a href="#" className="thumb">
-                                                    <picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
-                                                <li className="wishlist"><a href="#">59</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
 
 
-                            </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="pane-B" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
+                        <div id="pane-B" className={query.tab == 'vaults' ? "card tab-pane fade show active" : "card tab-pane fade"} role="tabpanel" aria-labelledby="tab-B">
                             <div className="card-header" role="tab" id="heading-B">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-B" aria-expanded="false"
@@ -193,158 +206,37 @@ const internalLink = "/nftdetails";
                             <div id="collapse-B" className="collapse" data-bs-parent="#content" role="tabpanel"
                                 aria-labelledby="heading-B">
                                 <div className="card-body">
-                                <div className="row">
-                        <div className="col-xl-3 col-lg-4 colmd-6">
-                            <Link href={internalLink}><a href={internalLink} className="single-author">
-                                <div className="thumb">
-                                    <picture>
-                                    <img src="assets/img/others/c-bg.jpg" alt="author cover photo" />
-                                    </picture>
-                                </div>
-                                <div className="content">
-                                    <div className="author-thumb">
-                                    <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                    <div className="row">
+                                        {userData.vaults && userData.vaults.map((v, i) => (
+                                            <div className="col-xl-3 col-lg-4 colmd-6" key={v.id} style={{cursor:"pointer"}} onClick={()=>switchVault(v)}>
+                                                <div className="single-author">
+                                                    <div className="thumb">
+                                                        <picture>
+                                                            <img src="assets/img/others/c-bg.jpg" alt="author cover photo" />
+                                                        </picture>
+                                                    </div>
+                                                    <div className="content">
+                                                        <div className="author-thumb">
+                                                            <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                                        </div>
+                                                        <h4 className="title">{v.get('name')}</h4>
+                                                        <div className="collection-bio">
+                                                            <p>Symbol: {v.get('symbol')}</p>
+                                                            <p>Total Supply: {v.get('totalSupply')}</p>
+                                                            <p>Reserve Price: {v.get('reservePrice')} ETH</p>
+                                                            <p>Curator Fee: {v.get('curatorFee')} ETH</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+
+
                                     </div>
-                                    <h4 className="title">Olivia danyal</h4>
-                                    <div className="collection-bio">
-                                        <p>
-                                            Myself Olivia_ ipsum dolor amet this consectetur adipisicing elit. Quis non fugit totam laborio.
-                                        </p>
-                                    </div>
-                                </div>
-                            </a></Link>
-                        </div>
-                        <div className="col-xl-3 col-lg-4 colmd-6">
-                            <Link href={internalLink}><a href={internalLink} className="single-author">
-                                <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
-                                </div>
-                                <div className="content">
-                                    <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
-                                    </div>
-                                    <h4 className="title">Olivia danyal</h4>
-                                    <div className="collection-bio">
-                                        <p>
-                                            Myself Olivia_ ipsum dolor amet this consectetur adipisicing elit. Quis non fugit totam laborio.
-                                        </p>
-                                    </div>
-                                </div>
-                            </a></Link>
-                        </div>
-                        <div className="col-xl-3 col-lg-4 colmd-6">
-                           <Link href={internalLink}><a href={internalLink} className="single-author">
-                                <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
-                                </div>
-                                <div className="content">
-                                    <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
-                                    </div>
-                                    <h4 className="title">Olivia danyal</h4>
-                                    <div className="collection-bio">
-                                        <p>
-                                            Myself Olivia_ ipsum dolor amet this consectetur adipisicing elit. Quis non fugit totam laborio.
-                                        </p>
-                                    </div>
-                                </div>
-                            </a></Link>
-                        </div>
-                        <div className="col-xl-3 col-lg-4 colmd-6">
-                          <Link href={internalLink}><a href={internalLink} className="single-author">
-                                <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
-                                </div>
-                                <div className="content">
-                                    <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
-                                    </div>
-                                    <h4 className="title">Olivia danyal</h4>
-                                    <div className="collection-bio">
-                                        <p>
-                                            Myself Olivia_ ipsum dolor amet this consectetur adipisicing elit. Quis non fugit totam laborio.
-                                        </p>
-                                    </div>
-                                </div>
-                            </a></Link>
-                        </div>
-                        <div className="col-xl-3 col-lg-4 colmd-6">
-                           <Link href={internalLink}><a href={internalLink} className="single-author">
-                                <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
-                                </div>
-                                <div className="content">
-                                    <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
-                                    </div>
-                                    <h4 className="title">Olivia danyal</h4>
-                                    <div className="collection-bio">
-                                        <p>
-                                            Myself Olivia_ ipsum dolor amet this consectetur adipisicing elit. Quis non fugit totam laborio.
-                                        </p>
-                                    </div>
-                                </div>
-                            </a></Link>
-                        </div>
-                        <div className="col-xl-3 col-lg-4 colmd-6">
-                           <Link href={internalLink}><a href={internalLink} className="single-author">
-                                <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
-                                </div>
-                                <div className="content">
-                                    <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
-                                    </div>
-                                    <h4 className="title">Olivia danyal</h4>
-                                    <div className="collection-bio">
-                                        <p>
-                                            Myself Olivia_ ipsum dolor amet this consectetur adipisicing elit. Quis non fugit totam laborio.
-                                        </p>
-                                    </div>
-                                </div>
-                            </a></Link>
-                        </div>
-                        <div className="col-xl-3 col-lg-4 colmd-6">
-                           <Link href={internalLink}><a href={internalLink} className="single-author">
-                                <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
-                                </div>
-                                <div className="content">
-                                    <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
-                                    </div>
-                                    <h4 className="title">Olivia danyal</h4>
-                                    <div className="collection-bio">
-                                        <p>
-                                            Myself Olivia_ ipsum dolor amet this consectetur adipisicing elit. Quis non fugit totam laborio.
-                                        </p>
-                                    </div>
-                                </div>
-                            </a></Link>
-                        </div>
-                        <div className="col-xl-3 col-lg-4 colmd-6">
-                            <Link href={internalLink}><a href={internalLink} className="single-author">
-                                <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
-                                </div>
-                                <div className="content">
-                                    <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
-                                    </div>
-                                    <h4 className="title">Olivia danyal</h4>
-                                    <div className="collection-bio">
-                                        <p>
-                                            Myself Olivia_ ipsum dolor amet this consectetur adipisicing elit. Quis non fugit totam laborio.
-                                        </p>
-                                    </div>
-                                </div>
-                            </a></Link>
-                        </div>
-                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="pane-C" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-C">
+                        <div id="pane-C" className={query.tab == 'collectibles' ? "card tab-pane fade show active" : "card tab-pane fade"} role="tabpanel" aria-labelledby="tab-C">
                             <div className="card-header" role="tab" id="heading-C">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-C" aria-expanded="true" aria-controls="collapse-C">
@@ -360,11 +252,11 @@ const internalLink = "/nftdetails";
                                         <div className="col-xl-4 col-lg-4 colmd-6">
                                             <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                <picture><img src="assets/img/others/c-bg2.jpg" alt="author cover photo"/></picture>
+                                                    <picture><img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                    <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo"/></picture>
+                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -376,13 +268,13 @@ const internalLink = "/nftdetails";
                                             </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                        <Link href="/collectiondetails"><a className="single-author">
+                                            <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                <picture><img src="assets/img/others/c-bg.jpg" alt="author cover photo"/></picture>
+                                                    <picture><img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                    <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo"/></picture>
+                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -394,13 +286,13 @@ const internalLink = "/nftdetails";
                                             </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                        <Link href="/collectiondetails"><a className="single-author">
+                                            <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                <picture><img src="assets/img/others/c-bg1.jpg" alt="author cover photo"/></picture>
+                                                    <picture><img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                    <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo"/></picture>
+                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -412,13 +304,13 @@ const internalLink = "/nftdetails";
                                             </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                        <Link href="/collectiondetails"><a className="single-author">
+                                            <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                <picture><img src="assets/img/others/c-bg2.jpg" alt="author cover photo"/></picture>
+                                                    <picture><img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                    <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo"/></picture>
+                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -430,13 +322,13 @@ const internalLink = "/nftdetails";
                                             </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                        <Link href="/collectiondetails"><a className="single-author">
+                                            <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                <picture><img src="assets/img/others/c-bg.jpg" alt="author cover photo"/></picture>
+                                                    <picture><img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                    <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo"/></picture>
+                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -448,13 +340,13 @@ const internalLink = "/nftdetails";
                                             </a></Link>
                                         </div>
                                         <div className="col-xl-4 col-lg-4 colmd-6">
-                                        <Link href="/collectiondetails"><a className="single-author">
+                                            <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                    <picture><img src="assets/img/others/c-bg1.jpg" alt="author cover photo"/></picture>
+                                                    <picture><img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                    <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo"/></picture>
+                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -469,7 +361,7 @@ const internalLink = "/nftdetails";
                                 </div>
                             </div>
                         </div>
-                        <div id="pane-D" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-D">
+                        <div id="pane-D" className={query.tab == 'activebids' ? "card tab-pane fade show active" : "card tab-pane fade"} role="tabpanel" aria-labelledby="tab-D">
                             <div className="card-header" role="tab" id="heading-D">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-D" aria-expanded="true" aria-controls="collapse-D">
@@ -485,16 +377,16 @@ const internalLink = "/nftdetails";
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/1top_collection01.jpg" alt=""/></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -504,16 +396,16 @@ const internalLink = "/nftdetails";
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/2top_collection01.jpg" alt=""/></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -523,16 +415,16 @@ const internalLink = "/nftdetails";
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/3top_collection01.jpg" alt=""/></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/3top_collection01.jpg" alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -542,16 +434,16 @@ const internalLink = "/nftdetails";
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/4top_collection01.jpg" alt=""/></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/4top_collection01.jpg" alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -561,16 +453,16 @@ const internalLink = "/nftdetails";
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/1top_collection01.jpg" alt=""/></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -580,16 +472,16 @@ const internalLink = "/nftdetails";
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/2top_collection01.jpg" alt=""/></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -599,7 +491,7 @@ const internalLink = "/nftdetails";
                                 </div>
                             </div>
                         </div>
-                        <div id="pane-E" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-E">
+                        <div id="pane-E" className={query.tab == 'postbids' ? "card tab-pane fade show active" : "card tab-pane fade"} role="tabpanel" aria-labelledby="tab-E">
                             <div className="card-header" role="tab" id="heading-E">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-E" aria-expanded="true" aria-controls="collapse-E">
@@ -613,7 +505,7 @@ const internalLink = "/nftdetails";
                                     <h3 className="text-white">Under Construction</h3></div>
                             </div>
                         </div>
-                        <div id="pane-F" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-F">
+                        <div id="pane-F" className={query.tab == 'activity' ? "card tab-pane fade show active" : "card tab-pane fade"} role="tabpanel" aria-labelledby="tab-F">
                             <div className="card-header" role="tab" id="heading-F">
                                 <h5 className="mb-0">
                                     <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-F" aria-expanded="true" aria-controls="collapse-F">

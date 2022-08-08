@@ -1,11 +1,40 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper';
 import 'swiper/css/bundle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic'
-
+import { wrapper } from '../../store/store';
+import { getVault, vaultActions } from '../../store/vault/action';
+import { useDispatch, useSelector } from 'react-redux';
+import { useMoralis, useMoralisWeb3Api } from 'react-moralis';
+import { Router, useRouter } from 'next/router';
+import { Moralis } from "moralis";
+import Web3 from 'web3';
+import { Abi } from '../utils/abi';
+import BigNumber from 'bignumber.js';
+import LaunchpadModel from '../utils/launchpad_model';
+import moment from 'moment';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
+export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
+    store.dispatch(getVault({ type: vaultActions.GET }));
+    store.dispatch(getUser());
+});
 const VaultDetailsMain = () => {
+    let web3Provider;
+    const dispatch = useDispatch();
+    const router = useRouter();
+    const vaultData = useSelector((state) => state.vault_config);
+    const userData = useSelector((state) => state.launchUser);
+    const [provider, setProvider] = useState();
+    const { launchUser } = userData;
+    const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, isInitialized } = useMoralis();
+    const Web3Api = useMoralisWeb3Api();
+    const [render, setRender] = useState(true);
+    const { vault_config } = vaultData.vault_config;
+    const [vaultTokenBalance, setVaultTokenBalance] = useState(0);
+    const [vaultTokenTransfers, setVaultTokenTransfers] = useState([]);
+    const [owners, setOwners] = useState([]);
+    const [ownersBal, setOwnersBal] = useState([]);
     const [options, setOptions] = useState({
         chart: {
             id: "basic-bar"
@@ -21,6 +50,96 @@ const VaultDetailsMain = () => {
             data: [30, 40, 45, 50, 49, 60, 70, 91]
         }
     ]);
+
+    async function providerInit() {
+        try {
+            await Moralis.enableWeb3();
+            setProvider(Moralis.provider);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    async function fetchTokenBalances()  {
+        console.log('Add==>'+vault_config?.vault?.get('vaultDetails').vault);
+        const options = {
+            chain: "rinkeby",
+            token_addresses: [vault_config?.vault?.get('vaultDetails').vault],
+        };
+        const balances = await Web3Api.account.getTokenBalances(options);
+        console.log('balancesssss' + balances[0].balance);
+        setVaultTokenBalance(balances[0].balance);
+    };
+    
+    const fetchNFTOwners = async () => {
+        const options = {
+          address: vault_config?.vault?.get('vaultDetails').vault,
+          chain: "rinkeby",
+        };
+        const nftOwners = await Web3Api.token.getNFTOwners(options);
+        console.warn(nftOwners);
+      };
+
+    const fetchTokenTransfers = async () => {
+        const tq = LaunchpadModel.EthTokenTransfersQuery;
+        tq.equalTo("token_address",String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase());
+        tq.descending("updatedAt");
+        tq.limit(11);
+        const result = await tq.find();
+        // var ownersSet = new Set();
+        // result.forEach(element => {
+        //    if(element.get('from_address') != '0x0000000000000000000000000000000000000000'){ 
+        //     ownersSet.add(element.get('from_address'));
+        //    }
+        //    if(element.get('to_address') != '0x0000000000000000000000000000000000000000'){
+        //     ownersSet.add(element.get('to_address'));
+        //    }
+        // });
+
+        // setOwners(ownersSet);
+        // var obs = new Set();
+        // ownersSet.forEach(async (element) => {
+        //     const options = {
+        //         chain: "rinkeby",
+        //         token_addresses: [vault_config?.vault?.get('vaultDetails').vault],
+        //         address: element
+        //     };
+        //     const balances = await Web3Api.account.getTokenBalances(options);
+        //     obs.add({address: element, value: balances[0]?.balance});
+        // });
+        // setOwnersBal(obs);
+        // console.log('000000000000'+JSON.stringify(obs));
+        console.log('===========2=2'+JSON.stringify(result));
+        setVaultTokenTransfers(result);
+    };
+
+   
+
+    useEffect(() => {
+
+        
+        if (launchUser.wallet_address === '0x0') {
+            // open dialog for user to connect its wallet
+            router.push('/');
+        }
+        if (render && isInitialized) {
+            providerInit();
+            // web3Provider = await Moralis.enableWeb3();
+            // setProvider(Moralis.provider);
+            const web3 = new Web3(provider);
+           
+            const vcontract = new web3.eth.Contract(Abi.LaunchERC20VaultABI, vault_config.vault.get('vaultDetails').vault);
+            
+           
+            setRender(false);
+        }
+        if(isInitialized){
+            fetchTokenBalances();
+            fetchNFTOwners();
+            fetchTokenTransfers();
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isAuthenticated, dispatch]);
     return (
         <>
             <section className="breadcrumb-area breadcrumb-bg breadcrumb-bg-two">
@@ -51,20 +170,7 @@ const VaultDetailsMain = () => {
                     <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection02.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
                     <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection03.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
                 </Swiper>
-                {/* <div className="swiper mySwiper">
-                    <div className="swiper-wrapper">
-                        <div className="swiper-slide">
-                            <picture><img src="assets/img/others/top_collection01.jpg" className="img-fluid" alt="" /></picture>
-                        </div>
-                        <div className="swiper-slide">
-                            <picture><img src="assets/img/others/top_collection02.jpg" className="img-fluid" alt="" /></picture>
-                        </div>
-                        <div className="swiper-slide">
-                            <picture><img src="assets/img/others/top_collection03.jpg" className="img-fluid" alt="" /></picture>
-                        </div>
-                    </div>
-                    <div className="swiper-pagination"></div>
-                </div> */}
+
             </section>
 
             <section className="market-single-area">
@@ -77,32 +183,32 @@ const VaultDetailsMain = () => {
                                     <div><picture>
                                         <img src="assets/img/others/mp_avatar01.png" alt="author photo" className=" collection-profile" /></picture>
                                     </div>
-                                    <h2 className="title">BlitSquad by Variant</h2>
+                                    <h2 className="title">{vault_config?.vault?.get('name')}</h2>
                                     <ul className="market-details-meta">
-                                        <li>Owned by <a href="#">B14484</a></li>
-                                        <li className="wishlist">6 favorites</li>
+                                        <li>Owned by <a href="#">{vault_config?.vault?.get('curator')}</a></li>
+                                        {/* <li className="wishlist">6 favorites</li> */}
                                     </ul>
                                 </div>
                                 <div className="market-single-action">
-                                    <ul>
+                                    {/* <ul>
                                         <li><a href="#"><i className="fas fa-share-alt"></i></a></li>
                                         <li><a href="#"><i className="fi-sr-menu-dots"></i></a></li>
-                                    </ul>
+                                    </ul> */}
                                     <div className="collection-details-list">
                                         <p><span>COLLECTABLE SUPPLY</span> +10.65%</p>
                                         <p><span>IMPLIED VALUATION</span> 250.50</p>
-                                        <p><span>FRACTIONS</span> 2,311,203 LOVE</p>
-                                        <p><span>CURATOR FEE</span> 0%</p>
+                                        <p><span>FRACTIONS</span> {vault_config?.vault?.get('totalSupply')} {vault_config?.vault?.get('symbol')}</p>
+                                        <p><span>CURATOR FEE</span> {vault_config?.vault?.get('curatorFee')}%</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="market-single-content">
-                                <p>What even is an NFT? NFT stands for non-fungible token, which basically means that it&apos;s one-of-kind digital asset that belongs to you and you only. The most popular NFTs right now include artwork and music also include videos.</p>
+                                {/* <p>What even is an NFT? NFT stands for non-fungible token, which basically means that it&apos;s one-of-kind digital asset that belongs to you and you only. The most popular NFTs right now include artwork and music also include videos.</p> */}
                                 <div className="proof-authority">
                                     <h4>Proof of Authenticity</h4>
                                     <ul>
                                         <li><p><picture><img src="assets/img/others/checked.png" alt="" /></picture> Verified by fractional</p></li>
-                                        <li><a href="#"><picture><img src="assets/img/others/line-chart.png" alt="" /></picture> View on Etherscan</a></li>
+                                        <li><a href={"https://rinkeby.etherscan.io/address/"+vault_config?.vault?.get('vaultDetails').vault} target="_blank"><picture><img src="assets/img/others/line-chart.png" alt="" /></picture> View on Etherscan</a></li>
                                         <li><a href="#"><picture><img src="assets/img/others/sailboat.png" alt="" /></picture> View on Opensea</a></li>
                                     </ul>
                                 </div>
@@ -115,11 +221,11 @@ const VaultDetailsMain = () => {
                             <div className="responsive-tabs">
                                 <div className="author-product-meta">
                                     <ul className="nav nav-tabs" role="tablist">
-                                        <li className="nav-item">
+                                        {/* <li className="nav-item">
                                             <a id="tab-A" href="#pane-A" className="nav-link active" data-bs-toggle="tab" role="tab">Auction/Bidding</a>
-                                        </li>
+                                        </li> */}
                                         <li className="nav-item">
-                                            <a id="tab-B" href="#pane-B" className="nav-link" data-bs-toggle="tab" role="tab">Trade Fraction</a>
+                                            <a id="tab-B" href="#pane-B" className="nav-link active" data-bs-toggle="tab" role="tab">Trade Fraction</a>
                                         </li>
                                         <li className="nav-item">
                                             <a id="tab-C" href="#pane-C" className="nav-link" data-bs-toggle="tab" role="tab">Recent Transaction</a>
@@ -142,7 +248,7 @@ const VaultDetailsMain = () => {
                                     </ul>
                                 </div>
                                 <div id="content" className="tab-content" role="tablist">
-                                    <div id="pane-A" className="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
+                                    {/* <div id="pane-A" className="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-A">
                                         <div className="card-header" role="tab" id="heading-A">
                                             <h5 className="mb-0">
                                                 <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-A" aria-expanded="true" aria-controls="collapse-A">
@@ -184,8 +290,8 @@ const VaultDetailsMain = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div id="pane-B" className="card tab-pane fade" role="tabpanel" aria-labelledby="tab-B">
+                                    </div> */}
+                                    <div id="pane-B" className="card tab-pane fade show active" role="tabpanel" aria-labelledby="tab-B">
                                         <div className="card-header" role="tab" id="heading-B">
                                             <h5 className="mb-0">
                                                 <a className="accordion-button" data-bs-toggle="collapse" href="#collapse-B" aria-expanded="false"
@@ -200,8 +306,8 @@ const VaultDetailsMain = () => {
                                                 <div className="fraction-form">
                                                     <div className="form-grp mb-3">
                                                         <label>YOU PAY</label>
-                                                        <label className="float-end">BALANCE: 0 ETH</label>
-                                                        <input type="text" name="" placeholder="0.0" className="form-control" />
+                                                        <label className="float-end">BALANCE: {BigNumber(Moralis.Units.FromWei(launchUser?.balance?.balance, 18)).toFormat(2)} ETH</label>
+                                                        <input type="text" name="payInEth" placeholder="0.0" className="form-control" />
                                                         <select className="eth-select">
                                                             <option>ETH</option>
                                                             <option>USDT</option>
@@ -210,12 +316,12 @@ const VaultDetailsMain = () => {
                                                     </div>
                                                     <div className="form-grp nfd-conv p-3 text-center">
                                                         <a href="#"><picture><img src="assets/img/others/up-down.png" alt="" /></picture></a>
-                                                        <label>1 NFD =...ETH</label>
+                                                        <label>1 {vault_config?.vault?.get('symbol')} = {Moralis.Units.FromWei(vault_config?.vault?.get('vaultDetails').priceOfToken, 18)} ETH</label>
                                                     </div>
                                                     <div className="form-grp mb-3">
                                                         <label>YOU RECEIVE</label>
-                                                        <label className="float-end">BALANCE: 0 NFD</label>
-                                                        <input type="text" name="" placeholder="0.0" className="form-control" />
+                                                        <label className="float-end">BALANCE: {BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</label>
+                                                        <input type="text" name="receiveInToken" placeholder="0.0" className="form-control" />
                                                     </div>
                                                     <div className="form-grp gasfee mb-3">
                                                         <span>Estimated Gas + Fees</span>
@@ -266,49 +372,21 @@ const VaultDetailsMain = () => {
                                                         <thead>
                                                             <tr>
                                                                 <th scope="col" className="title">Date</th>
-                                                                <th scope="col">Wallet</th>
-                                                                <th scope="col">Trade</th>
+                                                                <th scope="col">From</th>
+                                                                <th scope="col">To</th>
                                                                 <th scope="col" className="">Amount</th>
-                                                                <th scope="col" className="">NFT Valuation</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    Jun 2, 5:04 AM
+                                                            {vaultTokenTransfers.length>0 && vaultTokenTransfers.map((v,i)=>(<tr>
+                                                                <th scope="row" className="author" style={{color:'grey'}}>
+                                                                    {moment(v.get('updatedAt')).format('DD-MMM-YYYY HH:mm A')}
                                                                 </th>
-                                                                <td className="text-danger">CL2...Fnuasa</td>
-                                                                <td>ADD 82.28 DRGNZ-SOL</td>
-                                                                <td>11.977 SOL</td>
-                                                                <td>147.02 SOL</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    Jun 2, 5:04 AM
-                                                                </th>
-                                                                <td>CL2...Fnuasa</td>
-                                                                <td>ADD 82.28 DRGNZ-SOL</td>
-                                                                <td>11.977 SOL</td>
-                                                                <td>147.02 SOL</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    Jun 2, 5:04 AM
-                                                                </th>
-                                                                <td >CL2...Fnuasa</td>
-                                                                <td>ADD 82.28 DRGNZ-SOL</td>
-                                                                <td>11.977 SOL</td>
-                                                                <td>147.02 SOL</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    Jun 2, 5:04 AM
-                                                                </th>
-                                                                <td>CL2...Fnuasa</td>
-                                                                <td>ADD 82.28 DRGNZ-SOL</td>
-                                                                <td>11.977 SOL</td>
-                                                                <td>147.02 SOL</td>
-                                                            </tr>
+                                                                <td className="text-danger">{v.get('from_address').substr(0,5)+'..'+v.get('from_address').substr(v.get('from_address').length-5,v.get('from_address').length)}</td>
+                                                                <td>{v.get('to_address').substr(0,5)+'..'+v.get('to_address').substr(v.get('to_address').length-5,v.get('to_address').length)}</td>
+                                                                <td>{BigNumber(Moralis.Units.FromWei(v.get('value'), 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
+                                                            </tr>))}
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -341,84 +419,13 @@ const VaultDetailsMain = () => {
                                                         <tbody>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Pet</a>
+                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">{launchUser?.username}</a>
                                                                 </th>
-                                                                <td>500,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
+                                                                <td>{BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
+                                                                <td>100%</td>
+                                                                <td>Ξ {BigNumber(BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).multipliedBy(vault_config?.vault?.get('reservePrice'))).toFormat(2)} ETH </td>
                                                             </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
-                                                                </th>
-                                                                <td>100,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author03.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Cards</a>
-                                                                </th>
-                                                                <td>300,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Pet</a>
-                                                                </th>
-                                                                <td>500,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
-                                                                </th>
-                                                                <td>100,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author03.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Cards</a>
-                                                                </th>
-                                                                <td>300,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Pet</a>
-                                                                </th>
-                                                                <td>500,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
-                                                                </th>
-                                                                <td>100,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author03.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Cards</a>
-                                                                </th>
-                                                                <td>300,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author02.png" alt="" /></picture> <a href="nft-marketplace.html">Trading Craft</a>
-                                                                </th>
-                                                                <td>100,000 LOVE</td>
-                                                                <td>965%</td>
-                                                                <td>Ξ 55.3969</td>
-                                                            </tr>
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -460,12 +467,12 @@ const VaultDetailsMain = () => {
                                             aria-labelledby="heading-F">
                                             <div className="card-body">
                                                 <div id="chart">
-                                                <Chart
-                                                    options={options}
-                                                    series={series}
-                                                    type="line"
-                                                    height={350}
-                                                />
+                                                    <Chart
+                                                        options={options}
+                                                        series={series}
+                                                        type="line"
+                                                        height={350}
+                                                    />
                                                 </div>
 
                                             </div>
