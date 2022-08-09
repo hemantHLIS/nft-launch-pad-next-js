@@ -27,6 +27,8 @@ const VaultDetailsMain = () => {
     const userData = useSelector((state) => state.launchUser);
     const [provider, setProvider] = useState();
     const { launchUser } = userData;
+    console.log(launchUser);
+    console.log(userData);
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, isInitialized } = useMoralis();
     const Web3Api = useMoralisWeb3Api();
     const [render, setRender] = useState(true);
@@ -378,13 +380,13 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {vaultTokenTransfers.length>0 && vaultTokenTransfers.map((v,i)=>(<tr key={item.id}>
+                                                            {vaultTokenTransfers.length>0 && vaultTokenTransfers.map((v,i)=>(<tr key={i}>
                                                                 <th scope="row" className="author" style={{color:'grey'}}>
                                                                     {moment(v.get('updatedAt')).format('DD-MMM-YYYY HH:mm A')}
                                                                 </th>
                                                                 <td className="text-danger">{v.get('from_address').substr(0,5)+'..'+v.get('from_address').substr(v.get('from_address').length-5,v.get('from_address').length)}</td>
                                                                 <td>{v.get('to_address').substr(0,5)+'..'+v.get('to_address').substr(v.get('to_address').length-5,v.get('to_address').length)}</td>
-                                                                <td>{BigNumber(Moralis.Units.FromWei(v.get('value'), 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
+                                                                <td>{(BigNumber(Moralis.Units.FromWei(v.get('value'), 18)).toFormat(2))} {vault_config?.vault?.get('symbol')}</td>
                                                             </tr>))}
                                                             
                                                         </tbody>
@@ -423,7 +425,7 @@ const VaultDetailsMain = () => {
                                                                 </th>
                                                                 <td>{BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
                                                                 <td>100%</td>
-                                                                <td>Ξ {BigNumber(BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).multipliedBy(vault_config?.vault?.get('reservePrice'))).toFormat(2)} ETH </td>
+                                                                <td> {BigNumber(BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).multipliedBy(vault_config?.vault?.get('reservePrice'))).toFormat(2)} ETH </td>
                                                             </tr>
                                                             
                                                         </tbody>

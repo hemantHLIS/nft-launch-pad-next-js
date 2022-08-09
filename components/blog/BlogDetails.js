@@ -3,31 +3,31 @@ import React from 'react'
 export default function BlogDetails(props) {
     return (
         <div className="standard-blog-item blog-details-content">
-            {props.data.map((key,item)=>{
+            {props.data.map((item, key)=>{
                 console.log(item)
                 return(
                     <>
-                    <div className="blog-thumb">
+                    <div className="blog-thumb" key={key}>
                         <picture>
-                            <img src={key.blogImage} alt="" /></picture>
+                            <img src={item.blogImage} alt="" /></picture>
                     </div>
                     <div className="standard-blog-content">
                     <ul className="standard-blog-meta">
                         <li><a href="#"><i className="flaticon-supermarket"></i>NFT Marketplace</a></li>
-                        <li><a href="#"><i className="flaticon-avatar"></i>{key.role}</a></li>
-                        <li><a href="#"><i className="flaticon-calendar"></i>{key.date}</a></li>
+                        <li><a href="#"><i className="flaticon-avatar"></i>{item.role}</a></li>
+                        <li><a href="#"><i className="flaticon-calendar"></i>{item.date}</a></li>
                     </ul>
-                    <h4 className="title">{key.blogTitle}</h4>
-                    <p>{key.description}</p>
-                    <p>{key.description}</p>
+                    <h4 className="title">{item.blogTitle}</h4>
+                    <p>{item.description}</p>
+                    <p>{item.description}</p>
                     <blockquote>
                         “ Wallet that is functional for NFT purcasin You have Coinbase account at this point.Lorem ipsum nsectetur. Non fungible tokens or NFTs are cryptographic assets on a blockchain with unique identification codes “
                         <footer>jon Bernthal</footer>
                     </blockquote>
-                    <p>{key.description}</p>
-                    <h4 className="small-title">{key.blogTitle}</h4>
-                    <p>{key.description}</p>
-                    <p>{key.description}</p>
+                    <p>{item.description}</p>
+                    <h4 className="small-title">{item.blogTitle}</h4>
+                    <p>{item.description}</p>
+                    <p>{item.description}</p>
                     <div className="blog-line"></div>
                     <div className="blog-details-bottom">
                         <div className="blog-details-tags">

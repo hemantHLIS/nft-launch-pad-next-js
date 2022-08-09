@@ -36,7 +36,8 @@ const Home = () => {
         const result = await query.find();
         var stepTempList = [];
         for(let i=0; i<result.length;i++){
-            var obj = {"step": result[i].get("step"), 
+            var obj = {
+                "step": result[i].get("step"), 
                 "title":result[i].get("title"), 
                 "description": result[i].get("description"),
                 "image": result[i].get("image")
@@ -81,7 +82,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                        {<AboutStepComponent data={stepList}/>}
+                        {<AboutStepComponent data={stepList} />}
                         {/* <div className="row justify-content-center">
                             <div className="col-xl-3 col-lg-4 col-md-6">
                                 <div className="sell-nfts-item">

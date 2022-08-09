@@ -7,9 +7,9 @@ export default function AboutUsData(props) {
 
                 <div className="row justify-content-center">
                     <div className="col-lg-10">
-                        {props.data.map((item) => {
+                        {props.data?.map((item, key) => {
                             return (<>
-                                <div className="about-banner">
+                                <div className="about-banner" key={key}>
                                     <picture>
                                         <img src={item.image} className="img-fluid" alt="" /></picture>
                                 </div>
@@ -22,11 +22,7 @@ export default function AboutUsData(props) {
                                     </p>
                                 </div></>)
                         })}
-
-
                     </div>
-
-
                 </div>
             </div>
         </section>

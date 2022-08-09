@@ -57,17 +57,10 @@ const BlogMain = () => {
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
-<<<<<<< HEAD
                                         <li><i className="flaticon-user"></i><Link href="/blog"><a></a></Link></li>
                                         <li><i className="fi-sr-calendar"></i></li>
                                     </ul>
                                     <h4 className="title"><Link href="/blogdetails"><a></a></Link></h4>
-=======
-                                        <li><i className="flaticon-user"></i><Link href="/blog"><a>{bloggerName}</a></Link></li>
-                                        <li><i className="fi-sr-calendar"></i>{date}</li>
-                                    </ul>
-                                    <h4 className="title"><Link href="/blogdetails"><a>{title}</a></Link></h4>
->>>>>>> df2310ba5d35b8e8dfb008c45f24973b43a846d7
                                     <Link href="/blogdetails" ><a className="btn" >read more</a></Link>
                                 </div>
                             </div>

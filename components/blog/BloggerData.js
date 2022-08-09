@@ -3,16 +3,16 @@ import React from 'react'
 export default function BloggerData(props) {
     return (
         <div className="avatar-post mt-50 mb-50">
-            {props.data.map((key,item)=>{
+            {props.data.map((item, key)=>{
                 console.log(item);
                 return(
                     <>
-                        <div className="post-avatar-img"><picture>
-                            <img src={key.bloggerPhoto} alt="img" /></picture>
+                        <div className="post-avatar-img" key = {key}><picture>
+                            <img src={item.bloggerPhoto} alt="img" /></picture>
                         </div>
                         <div className="post-avatar-content">
-                            <h5>{key.bloggerName}</h5>
-                            <p>{key.aboutBlogger}</p>
+                            <h5>{item.bloggerName}</h5>
+                            <p>{item.aboutBlogger}</p>
                             <ul className="post-avatar-social">
                                 <li><a href="#"><i className="fab fa-facebook-f"></i></a></li>
                                 <li><a href="#"><i className="fab fa-twitter"></i></a></li>
