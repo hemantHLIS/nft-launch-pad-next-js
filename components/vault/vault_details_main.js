@@ -14,6 +14,7 @@ import { Abi } from '../utils/abi';
 import BigNumber from 'bignumber.js';
 import LaunchpadModel from '../utils/launchpad_model';
 import moment from 'moment';
+import { getUser } from '../../store/user/action';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getVault({ type: vaultActions.GET }));
@@ -27,8 +28,6 @@ const VaultDetailsMain = () => {
     const userData = useSelector((state) => state.launchUser);
     const [provider, setProvider] = useState();
     const { launchUser } = userData;
-    console.log(launchUser);
-    console.log(userData);
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, isInitialized } = useMoralis();
     const Web3Api = useMoralisWeb3Api();
     const [render, setRender] = useState(true);
@@ -111,7 +110,7 @@ const VaultDetailsMain = () => {
         // });
         // setOwnersBal(obs);
         // console.log('000000000000'+JSON.stringify(obs));
-        console.log('===========2=2'+JSON.stringify(result));
+        // console.log('===========2=2'+JSON.stringify(result));
         setVaultTokenTransfers(result);
     };
 
@@ -119,7 +118,7 @@ const VaultDetailsMain = () => {
 
     useEffect(() => {
 
-        
+        console.log('=====>'+launchUser.balance);        
         if (launchUser.wallet_address === '0x0') {
             // open dialog for user to connect its wallet
             router.push('/');
@@ -308,7 +307,7 @@ const VaultDetailsMain = () => {
                                                 <div className="fraction-form">
                                                     <div className="form-grp mb-3">
                                                         <label>YOU PAY</label>
-                                                        <label className="float-end">BALANCE: {BigNumber(Moralis.Units.FromWei(launchUser?.balance?.balance, 18)).toFormat(2)} ETH</label>
+                                                        <label className="float-end">BALANCE: {launchUser?.balance?.balance && BigNumber(Moralis.Units.FromWei(launchUser?.balance?.balance, 18)+'').toFormat(2)} ETH</label>
                                                         <input type="text" name="payInEth" placeholder="0.0" className="form-control" />
                                                         <select className="eth-select">
                                                             <option>ETH</option>
@@ -318,11 +317,11 @@ const VaultDetailsMain = () => {
                                                     </div>
                                                     <div className="form-grp nfd-conv p-3 text-center">
                                                         <a href="#"><picture><img src="assets/img/others/up-down.png" alt="" /></picture></a>
-                                                        <label>1 {vault_config?.vault?.get('symbol')} = {Moralis.Units.FromWei(vault_config?.vault?.get('vaultDetails').priceOfToken, 18)} ETH</label>
+                                                        <label>1 {vault_config?.vault?.get('symbol')} = {vault_config?.vault?.get('vaultDetails') && Moralis.Units.FromWei(vault_config?.vault?.get('vaultDetails')?.priceOfToken+'', 18)} ETH</label>
                                                     </div>
                                                     <div className="form-grp mb-3">
                                                         <label>YOU RECEIVE</label>
-                                                        <label className="float-end">BALANCE: {BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</label>
+                                                        <label className="float-end">BALANCE: {BigNumber(Moralis.Units.FromWei(vaultTokenBalance+'', 18)+'').toFormat(2)} {vault_config?.vault?.get('symbol')}</label>
                                                         <input type="text" name="receiveInToken" placeholder="0.0" className="form-control" />
                                                     </div>
                                                     <div className="form-grp gasfee mb-3">
@@ -386,7 +385,7 @@ const VaultDetailsMain = () => {
                                                                 </th>
                                                                 <td className="text-danger">{v.get('from_address').substr(0,5)+'..'+v.get('from_address').substr(v.get('from_address').length-5,v.get('from_address').length)}</td>
                                                                 <td>{v.get('to_address').substr(0,5)+'..'+v.get('to_address').substr(v.get('to_address').length-5,v.get('to_address').length)}</td>
-                                                                <td>{(BigNumber(Moralis.Units.FromWei(v.get('value'), 18)).toFormat(2))} {vault_config?.vault?.get('symbol')}</td>
+                                                                <td>{(BigNumber(Moralis.Units.FromWei(v.get('value'), 18)+'').toFormat(2))} {vault_config?.vault?.get('symbol')}</td>
                                                             </tr>))}
                                                             
                                                         </tbody>
@@ -423,9 +422,9 @@ const VaultDetailsMain = () => {
                                                                 <th scope="row" className="author">
                                                                     <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">{launchUser?.username}</a>
                                                                 </th>
-                                                                <td>{BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
+                                                                <td>{BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)+'').toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
                                                                 <td>100%</td>
-                                                                <td> {BigNumber(BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).multipliedBy(vault_config?.vault?.get('reservePrice'))).toFormat(2)} ETH </td>
+                                                                <td> {BigNumber(BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)+'').multipliedBy(vault_config?.vault?.get('reservePrice'))+'').toFormat(2)} ETH </td>
                                                             </tr>
                                                             
                                                         </tbody>
