@@ -33,8 +33,8 @@ const MyApp = ({ Component, pageProps }) => {
   return (<>
     {!loading ? (
       <React.Fragment>
-        {/* <MoralisProvider serverUrl="https://8n6ovswvsngx.usemoralis.com:2053/server" appId="0qmWMPK74AQxrbZDdRnQsDqHWg506zMME0j0cr4s"> */}
-        <MoralisProvider serverUrl="https://98uso6yplfzn.usemoralis.com:2053/server" appId="BGFYXJYmeG1PFnD8XptoQX5IpGv5LWW61IZJ9NYD">
+         <MoralisProvider serverUrl="https://8n6ovswvsngx.usemoralis.com:2053/server" appId="0qmWMPK74AQxrbZDdRnQsDqHWg506zMME0j0cr4s"> 
+        {/*<MoralisProvider serverUrl="https://98uso6yplfzn.usemoralis.com:2053/server" appId="BGFYXJYmeG1PFnD8XptoQX5IpGv5LWW61IZJ9NYD"> */}
           {getLayout(<Component {...pageProps} />)}
         </MoralisProvider>
         <NotificationContainer/>

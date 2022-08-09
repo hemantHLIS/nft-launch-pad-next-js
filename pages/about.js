@@ -3,31 +3,29 @@ import { Moralis } from "moralis";
 import { useEffect, useState } from "react";
 import AboutUsData from "./AboutUsData";
 import { useMoralis } from "react-moralis";
+import LaunchpadModel from "../components/utils/launchpad_model";
 const About = () => {
     const { isInitialized } = useMoralis();
     var [about, setAbout] = useState([]);
-    // const [img, setImg] = useState();
+    const [img, setImg] = useState();
     const aboutUs=async()=>{
-        const LaunchpadAboutUs = Moralis.Object.extend("LaunchpadAboutUs");
-        const aboutus = new LaunchpadAboutUs();
-        const query = new Moralis.Query(aboutus);
-        const result = await query.find(); 
-        var tempAboutData = [];
-        // setAbout(result[0].get("About"));
-        // setImg(result[0].get("image"));
-        for(let i=0;i<result.length;i++){
-            var obj = {
-                "about": result[i].get("About"),
-                "image": result[i].get("image")
-            }
-        }
-        tempAboutData.push(obj);
-        console.log(tempAboutData);
-        setAbout(tempAboutData);
+       
+        const query = LaunchpadModel.LaunchpadAboutUsQuery;
+        const result = await query.first(); 
+        setAbout(result.get("About"));
+        setImg(result.get("image"));
+        
     };
+    const storeAboutUs = async()=> {
+        const LaunchpadAboutUs = new LaunchpadModel.LaunchpadAboutUs();
+        LaunchpadAboutUs.set('image','assets/img/bg/aboutbg.jpg');
+        LaunchpadAboutUs.set('About','Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ');
+       await LaunchpadAboutUs.save(); 
+    }
 
     useEffect(() => {
         if (isInitialized) {
+            // storeAboutUs();
           aboutUs();
         }
       }, [isInitialized]);
@@ -45,30 +43,27 @@ const About = () => {
                     </div>
                 </div>
             </section>
-            {<AboutUsData data={about}/>}
-            {/* <section className="latest-news-area" onLoad={aboutUs}>
+            <section className="latest-news-area" onLoad={aboutUs}>
                 <div className="container">
 
                     <div className="row justify-content-center">
                         <div className="col-lg-10">
                             <div className="about-banner">
                                 <picture>
-                                    <img src="assets/img/bg/aboutbg.jpg" className="img-fluid" alt="" /></picture>
+                                    <img src={img} className="img-fluid" alt="" /></picture>
                             </div>
                             <div className="about-description">
                                 <p>
                                     {about}
                                 </p>
-                                <p>
-                                    {about}
-                                </p>
+                                
                             </div>
                         </div>
 
 
                     </div>
                 </div>
-            </section> */}
+            </section>
         </>
     );
 }

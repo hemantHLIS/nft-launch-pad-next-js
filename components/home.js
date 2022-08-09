@@ -4,6 +4,7 @@ import { Moralis } from "moralis";
 import { useMoralis } from "react-moralis";
 import AboutStepComponent from "../pages/aboutStepComponent";
 import BlogMainComp from "./blog/BlogMainComp";
+import LaunchpadModel from "./utils/launchpad_model";
 const Home = () => {
     
     const { isInitialized } = useMoralis();
@@ -31,8 +32,8 @@ const Home = () => {
     }
 
     const stepData=async()=>{
-        const LaunchpadSteps = Moralis.Object.extend("LaunchpadSteps");
-        const query = new Moralis.Query(LaunchpadSteps);
+        
+        const query = LaunchpadModel.LaunchpadQuery;
         const result = await query.find();
         var stepTempList = [];
         for(let i=0; i<result.length;i++){
@@ -46,9 +47,51 @@ const Home = () => {
         }
         setStepList(stepTempList);
     }
+
+    const storeStepData = async()=> {
+        const LaunchpadStepsModel = LaunchpadModel.LaunchpadSteps;
+        const LaunchpadSteps =  new LaunchpadStepsModel();
+        LaunchpadSteps.set('step','GO STEP 1');
+        LaunchpadSteps.set('title','Create And Sell');
+        LaunchpadSteps.set('description','Wallet that is functional for NFT purchasing. You have Coinbase account at this point.');
+        LaunchpadSteps.set('image','assets/img/icons/nfts_01.png');
+
+        await LaunchpadSteps.save();
+
+        const LaunchpadSteps2 =  new LaunchpadStepsModel();
+
+        LaunchpadSteps2.set('step','GO STEP 2');
+        LaunchpadSteps2.set('title','Create Collection');
+        LaunchpadSteps2.set('description','Wallet that is functional for NFT purchasing. You have Coinbase account at this point.');
+        LaunchpadSteps2.set('image','assets/img/icons/nfts_02.png');
+
+        await LaunchpadSteps2.save();
+
+        const LaunchpadSteps3 =  new LaunchpadStepsModel();
+
+        LaunchpadSteps3.set('step','GO STEP 3');
+        LaunchpadSteps3.set('title','Add Your NFTs');
+        LaunchpadSteps3.set('description','Wallet that is functional for NFT purchasing. You have Coinbase account at this point.');
+        LaunchpadSteps3.set('image','assets/img/icons/nfts_03.png');
+
+        await LaunchpadSteps3.save();
+
+        const LaunchpadSteps4 =  new LaunchpadStepsModel();
+
+        LaunchpadSteps4.set('step','GO STEP 4');
+        LaunchpadSteps4.set('title','List Them For Sale');
+        LaunchpadSteps4.set('description','Wallet that is functional for NFT purchasing. You have Coinbase account at this point.');
+        LaunchpadSteps4.set('image','assets/img/icons/nfts_04.png');
+
+        await LaunchpadSteps4.save();
+
+
+
+    }
     
     useEffect(() => {
         if (isInitialized) {
+            // storeStepData();
           stepData();
           blogDetails();
         }
@@ -83,40 +126,7 @@ const Home = () => {
                             </div>
                         </div>
                         {<AboutStepComponent data={stepList} />}
-                        {/* <div className="row justify-content-center">
-                            <div className="col-xl-3 col-lg-4 col-md-6">
-                                <div className="sell-nfts-item">
-                                <picture><img src="assets/img/icons/nfts_01.png" alt="" className="icon" /></picture>
-                                    <span className="step-count">{step0}</span>
-                                    <h5 className="title">{stepTitle0}</h5>
-                                    <p>{description0}</p>
-                                </div>
-                            </div>
-                            <div className="col-xl-3 col-lg-4 col-md-6">
-                                <div className="sell-nfts-item">
-                                <picture><img src="assets/img/icons/nfts_02.png" alt="" className="icon" /></picture>
-                                    <span className="step-count">{step1}</span>
-                                    <h5 className="title">{stepTitle1}</h5>
-                                    <p>{description1}</p>
-                                </div>
-                            </div>
-                            <div className="col-xl-3 col-lg-4 col-md-6">
-                                <div className="sell-nfts-item">
-                                <picture><img src="assets/img/icons/nfts_03.png" alt="" className="icon" /></picture>
-                                    <span className="step-count">{step2}</span>
-                                    <h5 className="title">{stepTitle2}</h5>
-                                    <p>{description2}</p>
-                                </div>
-                            </div>
-                            <div className="col-xl-3 col-lg-4 col-md-6">
-                                <div className="sell-nfts-item">
-                                <picture> <img src="assets/img/icons/nfts_04.png" alt="" className="icon" /></picture>
-                                    <span className="step-count">{step3}</span>
-                                    <h5 className="title">{stepTitle3}</h5>
-                                    <p>{description3}</p>
-                                </div>
-                            </div>
-                        </div> */}
+                        
                     </div>
                 </section>
             </div>
