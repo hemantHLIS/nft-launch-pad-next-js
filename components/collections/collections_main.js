@@ -39,12 +39,12 @@ const CollectionsMain = (props) => {
                             <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb">
                                     <picture>
-                                    <img src="assets/img/others/c-bg.jpg" alt="author cover photo" />
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg.jpg"} alt="author cover photo" />
                                     </picture>
                                 </div>
                                 <div className="content">
                                     <div className="author-thumb">
-                                    <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                     </div>
                                     <h4 className="title">Olivia danyal</h4>
                                     <div className="collection-bio">
@@ -58,11 +58,11 @@ const CollectionsMain = (props) => {
                         <div className="col-xl-3 col-lg-4 colmd-6">
                             <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg1.jpg"} alt="author cover photo" /></picture>
                                 </div>
                                 <div className="content">
                                     <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                     </div>
                                     <h4 className="title">Olivia danyal</h4>
                                     <div className="collection-bio">
@@ -76,11 +76,11 @@ const CollectionsMain = (props) => {
                         <div className="col-xl-3 col-lg-4 colmd-6">
                            <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg2.jpg"} alt="author cover photo" /></picture>
                                 </div>
                                 <div className="content">
                                     <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                     </div>
                                     <h4 className="title">Olivia danyal</h4>
                                     <div className="collection-bio">
@@ -94,11 +94,11 @@ const CollectionsMain = (props) => {
                         <div className="col-xl-3 col-lg-4 colmd-6">
                           <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg.jpg"} alt="author cover photo" /></picture>
                                 </div>
                                 <div className="content">
                                     <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                     </div>
                                     <h4 className="title">Olivia danyal</h4>
                                     <div className="collection-bio">
@@ -112,11 +112,11 @@ const CollectionsMain = (props) => {
                         <div className="col-xl-3 col-lg-4 colmd-6">
                            <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg1.jpg"} alt="author cover photo" /></picture>
                                 </div>
                                 <div className="content">
                                     <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                     </div>
                                     <h4 className="title">Olivia danyal</h4>
                                     <div className="collection-bio">
@@ -130,11 +130,11 @@ const CollectionsMain = (props) => {
                         <div className="col-xl-3 col-lg-4 colmd-6">
                            <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg2.jpg"} alt="author cover photo" /></picture>
                                 </div>
                                 <div className="content">
                                     <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                     </div>
                                     <h4 className="title">Olivia danyal</h4>
                                     <div className="collection-bio">
@@ -148,11 +148,11 @@ const CollectionsMain = (props) => {
                         <div className="col-xl-3 col-lg-4 colmd-6">
                            <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg.jpg"} alt="author cover photo" /></picture>
                                 </div>
                                 <div className="content">
                                     <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                     </div>
                                     <h4 className="title">Olivia danyal</h4>
                                     <div className="collection-bio">
@@ -166,11 +166,11 @@ const CollectionsMain = (props) => {
                         <div className="col-xl-3 col-lg-4 colmd-6">
                             <Link href={internalLink}><a href={internalLink} className="single-author">
                                 <div className="thumb"><picture>
-                                    <img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg1.jpg"} alt="author cover photo" /></picture>
                                 </div>
                                 <div className="content">
                                     <div className="author-thumb"><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                     </div>
                                     <h4 className="title">Olivia danyal</h4>
                                     <div className="collection-bio">

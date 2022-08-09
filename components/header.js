@@ -15,7 +15,7 @@ const Header = () => {
                                 <div className="menu-wrap">
                                     <nav className="menu-nav">
                                         <div className="logo"><Link href="/index">
-                                            <picture><img src="assets/img/logo/logo-new.png" alt="" />
+                                            <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/logo/logo-new.png"} alt="" />
                                             </picture>
                                         </Link></div>
                                         <div className="header-form">
@@ -67,7 +67,7 @@ const Header = () => {
                                     <nav className="menu-box">
                                         <div className="close-btn"><i className="fas fa-times"></i></div>
                                         <div className="nav-logo"><a href="index.html">
-                                            <picture><img src="assets/img/logo/logo.png" alt="" /></picture></a>
+                                            <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/logo/logo.png"} alt="" /></picture></a>
                                         </div>
                                         <div className="menu-outer">
                                         </div>

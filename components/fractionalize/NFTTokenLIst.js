@@ -9,7 +9,7 @@ export default function NFTTokenLIst(props) {
                         <div className="top-collection-item">
                             <div className="collection-item-thumb">
                                 <div className="shield-icon">
-                                    <picture><img alt="" src="assets/img/others/shield.png" /></picture>
+                                    <picture><img alt="" src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} /></picture>
                                 </div>
                                 <a href="#"><picture><img src={i%2==0 ? "assets/img/others/1top_collection01.jpg":"assets/img/others/2top_collection01.jpg"} alt="" /></picture></a>
                             </div>
@@ -18,7 +18,7 @@ export default function NFTTokenLIst(props) {
                             </div>
                             <div className="collection-item-bottom">
                                 <ul>
-                                    <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                    <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
                                     <li className="wishlist"><a href="#">59</a></li>
                                 </ul>
                             </div>

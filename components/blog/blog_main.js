@@ -52,7 +52,7 @@ const BlogMain = () => {
                             <div className="latest-news-item" data={blog}>
                                 <div className="latest-news-thumb">
                                 <picture>
-                                    <img src="assets/img/blog/news_thumb01.png" alt="" />
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/news_thumb01.png"} alt="" />
                                     </picture>
                                 </div>
                                 <div className="latest-news-content">
@@ -68,7 +68,7 @@ const BlogMain = () => {
                         <div className="col-xl-4 col-md-6 col-sm-9">
                             <div className="latest-news-item">
                                 <div className="latest-news-thumb">
-                                <picture> <img src="assets/img/blog/news_thumb02.png" alt="" /></picture>
+                                <picture> <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/news_thumb02.png"} alt="" /></picture>
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
@@ -83,7 +83,7 @@ const BlogMain = () => {
                         <div className="col-xl-4 col-md-6 col-sm-9">
                             <div className="latest-news-item">
                                 <div className="latest-news-thumb">
-                                <picture> <img src="assets/img/blog/news_thumb03.png" alt="" /></picture>
+                                <picture> <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/news_thumb03.png"} alt="" /></picture>
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
@@ -99,7 +99,7 @@ const BlogMain = () => {
                             <div className="latest-news-item">
                                 <div className="latest-news-thumb">
                                     <picture>
-                                    <img src="assets/img/blog/news_thumb03.png" alt="" />
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/news_thumb03.png"} alt="" />
                                     </picture>
                                 </div>
                                 <div className="latest-news-content">
@@ -115,7 +115,7 @@ const BlogMain = () => {
                         <div className="col-xl-4 col-md-6 col-sm-9">
                             <div className="latest-news-item">
                                 <div className="latest-news-thumb">
-                                <picture><img src="assets/img/blog/news_thumb01.png" alt=""/></picture>
+                                <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/news_thumb01.png"} alt=""/></picture>
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">
@@ -130,7 +130,7 @@ const BlogMain = () => {
                         <div className="col-xl-4 col-md-6 col-sm-9">
                             <div className="latest-news-item">
                                 <div className="latest-news-thumb">
-                                <picture><img src="assets/img/blog/news_thumb02.png" alt="" /></picture>
+                                <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/news_thumb02.png"} alt="" /></picture>
                                 </div>
                                 <div className="latest-news-content">
                                     <ul className="latest-news-meta">

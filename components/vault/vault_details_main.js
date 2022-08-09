@@ -167,9 +167,9 @@ const VaultDetailsMain = () => {
                     onSlideChange={() => console.log('slide change')}
                     onSwiper={(swiper) => console.log(swiper)}
                 >
-                    <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection01.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
-                    <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection02.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
-                    <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection03.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
+                    <SwiperSlide><div className="swiper-slide"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_collection01.jpg"} className="img-fluid" alt="" /></picture></div></SwiperSlide>
+                    <SwiperSlide><div className="swiper-slide"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_collection02.jpg"} className="img-fluid" alt="" /></picture></div></SwiperSlide>
+                    <SwiperSlide><div className="swiper-slide"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_collection03.jpg"} className="img-fluid" alt="" /></picture></div></SwiperSlide>
                 </Swiper>
 
             </section>
@@ -182,7 +182,7 @@ const VaultDetailsMain = () => {
                             <div className="market-single-top">
                                 <div className="market-single-title-wrap">
                                     <div><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" className=" collection-profile" /></picture>
+                                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" className=" collection-profile" /></picture>
                                     </div>
                                     <h2 className="title">{vault_config?.vault?.get('name')}</h2>
                                     <ul className="market-details-meta">
@@ -208,9 +208,9 @@ const VaultDetailsMain = () => {
                                 <div className="proof-authority">
                                     <h4>Proof of Authenticity</h4>
                                     <ul>
-                                        <li><p><picture><img src="assets/img/others/checked.png" alt="" /></picture> Verified by fractional</p></li> 
-                                        <li><a href={"https://rinkeby.etherscan.io/address/"+vault_config?.vault?.get('vaultDetails').vault} rel="noreferrer"><picture><img src="assets/img/others/line-chart.png" alt="" /></picture> View on Etherscan</a></li>
-                                        <li><a href="#"><picture><img src="assets/img/others/sailboat.png" alt="" /></picture> View on Opensea</a></li>
+                                        <li><p><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/checked.png"} alt="" /></picture> Verified by fractional</p></li> 
+                                        <li><a href={"https://rinkeby.etherscan.io/address/"+vault_config?.vault?.get('vaultDetails').vault} rel="noreferrer"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/line-chart.png"} alt="" /></picture> View on Etherscan</a></li>
+                                        <li><a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/sailboat.png"} alt="" /></picture> View on Opensea</a></li>
                                     </ul>
                                 </div>
 
@@ -282,7 +282,7 @@ const VaultDetailsMain = () => {
                                                             <label>YOUR BID AMOUNT</label>
                                                             <label className="float-end">BALANCE: 0 ETH</label>
                                                             <div className="value-bid">303031.409818143279700892
-                                                                <span className="c-icon"><picture><img src="assets/img/icons/coin.svg" alt="" /></picture> ETH</span>
+                                                                <span className="c-icon"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/icons/coin.svg"} alt="" /></picture> ETH</span>
                                                                 <label>USE MAX</label>
                                                             </div>
                                                             <a href="#" className="buy-btn">Place Bid & Start Auction</a>
@@ -316,7 +316,7 @@ const VaultDetailsMain = () => {
                                                         </select>
                                                     </div>
                                                     <div className="form-grp nfd-conv p-3 text-center">
-                                                        <a href="#"><picture><img src="assets/img/others/up-down.png" alt="" /></picture></a>
+                                                        <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/up-down.png"} alt="" /></picture></a>
                                                         <label>1 {vault_config?.vault?.get('symbol')} = {vault_config?.vault?.get('vaultDetails') && Moralis.Units.FromWei(vault_config?.vault?.get('vaultDetails')?.priceOfToken+'', 18)} ETH</label>
                                                     </div>
                                                     <div className="form-grp mb-3">
@@ -420,7 +420,7 @@ const VaultDetailsMain = () => {
                                                         <tbody>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">{launchUser?.username}</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_activity_author01.png"} alt="" /></picture> <a href="nft-marketplace.html">{launchUser?.username}</a>
                                                                 </th>
                                                                 <td>{BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)+'').toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
                                                                 <td>100%</td>
@@ -532,7 +532,7 @@ const VaultDetailsMain = () => {
                                                         <tbody>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -540,7 +540,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -548,7 +548,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -556,7 +556,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -564,7 +564,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>

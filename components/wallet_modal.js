@@ -112,7 +112,7 @@ const WalletModal = () => {
                         <ul className="profile-menu">
                             <li className=""><a href="#" className="menu-profile">
                                 <picture>
-                                    <img src="assets/img/others/activity_author02.png" alt="" />
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/activity_author02.png"} alt="" />
                                 </picture>
                             </a>
                                 <div className="profile-box">
@@ -149,7 +149,7 @@ const WalletModal = () => {
 
                                     <button className="wallet-box" style={{ textAlign: "left" }} onClick={login}>
                                         <div className="wallet-img">
-                                            <picture><img src="assets/img/icons/meta-mask.png" alt="" /></picture>
+                                            <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/icons/meta-mask.png"} alt="" /></picture>
                                         </div>
                                         <div className="wallet-detail">
                                             <h3>MetaMask</h3>
@@ -158,7 +158,7 @@ const WalletModal = () => {
                                     </button>
                                     <button className="wallet-box" style={{ textAlign: "left" }} onClick={login}>
                                         <div className="wallet-img">
-                                            <picture><img src="assets/img/icons/c-wallet.png" alt="" /></picture>
+                                            <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/icons/c-wallet.png"} alt="" /></picture>
                                         </div>
                                         <div className="wallet-detail">
                                             <h3>Wallet Connect</h3>

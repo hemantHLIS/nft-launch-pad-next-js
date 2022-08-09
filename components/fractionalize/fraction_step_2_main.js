@@ -206,16 +206,16 @@ const FractionStep2Main = () => {
                                                     <div className={i == nftIndex.index ? "top-collection-item active" : "top-collection-item"}>
                                                         <div className="collection-item-thumb">
                                                             <div className="shield-icon">
-                                                                <picture><img alt="" src="assets/img/others/shield.png" /></picture>
+                                                                <picture><img alt="" src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} /></picture>
                                                             </div>
-                                                            <picture><img src={i % 2 == 0 ? "assets/img/others/1top_collection01.jpg" : "assets/img/others/2top_collection01.jpg"} alt="" /></picture>
+                                                            <picture><img src={i % 2 == 0 ? process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/1top_collection01.jpg" : process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/2top_collection01.jpg"} alt="" /></picture>
                                                         </div>
                                                         <div className="collection-item-content">
                                                             <h5 className="title">{item.name} <span className="symbol">{item.symbol}</span></h5>
                                                         </div>
                                                         <div className="collection-item-bottom">
                                                             <ul>
-                                                                <li className="avatar"><div className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></div>By&nbsp;<div className="name">{launchUser?.username}</div></li>
+                                                                <li className="avatar"><div className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></div>By&nbsp;<div className="name">{launchUser?.username}</div></li>
                                                                 {/* <li className="wishlist"><a>59</a></li> */}
                                                                 <li>ID:<a><b>{item.token_id}</b></a></li>
                                                             </ul>
@@ -318,7 +318,7 @@ const FractionStep2Main = () => {
 
                                     <h4>Need Help ?</h4>
                                     <div className="fractionalize-right-box">
-                                        <picture><img src="assets/img/others/rightbanner.png" className="img-fluid" alt="" /></picture>
+                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/rightbanner.png"} className="img-fluid" alt="" /></picture>
                                         <label>How to guide</label>
                                         <h4>Things to Know Before Fractionalizing NFT(s)</h4>
                                     </div>
