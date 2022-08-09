@@ -228,7 +228,7 @@ const CollectionDetailsMain = () => {
                                                                         <div className="top-collection-item">
                                                                             <div className="collection-item-thumb">
                                                                                 <div className="shield-icon">
-                                                                                    <picture><img alt="" src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"/></picture>
+                                                                                    <picture><img alt="" src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"}/></picture>
                                                                                 </div>
                                                                                 <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/4top_collection01.jpg"} alt=""/></picture></a>
                                                                             </div>

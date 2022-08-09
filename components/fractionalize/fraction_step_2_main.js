@@ -121,7 +121,7 @@ const FractionStep2Main = () => {
 
                  try {
                   
-                    await factoryContract.methods.createVault(vaultName,vaultSymbol,new BigNumber(vaultSupply).shiftedBy(18),new BigNumber(vaultReservePrice).shiftedBy(18),nftIndex.token_address, nftIndex.token_id,new BigNumber(vaultCuratorFee).shiftedBy(3)).send({from: user?.get('ethAddress')}).then(async (resp)=>{
+                    await factoryContract.methods.createVault(vaultName,vaultSymbol,"0x"+new BigNumber(vaultSupply).shiftedBy(18).toString(16),"0x"+new BigNumber(vaultReservePrice).shiftedBy(18).toString(16),nftIndex.token_address, nftIndex.token_id,"0x"+new BigNumber(vaultCuratorFee).shiftedBy(3).toString(16)).send({from: user?.get('ethAddress')}).then(async (resp)=>{
                         console.log('resp===>'+JSON.stringify(resp));
                         console.log('values===>'+resp.events.Mint.returnValues);
                         NotificationManager.success('NFT successfull fractionalized...Vault created successfully');
@@ -152,11 +152,13 @@ const FractionStep2Main = () => {
                   
                     
                  } catch (error) {
+                    console.log(error);
                     NotificationManager.error('User decline the transaction');    
                  }
                  
 
             } catch (error) {
+                console.log(error);
                 NotificationManager.error('User decline the transaction');
             }
             finally{
