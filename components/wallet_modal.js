@@ -8,8 +8,9 @@ import { getUser, loginUser } from "../store/user/action";
 import { wrapper } from "../store/store";
 import { getModalConfigs, setModalConfigs } from "../store/modals/action";
 import LaunchpadModel from "./utils/launchpad_model";
-import {  wcProviderUrl } from "./utils/walletConnectProvider";
+import {  walletConnectProvider, wcProviderUrl } from "./utils/walletConnectProvider";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import MyWalletConnectWeb3Connector from "./utils/myconnector";
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getUser());
     store.dispatch(getModalConfigs());
@@ -26,6 +27,12 @@ const WalletModal = () => {
     const [modalOpen, setModalOpen] = useState(modal_config.wallet);
     const modalOpt = modal_config.walletOpt;
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout } = useMoralis();
+
+    const wcProvider = new WalletConnectProvider({
+        rpc: {
+            4: "https://eth-rinkeby.alchemyapi.io/v2/Zm7W-MKgphvYTxRFPgVYFHcREUKIHxl4"
+        }
+    });
 
     const fetchNativeBalance = async () => {
         // get mainnet native balance for the current user
@@ -72,26 +79,62 @@ const WalletModal = () => {
         if (!isAuthenticated) {
             console.log(walletOpt);
             dispatch(setModalConfigs({ ...modal_config, walletOpt: walletOpt }));
-            await authenticate({
-                signingMessage: "Log in to NFT Launchpad",
-                provider: walletOpt,
-                // connector: new WalletConnectProvider({rpc:{4:wcProviderUrl}})
-            })
-                .then(async function (user) {
-
-                    if (user?.get('ethAddress')) {
-                        dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
-                        dispatch(setModalConfigs({ ...modal_config, wallet: false }));
-                        // get user nfts
-                        await getAllNftData();
-                    } else {
-                        console.log('Login Failed');
-                    }
-
+            if(walletOpt == 'walletconnect'){
+               
+                await authenticate({
+                    signingMessage: "Log in to NFT Launchpad",
+                    connector: MyWalletConnectWeb3Connector
                 })
-                .catch(function (error) {
-                    console.log(error);
-                });
+                    .then(async function (user) {
+    
+                        if (user?.get('ethAddress')) {
+                            dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
+                            dispatch(setModalConfigs({ ...modal_config, wallet: false }));
+                            // get user nfts
+                            await getAllNftData();
+                        } else {
+                            console.log('Login Failed');
+                        }
+    
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    }); 
+
+
+
+
+               
+                // await wcProvider.enable().then(async resp=>{
+                //     console.log(resp);
+                //     console.log(wcProvider);
+                //     if(resp[0]){
+                //         dispatch(loginUser({ ...launchUser, wallet_address: String(resp[0]).toLowerCase() }));
+                //         dispatch(setModalConfigs({ ...modal_config, wallet: false }));
+                //         await getAllNftData(String(resp[0]).toLowerCase());
+                //     }
+                // });
+            }else{
+                await authenticate({
+                    signingMessage: "Log in to NFT Launchpad",
+                    provider: walletOpt
+                })
+                    .then(async function (user) {
+    
+                        if (user?.get('ethAddress')) {
+                            dispatch(loginUser({ ...launchUser, wallet_address: user?.get('ethAddress') }));
+                            dispatch(setModalConfigs({ ...modal_config, wallet: false }));
+                            // get user nfts
+                            await getAllNftData();
+                        } else {
+                            console.log('Login Failed');
+                        }
+    
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    }); 
+            }
 
         }
     }

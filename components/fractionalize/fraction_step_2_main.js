@@ -14,6 +14,7 @@ import LaunchpadModel from "../utils/launchpad_model";
 import { useRouter } from "next/router";
 import { getMode } from "../../store/fractionalize/action";
 import { walletConnectProvider, wcProviderUrl } from "../utils/walletConnectProvider";
+import MyWalletConnectWeb3Connector from "../utils/myconnector";
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getMode());
@@ -50,6 +51,9 @@ const FractionStep2Main = () => {
         try {
             if (modal_config.walletOpt != 'walletconnect') {
                 await Moralis.enableWeb3({ provider: modal_config.walletOpt });
+                setProvider(Moralis.provider);
+            }else{
+                await Moralis.enableWeb3({ connector: MyWalletConnectWeb3Connector });
                 setProvider(Moralis.provider);
             }
         } catch (err) {
@@ -90,6 +94,8 @@ const FractionStep2Main = () => {
             dispatch(setModalConfigs({ ...modal_config, wallet: true }));
         }
         if (isAuthenticated) {
+            console.log(modal_config.walletOpt);
+            console.log('===>'+JSON.parse(localStorage.getItem('walletconnect')).connected);
             // add your logic here
             getAllNftData();
 
@@ -111,17 +117,17 @@ const FractionStep2Main = () => {
             NotificationManager.warning('Please select NFT to Fractionalize');
         } else {
             NotificationManager.info('Please approve Tx for NFT Fractionalize');
-            if (modal_config.walletOpt != 'walletconnect') {
+            if (JSON.parse(localStorage.getItem('walletconnect')).connected != true) {
                 console.log(modal_config.walletOpt);
                 web3Provider = await Moralis.enableWeb3({ provider: modal_config.walletOpt });
                 setProvider(Moralis.provider);
+            }else{
+                console.log(modal_config.walletOpt);
+                web3Provider = await Moralis.enableWeb3({ connector: MyWalletConnectWeb3Connector });
+                setProvider(Moralis.provider);
             }
-            let web3;
-            if (modal_config.walletOpt == 'walletconnect') {
-                web3 = new Web3(wcProviderUrl);
-            } else {
-                web3 = new Web3(Moralis.provider);
-            }
+            let web3 = new Web3(Moralis.provider);
+            
             const tokenContract = new web3.eth.Contract(Abi.ERC721ABI, nftIndex.token_address);
             const factoryContract = new web3.eth.Contract(Abi.LaunchFactoryABI, Abi.LaunchFactoryAddress);
             try {

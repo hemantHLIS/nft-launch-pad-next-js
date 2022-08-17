@@ -17,6 +17,7 @@ import moment from 'moment';
 import { getUser } from '../../store/user/action';
 import { getModalConfigs } from '../../store/modals/action';
 import { walletConnectProvider, wcProviderUrl } from '../utils/walletConnectProvider';
+import MyWalletConnectWeb3Connector from '../utils/myconnector';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getVault({ type: vaultActions.GET }));
@@ -61,6 +62,9 @@ const VaultDetailsMain = () => {
         try {
             if (modal_config.walletOpt != 'walletconnect') {
                 await Moralis.enableWeb3({ provider: modal_config.walletOpt });
+                setProvider(Moralis.provider);
+            }else{
+                await Moralis.enableWeb3({ connector: MyWalletConnectWeb3Connector });
                 setProvider(Moralis.provider);
             }
         } catch (err) {
