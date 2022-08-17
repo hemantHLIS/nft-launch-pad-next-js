@@ -1,0 +1,1 @@
+// class wcconnector extends Abs
