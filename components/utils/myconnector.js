@@ -29,7 +29,7 @@ class MyWalletConnectWeb3Connector extends AbstractWeb3Connector {
     if (!this.provider) {
       let WalletConnectProvider;
       const config = {
-        rpc: {4: wcProviderUrl},
+        rpc: { 4: wcProviderUrl },
         chainId: providedChainId,
         qrcodeModalOptions: {
           mobileLinks,

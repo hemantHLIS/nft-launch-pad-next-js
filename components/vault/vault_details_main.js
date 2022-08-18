@@ -24,6 +24,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
     store.dispatch(getUser());
     store.dispatch(getModalConfigs());
 });
+const UniswapDynamic = dynamic(() => import('../widgets/uniswap_dynamic'));
 const VaultDetailsMain = () => {
     let web3Provider;
     const dispatch = useDispatch();
@@ -51,6 +52,33 @@ const VaultDetailsMain = () => {
         }
     });
 
+    const [tokens, setTokens] = useState(new Set([
+        {
+        "name": "Dai Stablecoin",
+        "address": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
+        "symbol": "DAI",
+        "decimals": 18,
+        "chainId": 4,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+      },
+        {
+        "name": "Tether USD",
+        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        "symbol": "USDT",
+        "decimals": 6,
+        "chainId": 4,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"
+      },
+      {
+        "name": "USD Coin",
+        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "symbol": "USDC",
+        "decimals": 6,
+        "chainId": 4,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+      },
+      ]));
+
     const [series, setSeries] = useState([
         {
             name: "series-1",
@@ -60,13 +88,15 @@ const VaultDetailsMain = () => {
 
     async function providerInit() {
         try {
-            if (modal_config.walletOpt != 'walletconnect') {
-                await Moralis.enableWeb3({ provider: modal_config.walletOpt });
+            if (JSON.parse(localStorage.getItem('walletconnect'))?.connected != true) {
+                web3Provider = await Moralis.enableWeb3({ provider: modal_config.walletOpt });
                 setProvider(Moralis.provider);
-            }else{
-                await Moralis.enableWeb3({ connector: MyWalletConnectWeb3Connector });
+            } else {
+                console.log(modal_config.walletOpt);
+                web3Provider = await Moralis.enableWeb3({ connector: MyWalletConnectWeb3Connector });
                 setProvider(Moralis.provider);
             }
+
         } catch (err) {
             console.log(err);
         }
@@ -93,6 +123,10 @@ const VaultDetailsMain = () => {
     };
 
     const fetchTokenTransfers = async () => {
+        let tokensSet = tokens;
+        tokensSet.add({name: vault_config?.vault?.get('name'), address: String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase(), symbol: vault_config?.vault?.get('symbol'), decimals: 18, chainId: 4 });
+        
+        setTokens(tokensSet);
         const tq = LaunchpadModel.EthTokenTransfersQuery;
         tq.equalTo("token_address", String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase());
         tq.descending("updatedAt");
@@ -136,15 +170,6 @@ const VaultDetailsMain = () => {
         }
         if (render && isInitialized) {
             providerInit();
-            let web3;
-            if (modal_config.walletOpt != 'walletconnect') {
-                web3 = new Web3(provider);
-            } else {
-                web3 = new Web3(wcProviderUrl);
-            }
-
-            const vcontract = new web3.eth.Contract(Abi.LaunchERC20VaultABI, vault_config.vault.get('vaultDetails').vault);
-
 
             setRender(false);
         }
@@ -318,40 +343,7 @@ const VaultDetailsMain = () => {
                                         <div id="collapse-B" className="collapse" data-bs-parent="#content" role="tabpanel"
                                             aria-labelledby="heading-B">
                                             <div className="card-body">
-                                                <div className="fraction-form">
-                                                    <div className="form-grp mb-3">
-                                                        <label>YOU PAY</label>
-                                                        <label className="float-end">BALANCE: {launchUser?.balance?.balance && BigNumber(Moralis.Units.FromWei(launchUser?.balance?.balance, 18) + '').toFormat(2)} ETH</label>
-                                                        <input type="text" name="payInEth" placeholder="0.0" className="form-control" />
-                                                        <select className="eth-select">
-                                                            <option>ETH</option>
-                                                            <option>USDT</option>
-                                                            <option>USDC</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="form-grp nfd-conv p-3 text-center">
-                                                        <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/up-down.png"} alt="" /></picture></a>
-                                                        <label>1 {vault_config?.vault?.get('symbol')} = {vault_config?.vault?.get('vaultDetails') && Moralis.Units.FromWei(vault_config?.vault?.get('vaultDetails')?.priceOfToken + '', 18)} ETH</label>
-                                                    </div>
-                                                    <div className="form-grp mb-3">
-                                                        <label>YOU RECEIVE</label>
-                                                        <label className="float-end">BALANCE: {BigNumber(Moralis.Units.FromWei(vaultTokenBalance + '', 18) + '').toFormat(2)} {vault_config?.vault?.get('symbol')}</label>
-                                                        <input type="text" name="receiveInToken" placeholder="0.0" className="form-control" />
-                                                    </div>
-                                                    <div className="form-grp gasfee mb-3">
-                                                        <span>Estimated Gas + Fees</span>
-                                                        <span className="border-1"></span>
-                                                        <label>$0.00</label>
-                                                    </div>
-                                                    <div className="form-grp gasfee mb-3">
-                                                        <span>Min. received</span>
-                                                        <span className="border-1"></span>
-                                                        <label>0 ETH</label>
-                                                    </div>
-                                                    <div className="form-grp mt-4">
-                                                        <a href="#" className="btn w-100">Review My Order</a>
-                                                    </div>
-                                                </div>
+                                                <UniswapDynamic tokenList={Array.from(tokens)}/>
                                             </div>
                                         </div>
                                     </div>
