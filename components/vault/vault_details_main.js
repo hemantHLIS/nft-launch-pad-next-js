@@ -14,21 +14,27 @@ import { Abi } from '../utils/abi';
 import BigNumber from 'bignumber.js';
 import LaunchpadModel from '../utils/launchpad_model';
 import moment from 'moment';
+import { getUser } from '../../store/user/action';
+import { getModalConfigs } from '../../store/modals/action';
+import { walletConnectProvider, wcProviderUrl } from '../utils/walletConnectProvider';
+import MyWalletConnectWeb3Connector from '../utils/myconnector';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getVault({ type: vaultActions.GET }));
     store.dispatch(getUser());
+    store.dispatch(getModalConfigs());
 });
+const UniswapDynamic = dynamic(() => import('../widgets/uniswap_dynamic'));
 const VaultDetailsMain = () => {
     let web3Provider;
     const dispatch = useDispatch();
     const router = useRouter();
+    const modalData = useSelector((state) => state.modal_config);
     const vaultData = useSelector((state) => state.vault_config);
     const userData = useSelector((state) => state.launchUser);
     const [provider, setProvider] = useState();
     const { launchUser } = userData;
-    console.log(launchUser);
-    console.log(userData);
+    const { modal_config } = modalData;
     const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, isInitialized } = useMoralis();
     const Web3Api = useMoralisWeb3Api();
     const [render, setRender] = useState(true);
@@ -46,6 +52,33 @@ const VaultDetailsMain = () => {
         }
     });
 
+    const [tokens, setTokens] = useState(new Set([
+        {
+        "name": "Dai Stablecoin",
+        "address": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
+        "symbol": "DAI",
+        "decimals": 18,
+        "chainId": 4,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+      },
+        {
+        "name": "Tether USD",
+        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+        "symbol": "USDT",
+        "decimals": 6,
+        "chainId": 4,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"
+      },
+      {
+        "name": "USD Coin",
+        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+        "symbol": "USDC",
+        "decimals": 6,
+        "chainId": 4,
+        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+      },
+      ]));
+
     const [series, setSeries] = useState([
         {
             name: "series-1",
@@ -55,15 +88,22 @@ const VaultDetailsMain = () => {
 
     async function providerInit() {
         try {
-            await Moralis.enableWeb3();
-            setProvider(Moralis.provider);
+            if (JSON.parse(localStorage.getItem('walletconnect'))?.connected != true) {
+                web3Provider = await Moralis.enableWeb3({ provider: modal_config.walletOpt });
+                setProvider(Moralis.provider);
+            } else {
+                console.log(modal_config.walletOpt);
+                web3Provider = await Moralis.enableWeb3({ connector: MyWalletConnectWeb3Connector });
+                setProvider(Moralis.provider);
+            }
+
         } catch (err) {
             console.log(err);
         }
     }
 
-    async function fetchTokenBalances()  {
-        console.log('Add==>'+vault_config?.vault?.get('vaultDetails').vault);
+    async function fetchTokenBalances() {
+        console.log('Add==>' + vault_config?.vault?.get('vaultDetails').vault);
         const options = {
             chain: "rinkeby",
             token_addresses: [vault_config?.vault?.get('vaultDetails').vault],
@@ -72,19 +112,23 @@ const VaultDetailsMain = () => {
         console.log('balancesssss' + balances[0].balance);
         setVaultTokenBalance(balances[0].balance);
     };
-    
+
     const fetchNFTOwners = async () => {
         const options = {
-          address: vault_config?.vault?.get('vaultDetails').vault,
-          chain: "rinkeby",
+            address: vault_config?.vault?.get('vaultDetails').vault,
+            chain: "rinkeby",
         };
         const nftOwners = await Web3Api.token.getNFTOwners(options);
         console.warn(nftOwners);
-      };
+    };
 
     const fetchTokenTransfers = async () => {
+        let tokensSet = tokens;
+        tokensSet.add({name: vault_config?.vault?.get('name'), address: String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase(), symbol: vault_config?.vault?.get('symbol'), decimals: 18, chainId: 4 });
+        
+        setTokens(tokensSet);
         const tq = LaunchpadModel.EthTokenTransfersQuery;
-        tq.equalTo("token_address",String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase());
+        tq.equalTo("token_address", String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase());
         tq.descending("updatedAt");
         tq.limit(11);
         const result = await tq.find();
@@ -111,31 +155,25 @@ const VaultDetailsMain = () => {
         // });
         // setOwnersBal(obs);
         // console.log('000000000000'+JSON.stringify(obs));
-        console.log('===========2=2'+JSON.stringify(result));
+        // console.log('===========2=2'+JSON.stringify(result));
         setVaultTokenTransfers(result);
     };
 
-   
+
 
     useEffect(() => {
 
-        
+        console.log('=====>' + launchUser.balance);
         if (launchUser.wallet_address === '0x0') {
             // open dialog for user to connect its wallet
             router.push('/');
         }
         if (render && isInitialized) {
             providerInit();
-            // web3Provider = await Moralis.enableWeb3();
-            // setProvider(Moralis.provider);
-            const web3 = new Web3(provider);
-           
-            const vcontract = new web3.eth.Contract(Abi.LaunchERC20VaultABI, vault_config.vault.get('vaultDetails').vault);
-            
-           
+
             setRender(false);
         }
-        if(isInitialized){
+        if (isInitialized) {
             fetchTokenBalances();
             fetchNFTOwners();
             fetchTokenTransfers();
@@ -168,9 +206,9 @@ const VaultDetailsMain = () => {
                     onSlideChange={() => console.log('slide change')}
                     onSwiper={(swiper) => console.log(swiper)}
                 >
-                    <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection01.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
-                    <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection02.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
-                    <SwiperSlide><div className="swiper-slide"><picture><img src="assets/img/others/top_collection03.jpg" className="img-fluid" alt="" /></picture></div></SwiperSlide>
+                    <SwiperSlide><div className="swiper-slide"><picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/top_collection01.jpg"} className="img-fluid" alt="" /></picture></div></SwiperSlide>
+                    <SwiperSlide><div className="swiper-slide"><picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/top_collection02.jpg"} className="img-fluid" alt="" /></picture></div></SwiperSlide>
+                    <SwiperSlide><div className="swiper-slide"><picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/top_collection03.jpg"} className="img-fluid" alt="" /></picture></div></SwiperSlide>
                 </Swiper>
 
             </section>
@@ -183,7 +221,7 @@ const VaultDetailsMain = () => {
                             <div className="market-single-top">
                                 <div className="market-single-title-wrap">
                                     <div><picture>
-                                        <img src="assets/img/others/mp_avatar01.png" alt="author photo" className=" collection-profile" /></picture>
+                                        <img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/mp_avatar01.png"} alt="author photo" className=" collection-profile" /></picture>
                                     </div>
                                     <h2 className="title">{vault_config?.vault?.get('name')}</h2>
                                     <ul className="market-details-meta">
@@ -209,9 +247,9 @@ const VaultDetailsMain = () => {
                                 <div className="proof-authority">
                                     <h4>Proof of Authenticity</h4>
                                     <ul>
-                                        <li><p><picture><img src="assets/img/others/checked.png" alt="" /></picture> Verified by fractional</p></li> 
-                                        <li><a href={"https://rinkeby.etherscan.io/address/"+vault_config?.vault?.get('vaultDetails').vault} rel="noreferrer"><picture><img src="assets/img/others/line-chart.png" alt="" /></picture> View on Etherscan</a></li>
-                                        <li><a href="#"><picture><img src="assets/img/others/sailboat.png" alt="" /></picture> View on Opensea</a></li>
+                                        <li><p><picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/checked.png"} alt="" /></picture> Verified by fractional</p></li>
+                                        <li><a href={"https://rinkeby.etherscan.io/address/" + vault_config?.vault?.get('vaultDetails').vault} rel="noreferrer"><picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/line-chart.png"} alt="" /></picture> View on Etherscan</a></li>
+                                        <li><a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/sailboat.png"} alt="" /></picture> View on Opensea</a></li>
                                     </ul>
                                 </div>
 
@@ -283,7 +321,7 @@ const VaultDetailsMain = () => {
                                                             <label>YOUR BID AMOUNT</label>
                                                             <label className="float-end">BALANCE: 0 ETH</label>
                                                             <div className="value-bid">303031.409818143279700892
-                                                                <span className="c-icon"><picture><img src="assets/img/icons/coin.svg" alt="" /></picture> ETH</span>
+                                                                <span className="c-icon"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/icons/coin.svg"} alt="" /></picture> ETH</span>
                                                                 <label>USE MAX</label>
                                                             </div>
                                                             <a href="#" className="buy-btn">Place Bid & Start Auction</a>
@@ -305,40 +343,7 @@ const VaultDetailsMain = () => {
                                         <div id="collapse-B" className="collapse" data-bs-parent="#content" role="tabpanel"
                                             aria-labelledby="heading-B">
                                             <div className="card-body">
-                                                <div className="fraction-form">
-                                                    <div className="form-grp mb-3">
-                                                        <label>YOU PAY</label>
-                                                        <label className="float-end">BALANCE: {BigNumber(Moralis.Units.FromWei(launchUser?.balance?.balance, 18)).toFormat(2)} ETH</label>
-                                                        <input type="text" name="payInEth" placeholder="0.0" className="form-control" />
-                                                        <select className="eth-select">
-                                                            <option>ETH</option>
-                                                            <option>USDT</option>
-                                                            <option>USDC</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="form-grp nfd-conv p-3 text-center">
-                                                        <a href="#"><picture><img src="assets/img/others/up-down.png" alt="" /></picture></a>
-                                                        <label>1 {vault_config?.vault?.get('symbol')} = {Moralis.Units.FromWei(vault_config?.vault?.get('vaultDetails').priceOfToken, 18)} ETH</label>
-                                                    </div>
-                                                    <div className="form-grp mb-3">
-                                                        <label>YOU RECEIVE</label>
-                                                        <label className="float-end">BALANCE: {BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</label>
-                                                        <input type="text" name="receiveInToken" placeholder="0.0" className="form-control" />
-                                                    </div>
-                                                    <div className="form-grp gasfee mb-3">
-                                                        <span>Estimated Gas + Fees</span>
-                                                        <span className="border-1"></span>
-                                                        <label>$0.00</label>
-                                                    </div>
-                                                    <div className="form-grp gasfee mb-3">
-                                                        <span>Min. received</span>
-                                                        <span className="border-1"></span>
-                                                        <label>0 ETH</label>
-                                                    </div>
-                                                    <div className="form-grp mt-4">
-                                                        <a href="#" className="btn w-100">Review My Order</a>
-                                                    </div>
-                                                </div>
+                                                <UniswapDynamic tokenList={Array.from(tokens)}/>
                                             </div>
                                         </div>
                                     </div>
@@ -380,15 +385,15 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            {vaultTokenTransfers.length>0 && vaultTokenTransfers.map((v,i)=>(<tr key={i}>
-                                                                <th scope="row" className="author" style={{color:'grey'}}>
+                                                            {vaultTokenTransfers.length > 0 && vaultTokenTransfers.map((v, i) => (<tr key={i}>
+                                                                <th scope="row" className="author" style={{ color: 'grey' }}>
                                                                     {moment(v.get('updatedAt')).format('DD-MMM-YYYY HH:mm A')}
                                                                 </th>
-                                                                <td className="text-danger">{v.get('from_address').substr(0,5)+'..'+v.get('from_address').substr(v.get('from_address').length-5,v.get('from_address').length)}</td>
-                                                                <td>{v.get('to_address').substr(0,5)+'..'+v.get('to_address').substr(v.get('to_address').length-5,v.get('to_address').length)}</td>
-                                                                <td>{(BigNumber(Moralis.Units.FromWei(v.get('value'), 18)).toFormat(2))} {vault_config?.vault?.get('symbol')}</td>
+                                                                <td className="text-danger">{v.get('from_address').substr(0, 5) + '..' + v.get('from_address').substr(v.get('from_address').length - 5, v.get('from_address').length)}</td>
+                                                                <td>{v.get('to_address').substr(0, 5) + '..' + v.get('to_address').substr(v.get('to_address').length - 5, v.get('to_address').length)}</td>
+                                                                <td>{(BigNumber(Moralis.Units.FromWei(v.get('value'), 18) + '').toFormat(2))} {vault_config?.vault?.get('symbol')}</td>
                                                             </tr>))}
-                                                            
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -421,13 +426,13 @@ const VaultDetailsMain = () => {
                                                         <tbody>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" /></picture> <a href="nft-marketplace.html">{launchUser?.username}</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/mp_activity_author01.png"} alt="" /></picture> <a href="nft-marketplace.html">{launchUser?.username}</a>
                                                                 </th>
-                                                                <td>{BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
+                                                                <td>{BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18) + '').toFormat(2)} {vault_config?.vault?.get('symbol')}</td>
                                                                 <td>100%</td>
-                                                                <td> {BigNumber(BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18)).multipliedBy(vault_config?.vault?.get('reservePrice'))).toFormat(2)} ETH </td>
+                                                                <td> {BigNumber(BigNumber(Moralis.Units.FromWei(vaultTokenBalance, 18) + '').multipliedBy(vault_config?.vault?.get('reservePrice')) + '').toFormat(2)} ETH </td>
                                                             </tr>
-                                                            
+
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -533,7 +538,7 @@ const VaultDetailsMain = () => {
                                                         <tbody>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -541,7 +546,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -549,7 +554,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -557,7 +562,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>
@@ -565,7 +570,7 @@ const VaultDetailsMain = () => {
                                                             </tr>
                                                             <tr>
                                                                 <th scope="row" className="author">
-                                                                    <picture><img src="assets/img/others/mp_activity_author01.png" alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
+                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/mp_activity_author01.png"} alt="" className="mCS_img_loaded" /></picture> <a href="#" className="text-black">Stoned App #544</a>
                                                                 </th>
                                                                 <td className="text-black">99.82% <span className="d-block">998.2 fractions</span></td>
                                                                 <td className="text-black">1,008.18 SAC <span className="d-block">80.58 SOL</span></td>

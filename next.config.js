@@ -1,5 +1,7 @@
 const webpack = require("webpack")
 const nextConfig = {
+  basePath: '/nft-website',
+  trailingSlash: true,
   reactStrictMode: false,
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     config.plugins.push(

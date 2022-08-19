@@ -19,20 +19,20 @@ export default function Layout(props) {
                 <ScrollButton smooth />
             </div>
             <Footer />
-            <Script src="assets/js/vendor/jquery-3.6.0.min.js"></Script>
+            <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/vendor/jquery-3.6.0.min.js"}></Script>
  
-            <Script src="assets/js/swiper-bundle.min.js"></Script>
+            <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/swiper-bundle.min.js"}></Script>
 
-            <Script src="assets/js/bootstrap.min.js"></Script>
-            <Script src="assets/js/isotope.pkgd.min.js"></Script>
-            <Script src="assets/js/imagesloaded.pkgd.min.js"></Script>
-            {/* <Script src="assets/js/jquery.magnific-popup.min.js"></Script> */}
-            {/* <Script src="assets/js/jquery.mCustomScrollbar.concat.min.js"></Script> */}
-            {/* <Script src="assets/js/slick.min.js"></Script> */}
-            <Script src="assets/js/wow.min.js"></Script>
-            {/* <Script src="assets/js/plugins.js"></Script> */}
-            <Script src="assets/js/apexcharts.js"></Script>
-            <Script src="assets/js/main.js"></Script>
+            <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/bootstrap.min.js"}></Script>
+            <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/isotope.pkgd.min.js"}></Script>
+            <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/imagesloaded.pkgd.min.js"}></Script>
+            {/* <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/jquery.magnific-popup.min.js"></Script> */}
+            {/* <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/jquery.mCustomScrollbar.concat.min.js"></Script> */}
+            {/* <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/slick.min.js"></Script> */}
+            <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/wow.min.js"}></Script>
+            {/* <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/plugins.js"></Script> */}
+            <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/apexcharts.js"}></Script>
+            <Script src={process.env.NEXT_PUBLIC_APP_URL+"/assets/js/main.js"}></Script>
             
         </>
     );

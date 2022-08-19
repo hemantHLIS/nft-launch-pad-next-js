@@ -30,7 +30,7 @@ const FaqMain = () => {
             setRender(false);
         }
 
-    });
+    },[isInitialized,render]);
 
 
 

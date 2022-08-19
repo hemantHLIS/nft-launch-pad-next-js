@@ -6,7 +6,7 @@ class LaunchPad extends Document {
     return (
       <Html>
         <Head>
-          <link rel="shortcut icon" href="assets/img/favicon.png" />
+          <link rel="shortcut icon" href={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/favicon.png"} />
         </Head>
         <body>
           <Main />

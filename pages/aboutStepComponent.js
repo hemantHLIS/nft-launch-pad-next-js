@@ -4,7 +4,6 @@ export default function aboutStepComponent(props) {
     return (
         <div className="row justify-content-center">
             {props.data?.map((item, key) => {
-                console.log(item);
                 return (
                     <div className="col-xl-3 col-lg-4 col-md-6" key={key}>
                         <div className="sell-nfts-item">

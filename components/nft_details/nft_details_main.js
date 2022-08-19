@@ -37,7 +37,7 @@ const NftDetailsMain = () => {
                         <div className="col-lg-6">
                             <div className="market-single-img">
                                 <picture>
-                                <img src="assets/img/others/market_details_img.png" alt="" />
+                                <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/market_details_img.png"} alt="" />
                                 </picture>
                             </div>
                         </div>

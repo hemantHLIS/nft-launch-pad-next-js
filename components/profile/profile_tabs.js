@@ -60,17 +60,17 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                        <picture> <img src="assets/img/others/shield.png" alt="" /></picture>
+                                                        <picture> <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt="" /></picture>
                                                     </div>
                                                     <Link href="/nftdetails">
-                                                        <picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></Link>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/1top_collection01.jpg"} alt="" /></picture></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -81,16 +81,16 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
                                                         <picture>
-                                                            <img src="assets/img/others/shield.png" alt="" /></picture>
+                                                            <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></Link>
+                                                    <Link href="/nftdetails"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/2top_collection01.jpg"} alt="" /></picture></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -101,12 +101,12 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
                                                         <picture>
-                                                            <img alt="" src="assets/img/others/shield.png" />
+                                                            <img alt="" src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} />
                                                         </picture>
                                                     </div>
                                                     <Link href="/nftdetails">
                                                         <picture>
-                                                            <img src="assets/img/others/3top_collection01.jpg" alt="" />
+                                                            <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/3top_collection01.jpg"} alt="" />
                                                         </picture></Link>
                                                 </div>
                                                 <div className="collection-item-content">
@@ -116,7 +116,7 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                                     <ul>
                                                         <li className="avatar"><a href="#" className="thumb">
                                                             <picture>
-                                                                <img src="assets/img/others/top_col_avatar.png" alt="" />
+                                                                <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" />
                                                             </picture></a>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
@@ -128,18 +128,18 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
                                                         <picture>
-                                                            <img alt="" src="assets/img/others/shield.png" />
+                                                            <img alt="" src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} />
                                                         </picture>
                                                     </div>
                                                     <Link href="/nftdetails">
-                                                        <picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></Link>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/2top_collection01.jpg"} alt="" /></picture></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -150,18 +150,18 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
                                                         <picture>
-                                                            <img alt="" src="assets/img/others/shield.png" />
+                                                            <img alt="" src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} />
                                                         </picture>
                                                     </div>
                                                     <Link href="/nftdetails">
-                                                        <picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></Link>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/1top_collection01.jpg"} alt="" /></picture></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -171,10 +171,10 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon"><picture>
-                                                        <img src="assets/img/others/shield.png" alt="" /></picture>
+                                                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt="" /></picture>
                                                     </div>
                                                     <Link href="/nftdetails">
-                                                        <picture><img src="assets/img/others/4top_collection01.jpg" alt="" /></picture></Link>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/4top_collection01.jpg"} alt="" /></picture></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails">NFT Collection</Link> <span className="price">5.4 ETH</span></h5>
@@ -182,7 +182,7 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                                 <div className="collection-item-bottom">
                                                     <ul>
                                                         <li className="avatar"><a href="#" className="thumb">
-                                                            <picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                            <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -212,12 +212,12 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                                 <div className="single-author">
                                                     <div className="thumb">
                                                         <picture>
-                                                            <img src="assets/img/others/c-bg.jpg" alt="author cover photo" />
+                                                            <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg.jpg"} alt="author cover photo" />
                                                         </picture>
                                                     </div>
                                                     <div className="content">
                                                         <div className="author-thumb">
-                                                            <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                                            <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                                         </div>
                                                         <h4 className="title">{v.get('name')}</h4>
                                                         <div className="collection-bio">
@@ -252,11 +252,11 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                         <div className="col-xl-4 col-lg-4 colmd-6">
                                             <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                    <picture><img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
+                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg2.jpg"} alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -270,11 +270,11 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                         <div className="col-xl-4 col-lg-4 colmd-6">
                                             <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                    <picture><img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
+                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg.jpg"} alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -288,11 +288,11 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                         <div className="col-xl-4 col-lg-4 colmd-6">
                                             <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                    <picture><img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
+                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg1.jpg"} alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -306,11 +306,11 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                         <div className="col-xl-4 col-lg-4 colmd-6">
                                             <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                    <picture><img src="assets/img/others/c-bg2.jpg" alt="author cover photo" /></picture>
+                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg2.jpg"} alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -324,11 +324,11 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                         <div className="col-xl-4 col-lg-4 colmd-6">
                                             <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                    <picture><img src="assets/img/others/c-bg.jpg" alt="author cover photo" /></picture>
+                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg.jpg"} alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -342,11 +342,11 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                         <div className="col-xl-4 col-lg-4 colmd-6">
                                             <Link href="/collectiondetails"><a className="single-author">
                                                 <div className="thumb">
-                                                    <picture><img src="assets/img/others/c-bg1.jpg" alt="author cover photo" /></picture>
+                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/c-bg1.jpg"} alt="author cover photo" /></picture>
                                                 </div>
                                                 <div className="content">
                                                     <div className="author-thumb">
-                                                        <picture><img src="assets/img/others/mp_avatar01.png" alt="author photo" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" /></picture>
                                                     </div>
                                                     <h4 className="title">Olivia danyal</h4>
                                                     <div className="collection-bio">
@@ -377,16 +377,16 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/1top_collection01.jpg"} alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -396,16 +396,16 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/2top_collection01.jpg"} alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -415,16 +415,16 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/3top_collection01.jpg" alt="" /></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/3top_collection01.jpg"} alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -434,16 +434,16 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/4top_collection01.jpg" alt="" /></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/4top_collection01.jpg"} alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -453,16 +453,16 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/1top_collection01.jpg" alt="" /></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/1top_collection01.jpg"} alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -472,16 +472,16 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                             <div className="top-collection-item">
                                                 <div className="collection-item-thumb">
                                                     <div className="shield-icon">
-                                                        <picture><img src="assets/img/others/shield.png" alt="" /></picture>
+                                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt="" /></picture>
                                                     </div>
-                                                    <Link href="/nftdetails"><a><picture><img src="assets/img/others/2top_collection01.jpg" alt="" /></picture></a></Link>
+                                                    <Link href="/nftdetails"><a><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/2top_collection01.jpg"} alt="" /></picture></a></Link>
                                                 </div>
                                                 <div className="collection-item-content">
                                                     <h5 className="title"><Link href="/nftdetails"><a>NFT Collection</a></Link> <span className="price">5.4 ETH</span></h5>
                                                 </div>
                                                 <div className="collection-item-bottom">
                                                     <ul>
-                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
+                                                        <li className="avatar"><Link href="/nftdetails"><a className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt="" /></picture></a></Link>By <a href="#" className="name">Jonson</a></li>
                                                         <li className="wishlist"><a href="#">59</a></li>
                                                     </ul>
                                                 </div>
@@ -520,7 +520,7 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                         <div className="activity-item">
                                             <div className="lab-inner d-flex flex-wrap align-items-center p-3 p-md-4">
                                                 <div className="lab-thumb me-3 me-md-4">
-                                                    <picture><img src="assets/img/others/top_collection07.jpg" alt="img" /></picture>
+                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_collection07.jpg"} alt="img" /></picture>
                                                 </div>
                                                 <div className="lab-content">
                                                     <h4><a href="#">Gold digger x</a>
@@ -538,7 +538,7 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                         <div className="activity-item">
                                             <div className="lab-inner d-flex flex-wrap align-items-center p-3 p-md-4">
                                                 <div className="lab-thumb me-3 me-md-4">
-                                                    <picture><img src="assets/img/others/top_collection07.jpg" alt="img" /></picture>
+                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_collection07.jpg"} alt="img" /></picture>
                                                 </div>
                                                 <div className="lab-content">
                                                     <h4><a href="#">Gold digger x</a>
@@ -556,7 +556,7 @@ const ProfileTabs = ({ userData, vault_config }) => {
                                         <div className="activity-item">
                                             <div className="lab-inner d-flex flex-wrap align-items-center p-3 p-md-4">
                                                 <div className="lab-thumb me-3 me-md-4">
-                                                    <picture>  <img src="assets/img/others/top_collection07.jpg" alt="img" /></picture>
+                                                    <picture>  <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_collection07.jpg"} alt="img" /></picture>
                                                 </div>
                                                 <div className="lab-content">
                                                     <h4><a href="#">Gold digger x</a>

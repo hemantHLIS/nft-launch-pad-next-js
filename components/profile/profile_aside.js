@@ -19,11 +19,11 @@ const ProfileAside = ({userData}) => {
             <aside className="author-profile-wrap">
                 <div className="author-profile-thumb">
                     <picture>
-                        <img src="assets/img/others/author_profile.png" alt="" />
+                        <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/author_profile.png"} alt="" />
                     </picture>
                 </div>
                 <div className="author-info" onLoad={callMyProfile}>
-                    <h5 className="title">{name} <picture><img src="assets/img/icons/star.svg" alt=""/></picture></h5>
+                    <h5 className="title">{name} <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/icons/star.svg"} alt=""/></picture></h5>
                     <span>{gender}</span>
                     <p>Myself {name} ipsum dolor amet this consectetur adipisicing elit. Quis non fugit totam laborio.</p>
                 </div>
