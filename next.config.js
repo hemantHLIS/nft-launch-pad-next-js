@@ -6,8 +6,10 @@ const nextConfig = {
       new webpack.ProvidePlugin({
         $:"jquery",
         jQuery:"jquery",
+        fs:"empty",
      "window.jQuery": "jquery",
    })
+   
   );
 return config;
   },

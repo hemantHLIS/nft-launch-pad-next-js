@@ -1,6 +1,23 @@
 import Link from "next/link";
+import React, { useEffect, useState } from 'react';
+import { Moralis } from "moralis";
 
 const Footer = () => {
+    const [email, setEmail] = useState("");
+    const handleEmail=(e)=>{
+        setEmail(e.target.value);
+    }
+    const getEmail=()=>{
+        // console.log(email);
+        setEmail("");
+
+        const LaunchSubscribeUs = Moralis.Object.extend("LaunchSubscribeUs");
+        const launchSubscribeUs = new LaunchSubscribeUs();
+
+        launchSubscribeUs.set("email", email);
+
+        launchSubscribeUs.save();
+    }
     return (<>
         <footer>
             <div className="footer-top-wrap">
@@ -47,8 +64,8 @@ const Footer = () => {
                             <div className="footer-widget">
                                 <h4 className="fw-title">Subscribe Us</h4>
                                 <form action="#" className="newsletter-form">
-                                    <input type="email" placeholder="info@youmail.com" />
-                                    <button type="submit"><i className="flaticon-small-rocket-ship-silhouette"></i></button>
+                                    <input type="email" placeholder="info@youmail.com" onChange={handleEmail} value={email} />
+                                    <button type="submit"><i className="flaticon-small-rocket-ship-silhouette" onClick={getEmail}></i></button>
                                 </form>
                             </div>
                         </div>
