@@ -59,7 +59,7 @@ const FractionStep1Main = () => {
                                 <div className="fractionalize-right">
                                     <h3>Need Help ?</h3>
                                     <div className="fractionalize-right-box">
-                                        <picture><img src="assets/img/others/rightbanner.png" className="img-fluid" alt="" /></picture>
+                                        <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/rightbanner.png"} className="img-fluid" alt="" /></picture>
                                         <label>How to guide</label>
                                         <h4>Things to Know Before Fractionalizing NFT(s)</h4>
                                     </div>

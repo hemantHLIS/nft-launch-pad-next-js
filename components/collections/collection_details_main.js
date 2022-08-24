@@ -28,7 +28,7 @@ const CollectionDetailsMain = () => {
                                 <div className="market-single-title-wrap">
                                     <div>
                                         <picture>
-                                            <img src="assets/img/others/mp_avatar01.png" alt="author photo" className=" collection-profile" />
+                                            <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/mp_avatar01.png"} alt="author photo" className=" collection-profile" />
                                         </picture>
                                     </div>
                                     <h2 className="title">Anatomy Science Club</h2>
@@ -190,16 +190,16 @@ const CollectionDetailsMain = () => {
                                                                         <div className="top-collection-item">
                                                                             <div className="collection-item-thumb">
                                                                                 <div className="shield-icon">
-                                                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt=""/></picture>
                                                                                 </div>
-                                                                                <a href="#"><picture><img src="assets/img/others/2top_collection01.jpg" alt=""/></picture></a>
+                                                                                <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/2top_collection01.jpg"} alt=""/></picture></a>
                                                                             </div>
                                                                             <div className="collection-item-content">
                                                                                 <h5 className="title"><a href="#">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
                                                                             </div>
                                                                             <div className="collection-item-bottom">
                                                                                 <ul>
-                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                                                     <li className="wishlist"><a href="#">59</a></li>
                                                                                 </ul>
                                                                             </div>
@@ -209,16 +209,16 @@ const CollectionDetailsMain = () => {
                                                                         <div className="top-collection-item">
                                                                             <div className="collection-item-thumb">
                                                                                 <div className="shield-icon">
-                                                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt=""/></picture>
                                                                                 </div>
-                                                                                <a href="#"><picture><img src="assets/img/others/1top_collection01.jpg" alt=""/></picture></a>
+                                                                                <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/1top_collection01.jpg"} alt=""/></picture></a>
                                                                             </div>
                                                                             <div className="collection-item-content">
                                                                                 <h5 className="title"><a href="#">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
                                                                             </div>
                                                                             <div className="collection-item-bottom">
                                                                                 <ul>
-                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                                                     <li className="wishlist"><a href="#">59</a></li>
                                                                                 </ul>
                                                                             </div>
@@ -228,16 +228,16 @@ const CollectionDetailsMain = () => {
                                                                         <div className="top-collection-item">
                                                                             <div className="collection-item-thumb">
                                                                                 <div className="shield-icon">
-                                                                                    <picture><img alt="" src="assets/img/others/shield.png"/></picture>
+                                                                                    <picture><img alt="" src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"}/></picture>
                                                                                 </div>
-                                                                                <a href="#"><picture><img src="assets/img/others/4top_collection01.jpg" alt=""/></picture></a>
+                                                                                <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/4top_collection01.jpg"} alt=""/></picture></a>
                                                                             </div>
                                                                             <div className="collection-item-content">
                                                                                 <h5 className="title"><a href="#">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
                                                                             </div>
                                                                             <div className="collection-item-bottom">
                                                                                 <ul>
-                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                                                     <li className="wishlist"><a href="#">59</a></li>
                                                                                 </ul>
                                                                             </div>
@@ -247,16 +247,16 @@ const CollectionDetailsMain = () => {
                                                                         <div className="top-collection-item">
                                                                             <div className="collection-item-thumb">
                                                                                 <div className="shield-icon">
-                                                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt=""/></picture>
                                                                                 </div>
-                                                                                <a href="#"><picture><img src="assets/img/others/1top_collection01.jpg" alt=""/></picture></a>
+                                                                                <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/1top_collection01.jpg"} alt=""/></picture></a>
                                                                             </div>
                                                                             <div className="collection-item-content">
                                                                                 <h5 className="title"><a href="#">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
                                                                             </div>
                                                                             <div className="collection-item-bottom">
                                                                                 <ul>
-                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                                                     <li className="wishlist"><a href="#">59</a></li>
                                                                                 </ul>
                                                                             </div>
@@ -266,16 +266,16 @@ const CollectionDetailsMain = () => {
                                                                         <div className="top-collection-item">
                                                                             <div className="collection-item-thumb">
                                                                                 <div className="shield-icon">
-                                                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt=""/></picture>
                                                                                 </div>
-                                                                                <a href="#"><picture><img src="assets/img/others/2top_collection01.jpg" alt=""/></picture></a>
+                                                                                <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/2top_collection01.jpg"} alt=""/></picture></a>
                                                                             </div>
                                                                             <div className="collection-item-content">
                                                                                 <h5 className="title"><a href="#">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
                                                                             </div>
                                                                             <div className="collection-item-bottom">
                                                                                 <ul>
-                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                                                     <li className="wishlist"><a href="#">59</a></li>
                                                                                 </ul>
                                                                             </div>
@@ -285,16 +285,16 @@ const CollectionDetailsMain = () => {
                                                                         <div className="top-collection-item">
                                                                             <div className="collection-item-thumb">
                                                                                 <div className="shield-icon">
-                                                                                    <picture><img src="assets/img/others/shield.png" alt=""/></picture>
+                                                                                    <picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/shield.png"} alt=""/></picture>
                                                                                 </div>
-                                                                                <a href="#"><picture><img src="assets/img/others/3top_collection01.jpg" alt=""/></picture></a>
+                                                                                <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/3top_collection01.jpg"} alt=""/></picture></a>
                                                                             </div>
                                                                             <div className="collection-item-content">
                                                                                 <h5 className="title"><a href="#">NFT Collection</a> <span className="price">5.4 ETH</span></h5>
                                                                             </div>
                                                                             <div className="collection-item-bottom">
                                                                                 <ul>
-                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
+                                                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_col_avatar.png"} alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
                                                                                     <li className="wishlist"><a href="#">59</a></li>
                                                                                 </ul>
                                                                             </div>
@@ -324,7 +324,7 @@ const CollectionDetailsMain = () => {
                                                         <div className="activity-item">
                                                             <div className="lab-inner d-flex flex-wrap align-items-center p-3 p-md-4">
                                                                 <div className="lab-thumb me-3 me-md-4"><picture>
-                                                                    <img src="assets/img/others/top_collection07.jpg" alt="img"/></picture>
+                                                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_collection07.jpg"} alt="img"/></picture>
                                                                 </div>
                                                                 <div className="lab-content">
                                                                     <h4><a href="#">Gold digger x</a>
@@ -342,7 +342,7 @@ const CollectionDetailsMain = () => {
                                                         <div className="activity-item">
                                                             <div className="lab-inner d-flex flex-wrap align-items-center p-3 p-md-4">
                                                                 <div className="lab-thumb me-3 me-md-4"><picture>
-                                                                    <img src="assets/img/others/top_collection07.jpg" alt="img"/></picture>
+                                                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_collection07.jpg"} alt="img"/></picture>
                                                                 </div>
                                                                 <div className="lab-content">
                                                                     <h4><a href="#">Gold digger x</a>
@@ -361,7 +361,7 @@ const CollectionDetailsMain = () => {
                                                             <div className="lab-inner d-flex flex-wrap align-items-center p-3 p-md-4">
                                                                 <div className="lab-thumb me-3 me-md-4">
                                                                     <picture>
-                                                                    <img src="assets/img/others/top_collection07.jpg" alt="img"/></picture>
+                                                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/others/top_collection07.jpg"} alt="img"/></picture>
                                                                 </div>
                                                                 <div className="lab-content">
                                                                     <h4><a href="#">Gold digger x</a>

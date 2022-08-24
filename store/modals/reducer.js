@@ -2,7 +2,8 @@ import { modalsActionTypes } from "./action";
 
 const modalInitialState = {
     modal_config: {
-        wallet: false
+        wallet: false,
+        walletOpt: 'metamask'
     }
 }
 

@@ -60,7 +60,7 @@ const BlogDetailsMain = () => {
                         {/* <div className="standard-blog-item blog-details-content">
                             <div className="blog-thumb">
                                 <picture>
-                                    <img src="assets/img/blog/blog_thumb01.png" alt="" /></picture>
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/blog_thumb01.png"} alt="" /></picture>
                             </div>
                             <div className="standard-blog-content">
                                 <ul className="standard-blog-meta">
@@ -103,7 +103,7 @@ const BlogDetailsMain = () => {
 
                         {/* <div className="avatar-post mt-50 mb-50">
                             <div className="post-avatar-img"><picture>
-                                <img src="assets/img/blog/post_avatar_img.png" alt="img" /></picture>
+                                <img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/post_avatar_img.png"} alt="img" /></picture>
                             </div>
                             <div className="post-avatar-content">
                                 <h5></h5>
@@ -119,10 +119,10 @@ const BlogDetailsMain = () => {
                         <div className="blog-next-prev">
                             <ul>
                                 <li className="blog-prev">
-                                    <a href="#"><picture><img src="assets/img/icons/left_arrow.png" alt="img" /></picture>Previous Post</a>
+                                    <a href="#"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/icons/left_arrow.png"} alt="img" /></picture>Previous Post</a>
                                 </li>
                                 <li className="blog-next">
-                                    <a href="#">Next Post<picture><img src="assets/img/icons/right_arrow.png" alt="img" /></picture></a>
+                                    <a href="#">Next Post<picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/icons/right_arrow.png"} alt="img" /></picture></a>
                                 </li>
                             </ul>
                         </div>
@@ -176,7 +176,7 @@ const BlogDetailsMain = () => {
                                     <ul>
                                         <li>
                                             <div className="rc-post-thumb">
-                                                <Link href="/blogdetails"><picture><img src="assets/img/blog/rc_post_thumb01.jpg" alt="" /></picture></Link>
+                                                <Link href="/blogdetails"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/rc_post_thumb01.jpg"} alt="" /></picture></Link>
                                             </div>
                                             <div className="rc-post-content">
                                                 <ul className="standard-blog-meta">
@@ -188,7 +188,7 @@ const BlogDetailsMain = () => {
                                         </li>
                                         <li>
                                             <div className="rc-post-thumb">
-                                                <Link href="/blogdetails"><picture><img src="assets/img/blog/rc_post_thumb02.jpg" alt="" /></picture></Link>
+                                                <Link href="/blogdetails"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/blog/rc_post_thumb02.jpg"} alt="" /></picture></Link>
                                             </div>
                                             <div className="rc-post-content">
                                                 <ul className="standard-blog-meta">

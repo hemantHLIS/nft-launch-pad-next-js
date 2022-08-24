@@ -5,7 +5,6 @@ export default function BlogMainComp(props) {
     return (
         <div className="row justify-content-center">
             {props.data?.map((item, key) => {
-                console.log(item)
                 return (
                     <div className="col-xl-4 col-md-6 col-sm-9" key={key}>
                         <div className="latest-news-item">

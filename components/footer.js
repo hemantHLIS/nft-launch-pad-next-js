@@ -26,7 +26,7 @@ const Footer = () => {
                         <div className="col-xl-3 col-lg-4 col-md-5 col-sm-9">
                             <div className="footer-widget">
                                 <div className="footer-logo mb-25">
-                                    <Link href="/"><picture><img src="assets/img/logo/logo.png" alt="" /></picture></Link>
+                                    <Link href="/"><picture><img src={process.env.NEXT_PUBLIC_APP_URL+"/assets/img/logo/logo.png"} alt="" /></picture></Link>
                                 </div>
                                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Natus veritatis sequi doloribus fuga.</p>
                                 <ul className="footer-social">

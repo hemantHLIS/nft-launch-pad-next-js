@@ -1,4 +1,7 @@
 import React from 'react'
+// const pinataSDK = require('@pinata/sdk');
+// const pinata = pinataSDK('284b4b36eeaf0ce82012', 'ead64c10875087ebf67f560782de5ceb6aa017ddd0fa006f85002348b1bfff5d');
+
 
 export default function NFTTokenLIst(props) {
     
@@ -20,7 +23,32 @@ export default function NFTTokenLIst(props) {
           let CID = myArray[4];
           console.log("GET CID DATA",CID);
 
-        
+        //   var data = JSON.stringify({
+        //     "hashToPin": CID,
+        //     "pinataMetadata": {
+        //       "name": "MyCustomName",
+        //       "keyvalues": {
+        //         "customKey": "customValue",
+        //         "customKey2": "customValue2"
+        //       }
+        //     }
+        //   });
+          
+        //   var config = {
+        //     method: 'post',
+        //     url: 'https://api.pinata.cloud/pinning/pinByHash',
+        //     headers: { 
+        //       'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjYzcxZDdlYS03MWU3LTRmNjEtODZmMy1hMDUzYzJmYWVlYTIiLCJlbWFpbCI6ImNoaW50YW5zdXJ5YXdhbnNoaTFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjI4NGI0YjM2ZWVhZjBjZTgyMDEyIiwic2NvcGVkS2V5U2VjcmV0IjoiZWFkNjRjMTA4NzUwODdlYmY2N2Y1NjA3ODJkZTVjZWI2YWEwMTdkZGQwZmEwMDZmODUwMDIzNDhiMWJmZmY1ZCIsImlhdCI6MTY2MDgxMjc4NH0.N1WWJDiUfUA4-5LYIF0NlIwGi99Zz9GS2b54UhrwtqA', 
+        //       'Content-Type': 'application/json'
+        //     },
+        //     data: data
+        //   };
+          
+        //    axios(config).then(res =>{
+        //     console.log(res.data);
+        //    }).catch(err =>{
+        //     console.log(err);
+        //    });
         var myHeaders = new Headers();
         myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjYzcxZDdlYS03MWU3LTRmNjEtODZmMy1hMDUzYzJmYWVlYTIiLCJlbWFpbCI6ImNoaW50YW5zdXJ5YXdhbnNoaTFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjI4NGI0YjM2ZWVhZjBjZTgyMDEyIiwic2NvcGVkS2V5U2VjcmV0IjoiZWFkNjRjMTA4NzUwODdlYmY2N2Y1NjA3ODJkZTVjZWI2YWEwMTdkZGQwZmEwMDZmODUwMDIzNDhiMWJmZmY1ZCIsImlhdCI6MTY2MDgxMjc4NH0.N1WWJDiUfUA4-5LYIF0NlIwGi99Zz9GS2b54UhrwtqA");
         myHeaders.append("Content-Type", "application/json");
