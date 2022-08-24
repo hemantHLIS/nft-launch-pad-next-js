@@ -9,7 +9,7 @@ const Footer = () => {
     }
     const getEmail=()=>{
         // console.log(email);
-        setEmail("");
+        
 
         const LaunchSubscribeUs = Moralis.Object.extend("LaunchSubscribeUs");
         const launchSubscribeUs = new LaunchSubscribeUs();
@@ -17,6 +17,7 @@ const Footer = () => {
         launchSubscribeUs.set("email", email);
 
         launchSubscribeUs.save();
+        setEmail("");
     }
     return (<>
         <footer>
@@ -63,10 +64,10 @@ const Footer = () => {
                         <div className="col-xl-3 col-lg-4 col-md-6">
                             <div className="footer-widget">
                                 <h4 className="fw-title">Subscribe Us</h4>
-                                <form action="#" className="newsletter-form">
+                                <div className="newsletter-form">
                                     <input type="email" placeholder="info@youmail.com" onChange={handleEmail} value={email} />
-                                    <button type="submit"><i className="flaticon-small-rocket-ship-silhouette" onClick={getEmail}></i></button>
-                                </form>
+                                    <button type="button"><i className="flaticon-small-rocket-ship-silhouette" onClick={getEmail}></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>

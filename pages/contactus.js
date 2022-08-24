@@ -26,10 +26,7 @@ const Contactus = () => {
         // console.log("Last Name is", lastName);
         // console.log("Email address is", email);
         // console.log("Description:", description);
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setDescription("");
+        
 
         const LaunchContactUs = Moralis.Object.extend("LaunchContactUs");
         const launchContactUs = new LaunchContactUs();
@@ -40,6 +37,10 @@ const Contactus = () => {
         launchContactUs.set("description", description);
         
         launchContactUs.save();
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setDescription("");
     }
     return (
         <>

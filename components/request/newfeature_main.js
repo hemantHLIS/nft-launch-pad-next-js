@@ -9,12 +9,6 @@ const NewfeatureMain = () => {
     const [description, setDescription] = useState('');
 
     const submitNewFeature=()=>{
-        setIssueType("");
-        setEmail("");
-        setUrl("");
-        setSubject("");
-        setDescription("");
-
         const LaunchNewFeature = Moralis.Object.extend("LaunchNewFeature");
         const launchNewFeature = new LaunchNewFeature();
 
@@ -25,6 +19,11 @@ const NewfeatureMain = () => {
         launchNewFeature.set("description", description);
         
         launchNewFeature.save();
+        setIssueType("");
+        setEmail("");
+        setUrl("");
+        setSubject("");
+        setDescription("");
     }
     return (
         <>
