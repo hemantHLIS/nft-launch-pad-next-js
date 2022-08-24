@@ -27,6 +27,7 @@ const Privacypolicy = () => {
 
 const { isInitialized } = useMoralis();
     var [blog, setBlog] = useState([]);
+    var [render,setrender] = useState(true);
     
     const blogDetails=async()=>{
         const LaunchpadPrivacyPolicy = Moralis.Object.extend("LaunchpadPrivacyPolicy");
@@ -46,8 +47,9 @@ const { isInitialized } = useMoralis();
         setBlog(blogData);
     }
     useEffect(()=>{
-        if(isInitialized){
+        if(isInitialized && render){
             blogDetails();
+            setrender(false);
         }
     })
 
