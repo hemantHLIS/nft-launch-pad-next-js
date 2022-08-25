@@ -7,7 +7,7 @@ export default function NFTTokenLIst(props) {
     
     let newTokenData = (item,index)=>{
         let postToken;
-    if(item.token_uri.substring(8,12)=='ipfs'){
+    if( item.token_uri && item.token_uri.substring(8,12)=='ipfs'){
         var postTokensub = item.token_uri.replace(/^.{28}/g,'http://gateway.moralisipfs.com');
         console.log("Token Sub",postTokensub);
         let postToken1 = postTokensub.substring(0,postTokensub.length-1);
@@ -83,7 +83,15 @@ export default function NFTTokenLIst(props) {
         console.log("Else Post Token",postToken);
         
         try {
+            if(postToken && (postToken.endsWith('.png') || postToken.endsWith('.jpg') || postToken.endsWith('.jpeg'))){
             document.getElementById('img'+index).src = postToken;
+            }else{
+                if(index % 2 == 0){
+                    document.getElementById('img'+index).src = process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/1top_collection01.jpg";
+                }else{
+                    document.getElementById('img'+index).src = process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/2top_collection01.jpg";
+                }
+            }
             }
         catch(err) {
             
@@ -101,19 +109,19 @@ export default function NFTTokenLIst(props) {
                                         <div className="top-collection-item">
                                             <div className="collection-item-thumb">
                                                 <div className="shield-icon">
-                                                    <picture><img alt="" src="assets/img/others/shield.png"/></picture>
+                                                    <picture><img alt="" src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/shield.png"} /></picture>
                                                 </div>
                                                
                                                 <a href="#"><picture><img id={"img"+index} /></picture></a>
                                                 {newTokenData(item,index)}
                                             </div>
                                             <div className="collection-item-content">
-                                                <h5 className="title"><a href="#">{item.name}</a> <span className="symbol">{item.symbol}</span></h5>
+                                                <h5 className="title">{item.name} <span className="symbol">{item.symbol}</span></h5>
                                             </div>
                                             <div className="collection-item-bottom">
                                                 <ul>
-                                                    <li className="avatar"><a href="#" className="thumb"><picture><img src="assets/img/others/top_col_avatar.png" alt=""/></picture></a>By <a href="#" className="name">Jonson</a></li>
-                                                    <li className="wishlist"><a href="#">59</a></li>
+                                                    <li className="avatar"><div className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/top_col_avatar.png"} alt="" /></picture></div>By&nbsp;<div className="name">{props.launchUser?.username}</div></li>
+                                                    <li>ID:<a><b>{item.token_id}</b></a></li>
                                                 </ul>
                                             </div>
                                         </div>

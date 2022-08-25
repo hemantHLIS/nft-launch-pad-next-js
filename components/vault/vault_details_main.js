@@ -273,15 +273,15 @@ const VaultDetailsMain = () => {
                                         <li className="nav-item">
                                             <a id="tab-D" href="#pane-D" className="nav-link" data-bs-toggle="tab" role="tab">Top Owners</a>
                                         </li>
-                                        <li className="nav-item">
+                                        {/*<li className="nav-item">
                                             <a id="tab-E" href="#pane-E" className="nav-link" data-bs-toggle="tab" role="tab">Analysis</a>
-                                        </li>
+                                        </li>*/}
                                         <li className="nav-item">
                                             <a id="tab-F" href="#pane-F" className="nav-link" data-bs-toggle="tab" role="tab">Token Stats</a>
                                         </li>
-                                        <li className="nav-item">
+                                        {/*<li className="nav-item">
                                             <a id="tab-G" href="#pane-G" className="nav-link" data-bs-toggle="tab" role="tab">FAQs</a>
-                                        </li>
+                                        </li>*/}
                                         <li className="nav-item">
                                             <a id="tab-H" href="#pane-H" className="nav-link" data-bs-toggle="tab" role="tab">Trade</a>
                                         </li>

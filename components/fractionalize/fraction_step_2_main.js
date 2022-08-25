@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { getMode } from "../../store/fractionalize/action";
 import { walletConnectProvider, wcProviderUrl } from "../utils/walletConnectProvider";
 import MyWalletConnectWeb3Connector from "../utils/myconnector";
+import NFTTokenLIst from "./NFTTokenLIst";
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getMode());
@@ -95,7 +96,7 @@ const FractionStep2Main = () => {
         }
         if (isAuthenticated) {
             console.log(modal_config.walletOpt);
-            console.log('===>'+JSON.parse(localStorage.getItem('walletconnect')).connected);
+            console.log('===>'+JSON.parse(localStorage.getItem('walletconnect'))?.connected);
             // add your logic here
             getAllNftData();
 
@@ -218,7 +219,7 @@ const FractionStep2Main = () => {
                                         <p>Choose the NFT(s) to send to a new vault, select your desired fraction type, set your vault’s details, then continue to fractionalize. Once complete, all fractions will appear in your wallet. Be aware, you cannot add to the NFTs in a vault once created. Read our guides for more information.</p>
                                     </div>
 
-                                    <div className="row mt-5 ">
+                                    {/*<div className="row mt-5 ">
                                         {launchUser.nfts && launchUser.nfts.map((item, i) => {
                                             return (
                                                 <div className="col-xl-4 col-md-6 col-sm-6" key={'nftindex' + i} style={{ cursor: 'pointer' }} onClick={() => setNftIndex({ index: i, token_address: item.token_address, token_id: item.token_id, token_name: item.token_name, token_symbol: item.token_symbol })}>
@@ -235,7 +236,6 @@ const FractionStep2Main = () => {
                                                         <div className="collection-item-bottom">
                                                             <ul>
                                                                 <li className="avatar"><div className="thumb"><picture><img src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/top_col_avatar.png"} alt="" /></picture></div>By&nbsp;<div className="name">{launchUser?.username}</div></li>
-                                                                {/* <li className="wishlist"><a>59</a></li> */}
                                                                 <li>ID:<a><b>{item.token_id}</b></a></li>
                                                             </ul>
                                                         </div>
@@ -243,7 +243,9 @@ const FractionStep2Main = () => {
                                                 </div>
                                             )
                                         })}
-                                    </div>
+                                    </div>*/}
+
+                                    <NFTTokenLIst myData={launchUser.nfts} launchUser={launchUser}/>
 
                                 </div>
                             </div>
