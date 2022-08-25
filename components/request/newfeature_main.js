@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Moralis } from "moralis";
-
+import {NotificationManager} from "react-notifications";
 const NewfeatureMain = () => {
     const [issueType, setIssueType] = useState('My Account');
     const [email, setEmail] = useState('');
@@ -8,7 +8,9 @@ const NewfeatureMain = () => {
     const [subject, setSubject] = useState('');
     const [description, setDescription] = useState('');
 
-    const submitNewFeature=()=>{
+    const submitNewFeature=(e)=>{
+
+        e.preventDefault();
         const LaunchNewFeature = Moralis.Object.extend("LaunchNewFeature");
         const launchNewFeature = new LaunchNewFeature();
 
@@ -19,11 +21,13 @@ const NewfeatureMain = () => {
         launchNewFeature.set("description", description);
         
         launchNewFeature.save();
-        setIssueType("");
+        setIssueType("My Account");
         setEmail("");
         setUrl("");
         setSubject("");
         setDescription("");
+
+        NotificationManager.success('Request submitted successfully!!');
     }
     return (
         <>
@@ -46,7 +50,7 @@ const NewfeatureMain = () => {
                                 <div className="reuest-list">
                                     <div className="select-money">
                                         <div className="text-radio">
-                                            <input id="list1" name="money" checked={issueType == 'MyAccount'} onClick={()=>setIssueType('My Account')}  type="radio" className="carfilter"/>
+                                            <input id="list1" name="money" checked={issueType == 'My Account'} onClick={()=>setIssueType('My Account')}  type="radio" className="carfilter"/>
                                             <label htmlFor="list1">
                                                 My Account
                                             </label>
@@ -86,26 +90,28 @@ const NewfeatureMain = () => {
                             </div>
                             <div className="col-lg-8 col-md-7">
                                   <div className="signup-form-wrap request-form">                                    
+                                        <form onSubmit={(e)=>submitNewFeature(e)}>
                                         <div className="form-grp">
-                                            <label htmlFor="fName">Your email address</label>
-                                            <input type="email" className="form-control" onChange={(e)=>setEmail(e.target.value)}  id="fName" value={email}/>
+                                            <label htmlFor="fName">Your email address&nbsp;<span style={{color:'red'}}>*</span></label>
+                                            <input type="email" required className="form-control" onChange={(e)=>setEmail(e.target.value)}  id="fName" value={email}/>
                                         </div>
                                         <div className="form-grp">
-                                            <label htmlFor="lName">What is the URL of the suspicious collection on NFT Launchpad?(optional)</label>
+                                            <label htmlFor="lName">What is the URL of the suspicious collection on NFT Launchpad?&nbsp;<span style={{color:'lightyellow'}}>(Optional)</span></label>
                                             <input type="text" className="form-control" id="lName" onChange={(e)=>setUrl(e.target.value)} value={url}/>
                                         </div> 
                                         <div className="form-grp">
-                                            <label htmlFor="lName">Subject*</label>
-                                            <input type="text" className="form-control" id="lName" onChange={(e)=>setSubject(e.target.value)} value={subject}/>
+                                            <label htmlFor="lName">Subject&nbsp;<span style={{color:'red'}}>*</span></label>
+                                            <input type="text" required className="form-control" id="lName" onChange={(e)=>setSubject(e.target.value)} value={subject}/>
                                         </div>                                        
                                         <div className="form-grp">
-                                            <label htmlFor="textarea">Description</label>
-                                            <textarea className="form-control" rows="5" onChange={(e)=>setDescription(e.target.value)} value={description}></textarea>
+                                            <label htmlFor="textarea">Description&nbsp;<span style={{color:'red'}}>*</span></label>
+                                            <textarea required className="form-control" rows="5" onChange={(e)=>setDescription(e.target.value)} value={description}></textarea>
                                         </div>
                                         
                                         <div className="form-btn-wrap">
-                                            <button className="btn signup" onClick={submitNewFeature}>Submit</button>    
+                                            <button className="btn signup" type="submit">Submit</button>    
                                         </div>
+                                        </form>
                                 </div>      
                             </div>
                         </div>
