@@ -1,16 +1,13 @@
 import Link from "next/link";
 import React, { useEffect, useState } from 'react';
 import { Moralis } from "moralis";
-
+import {NotificationManager} from "react-notifications";
 const Footer = () => {
     const [email, setEmail] = useState("");
-    const handleEmail=(e)=>{
-        setEmail(e.target.value);
-    }
-    const getEmail=()=>{
-        // console.log(email);
+  
+    const getEmail=(e)=>{
         
-
+        e.preventDefault();
         const LaunchSubscribeUs = Moralis.Object.extend("LaunchSubscribeUs");
         const launchSubscribeUs = new LaunchSubscribeUs();
 
@@ -18,6 +15,7 @@ const Footer = () => {
 
         launchSubscribeUs.save();
         setEmail("");
+        NotificationManager.success('We will notify for newsletters. Thank you for subscribing it');
     }
     return (<>
         <footer>
@@ -65,8 +63,10 @@ const Footer = () => {
                             <div className="footer-widget">
                                 <h4 className="fw-title">Subscribe Us</h4>
                                 <div className="newsletter-form">
-                                    <input type="email" placeholder="info@youmail.com" onChange={handleEmail} value={email} />
-                                    <button type="button"><i className="flaticon-small-rocket-ship-silhouette" onClick={getEmail}></i></button>
+                                    <form onSubmit={(e)=>getEmail(e)}>
+                                    <input type="email" required placeholder="info@youmail.com" onChange={(e)=>setEmail(e.target.value)} value={email} />
+                                    <button type="submit"><i className="flaticon-small-rocket-ship-silhouette"></i></button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

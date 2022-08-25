@@ -2,7 +2,7 @@ import Layout from "../components/layout";
 import React, { useEffect, useState } from 'react';
 import { Moralis } from "moralis";
 // import { useMoralis } from "react-moralis";
-
+import {NotificationManager} from 'react-notifications';
 const Contactus = () => {
     // const { isInitialized } = useMoralis();
     const [firstName, setFirstName] = useState("");
@@ -21,13 +21,9 @@ const Contactus = () => {
     const handleDescription=(e)=>{
         setDescription(e.target.value);
     }
-    const getData=()=>{
-        // console.log("First Name is", firstName);
-        // console.log("Last Name is", lastName);
-        // console.log("Email address is", email);
-        // console.log("Description:", description);
+    const getData=(e)=>{
         
-
+        e.preventDefault();
         const LaunchContactUs = Moralis.Object.extend("LaunchContactUs");
         const launchContactUs = new LaunchContactUs();
 
@@ -41,6 +37,7 @@ const Contactus = () => {
         setLastName("");
         setEmail("");
         setDescription("");
+        NotificationManager.success('Request submitted successfully');
     }
     return (
         <>
@@ -61,27 +58,27 @@ const Contactus = () => {
                         <div className="col-lg-8">
                             <div className="signup-form-wrap">
 
-                                <form action="#">
+                                <form onSubmit={(e)=>getData(e)}>
                                     <div className="form-grp">
-                                        <label htmlFor="fName">First name</label>
-                                        <input type="text" className="form-control" onChange={handleFName} value={firstName} id="fName" />
+                                        <label htmlFor="fName">First name&nbsp;<span style={{color:'red'}}>*</span></label>
+                                        <input type="text" required className="form-control" onChange={handleFName} value={firstName} id="fName" />
                                     </div>
                                     <div className="form-grp">
-                                        <label htmlFor="lName">Last name</label>
-                                        <input type="text" className="form-control" id="lName" onChange={handleLName} value={lastName} />
+                                        <label htmlFor="lName">Last name&nbsp;<span style={{color:'red'}}>*</span></label>
+                                        <input type="text" required className="form-control" id="lName" onChange={handleLName} value={lastName} />
                                     </div>
                                     <div className="form-grp">
-                                        <label htmlFor="email">Email address</label>
-                                        <input type="email" className="form-control" id="email" onChange={handleEmail} value={email} />
+                                        <label htmlFor="email">Email address&nbsp;<span style={{color:'red'}}>*</span></label>
+                                        <input type="email" required className="form-control" id="email" onChange={handleEmail} value={email} />
                                     </div>
                                     <div className="form-grp">
-                                        <label htmlFor="textarea">Description</label>
+                                        <label htmlFor="textarea">Description&nbsp;<span style={{color:'lightyellow'}}>(Optional)</span></label>
                                         <textarea className="form-control" rows="5" onChange={handleDescription} value={description}></textarea>
                                     </div>
 
 
                                     <div className="form-btn-wrap">
-                                        <button className="btn signup" type="reset" onClick={getData}>Submit</button>
+                                        <button className="btn signup" type="submit">Submit</button>
                                     </div>
                                 </form>
                             </div>

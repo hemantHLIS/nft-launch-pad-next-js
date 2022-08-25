@@ -1,53 +1,27 @@
 import Layout from '../components/layout';
 import { useMoralis } from 'react-moralis';
 import { Moralis } from "moralis";
-import PrivacyPolicyCom from './privacyPolicyCom';
 import { useState , useEffect } from 'react';
 
 // import { useNewMoralisObject } from "react-moralis";
 
 const Privacypolicy = () => {
 
-//     const Monster = Moralis.Object.extend("LaunchpadPrivacyPolicy");
-//     const monster = new Monster();
-//     monster.set("number",10)
-//     monster.set("content","Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam");
-//     monster.set("data", "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.");
-// monster.save().then(
-//   (monster) => {
-//     // Execute any logic that should take place after the object is saved.
-//     alert("New object created with objectId: " + monster.id);
-//   },
-//   (error) => {
-//     // Execute any logic that should take place if the save fails.
-//     // error is a Moralis.Error with an error code and message.
-//     alert("Failed to create new object, with error code: " + error.message);
-//   }
-// );
 
 const { isInitialized } = useMoralis();
-    var [blog, setBlog] = useState([]);
+    var [privacy, setPrivacy] = useState('');
     var [render,setrender] = useState(true);
     
     const blogDetails=async()=>{
         const LaunchpadPrivacyPolicy = Moralis.Object.extend("LaunchpadPrivacyPolicy");
         const LaunchpadprivacyPolicy = new LaunchpadPrivacyPolicy();
         const query = new Moralis.Query(LaunchpadprivacyPolicy);
-        const result = await query.find();
-        var blogData = [];
-        for(let i=0; i<result.length; i++){
-            const obj = {
-                "No": result[i].get("number"),
-                "Content": result[i].get("content"),
-                "Data":result[i].get("data")
-            }
-            blogData.push(obj);
-            console.log(blogData);
-        }
-        setBlog(blogData);
+        const result = await query.first();
+        console.log('ppp'+result.get('content'));
+        setPrivacy(result.get('content'));
     }
     useEffect(()=>{
-        if(isInitialized && render){
+        if(isInitialized && render && privacy == ''){
             blogDetails();
             setrender(false);
         }
@@ -71,47 +45,8 @@ const { isInitialized } = useMoralis();
                         <div className="row justify-content-center">
                             <div className="col-lg-10">
                                 <div className="terms-condition" onLoad={blogDetails}>
-                                <PrivacyPolicyCom data = {blog}/>
-                            {/* <div className="mb-3">
-                                <h4>1. Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div>
-                            <div className="mb-3">
-                                <h4>2. Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div>
-                            <div className="mb-3">
-                                <h4>3. Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div>
-                            <div className="mb-3">
-                                <h4>4 .Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div>
-                            <div className="mb-3">
-                                <h4>5. Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div>
-                            <div className="mb-3">
-                                <h4>6. Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div>
-                            <div className="mb-3">
-                                <h4>7 .Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div>
-                            <div className="mb-3">
-                                <h4>8 .Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div>
-                            <div className="mb-3">
-                                <h4>9 .Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div>
-                            <div className="mb-3">
-                                <h4>10 .Lorem ipsum dolor sit amet, consete sadipscing elitr, sed diam</h4>
-                                <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.</p>
-                            </div> */}
+                                <div style={{color:'#fff'}} dangerouslySetInnerHTML={{ __html: privacy}}></div>
+                            
                         </div>
                             </div>
                             
