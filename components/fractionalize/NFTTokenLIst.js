@@ -105,7 +105,7 @@ export default function NFTTokenLIst(props) {
     <div className="row mt-5  justify-content-center">
         {props.myData && props.myData.map((item,index)=>{
       return(
-        <div className="col-xl-4 col-md-6 col-sm-6">
+        <div className="col-xl-4 col-md-6 col-sm-6" >
                                         <div className="top-collection-item">
                                             <div className="collection-item-thumb">
                                                 <div className="shield-icon">
