@@ -19,6 +19,7 @@ import '../public/assets/css/style.css';
 import { wrapper } from '../store/store';
 import { NotificationContainer } from 'react-notifications';
 import '@uniswap/widgets/fonts.css';
+import 'react-bootstrap-range-slider/dist/react-bootstrap-range-slider.css';
 
 const MyApp = ({ Component, pageProps }) => {
   const [loading, setLoading] = React.useState(false);

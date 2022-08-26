@@ -1,7 +1,8 @@
 
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useMoralis, useMoralisWeb3Api } from "react-moralis";
 import { useDispatch } from "react-redux";
 import { changeCurrentVault, vaultActions } from "../../store/vault/action";
 
@@ -9,12 +10,30 @@ const ProfileTabs = ({ userData, vault_config }) => {
     const { query } = useRouter();
     const dispatch = useDispatch();
     const router = useRouter();
-   
+    const [activity, setActivity] = useState([]);
+    const { authenticate, isAuthenticated, isAuthenticating, user, account, logout, isInitialized } = useMoralis();
+    const [render, setRender] = useState(true);
+    const Web3Api = useMoralisWeb3Api();
+
     const switchVault = (newVault) => {
         dispatch(changeCurrentVault({type:vaultActions.CHANGE_VAULT,vault_config: {...vault_config,vault:newVault}}));
         console.log(JSON.stringify(newVault));
         router.push('/vaultdetails');
     }
+    const getTransactions = async ()=>{
+        const options = {
+            chain: "rinkeby",
+            limit: "10",
+          };
+          const bscTransactions = await Web3Api.account.getTransactions(options);
+          console.log("All trancations are as Shown:",bscTransactions); 
+    }
+    useEffect(()=>{
+       if(isInitialized && render){
+        getTransactions();
+        setRender(false);
+       }
+    },[isInitialized, render]);
 
     return (
         <>

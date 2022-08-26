@@ -17,6 +17,7 @@ import { walletConnectProvider, wcProviderUrl } from "../utils/walletConnectProv
 import MyWalletConnectWeb3Connector from "../utils/myconnector";
 import NFTTokenLIst from "./NFTTokenLIst";
 import { exists } from "fs";
+import RangeSlider from 'react-bootstrap-range-slider';
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
     store.dispatch(getMode());
@@ -48,100 +49,100 @@ const FractionStep2Main = () => {
     const [vaultReservePrice, setVaultReservePrice] = useState(0.0);
     const [vaultCuratorFee, setVaultCuratorFee] = useState(0.0);
 
-    let newTokenData = (item,index)=>{
+    let newTokenData = (item, index) => {
         let postToken;
-    if( item.token_uri && item.token_uri.substring(8,12)=='ipfs'){
-        var postTokensub = item.token_uri.replace(/^.{28}/g,'http://gateway.moralisipfs.com');
-        console.log("Token Sub",postTokensub);
-        let postToken1 = postTokensub.substring(0,postTokensub.length-1);
-        fetch(postToken1)
-            .then(res=> res.json())
-            .then(data=>{
-        console.log("For Inner image",data.image);
-        postToken = data.image;
-          document.getElementById('img'+index).src = postToken;
-          var new_img = data.image;
-          console.log("Get IMAGE",new_img);
-          var myArray = new_img.split("/");
-          let CID = myArray[4];
-          console.log("GET CID DATA",CID);
+        if (item.token_uri && item.token_uri.substring(8, 12) == 'ipfs') {
+            var postTokensub = item.token_uri.replace(/^.{28}/g, 'http://gateway.moralisipfs.com');
+            console.log("Token Sub", postTokensub);
+            let postToken1 = postTokensub.substring(0, postTokensub.length - 1);
+            fetch(postToken1)
+                .then(res => res.json())
+                .then(data => {
+                    console.log("For Inner image", data.image);
+                    postToken = data.image;
+                    document.getElementById('img' + index).src = postToken;
+                    var new_img = data.image;
+                    console.log("Get IMAGE", new_img);
+                    var myArray = new_img.split("/");
+                    let CID = myArray[4];
+                    console.log("GET CID DATA", CID);
 
-        //   var data = JSON.stringify({
-        //     "hashToPin": CID,
-        //     "pinataMetadata": {
-        //       "name": "MyCustomName",
-        //       "keyvalues": {
-        //         "customKey": "customValue",
-        //         "customKey2": "customValue2"
-        //       }
-        //     }
-        //   });
-          
-        //   var config = {
-        //     method: 'post',
-        //     url: 'https://api.pinata.cloud/pinning/pinByHash',
-        //     headers: { 
-        //       'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjYzcxZDdlYS03MWU3LTRmNjEtODZmMy1hMDUzYzJmYWVlYTIiLCJlbWFpbCI6ImNoaW50YW5zdXJ5YXdhbnNoaTFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjI4NGI0YjM2ZWVhZjBjZTgyMDEyIiwic2NvcGVkS2V5U2VjcmV0IjoiZWFkNjRjMTA4NzUwODdlYmY2N2Y1NjA3ODJkZTVjZWI2YWEwMTdkZGQwZmEwMDZmODUwMDIzNDhiMWJmZmY1ZCIsImlhdCI6MTY2MDgxMjc4NH0.N1WWJDiUfUA4-5LYIF0NlIwGi99Zz9GS2b54UhrwtqA', 
-        //       'Content-Type': 'application/json'
-        //     },
-        //     data: data
-        //   };
-          
-        //    axios(config).then(res =>{
-        //     console.log(res.data);
-        //    }).catch(err =>{
-        //     console.log(err);
-        //    });
-        var myHeaders = new Headers();
-        myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjYzcxZDdlYS03MWU3LTRmNjEtODZmMy1hMDUzYzJmYWVlYTIiLCJlbWFpbCI6ImNoaW50YW5zdXJ5YXdhbnNoaTFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjI4NGI0YjM2ZWVhZjBjZTgyMDEyIiwic2NvcGVkS2V5U2VjcmV0IjoiZWFkNjRjMTA4NzUwODdlYmY2N2Y1NjA3ODJkZTVjZWI2YWEwMTdkZGQwZmEwMDZmODUwMDIzNDhiMWJmZmY1ZCIsImlhdCI6MTY2MDgxMjc4NH0.N1WWJDiUfUA4-5LYIF0NlIwGi99Zz9GS2b54UhrwtqA");
-        myHeaders.append("Content-Type", "application/json");
-        var raw = JSON.stringify({
-            "hashToPin": CID,
-            "pinataMetadata": {
-              "name": "MyCustomName",
-              "keyvalues": {
-                "customKey": "customValue",
-                "customKey2": "customValue2"
-              }
-            }
-          });
-          
-          var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-          };
-          
-          fetch("https://api.pinata.cloud/pinning/pinByHash", requestOptions)
-            .then(response => response.text())
-            .then(result => console.log("Fatching results",result))
-            .catch(error => console.log('error', error));
-        
-    })
-    return(postToken);
-    }
-    else{
-        postToken = item.token_uri;
-        console.log("Else Post Token",postToken);
-        
-        try {
-            if(postToken && (postToken.endsWith('.png') || postToken.endsWith('.jpg') || postToken.endsWith('.jpeg'))){
-            document.getElementById('img'+index).src = postToken;
-            }else{
-                if(index % 2 == 0){
-                    document.getElementById('img'+index).src = process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/1top_collection01.jpg";
-                }else{
-                    document.getElementById('img'+index).src = process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/2top_collection01.jpg";
+                    //   var data = JSON.stringify({
+                    //     "hashToPin": CID,
+                    //     "pinataMetadata": {
+                    //       "name": "MyCustomName",
+                    //       "keyvalues": {
+                    //         "customKey": "customValue",
+                    //         "customKey2": "customValue2"
+                    //       }
+                    //     }
+                    //   });
+
+                    //   var config = {
+                    //     method: 'post',
+                    //     url: 'https://api.pinata.cloud/pinning/pinByHash',
+                    //     headers: { 
+                    //       'Authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjYzcxZDdlYS03MWU3LTRmNjEtODZmMy1hMDUzYzJmYWVlYTIiLCJlbWFpbCI6ImNoaW50YW5zdXJ5YXdhbnNoaTFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjI4NGI0YjM2ZWVhZjBjZTgyMDEyIiwic2NvcGVkS2V5U2VjcmV0IjoiZWFkNjRjMTA4NzUwODdlYmY2N2Y1NjA3ODJkZTVjZWI2YWEwMTdkZGQwZmEwMDZmODUwMDIzNDhiMWJmZmY1ZCIsImlhdCI6MTY2MDgxMjc4NH0.N1WWJDiUfUA4-5LYIF0NlIwGi99Zz9GS2b54UhrwtqA', 
+                    //       'Content-Type': 'application/json'
+                    //     },
+                    //     data: data
+                    //   };
+
+                    //    axios(config).then(res =>{
+                    //     console.log(res.data);
+                    //    }).catch(err =>{
+                    //     console.log(err);
+                    //    });
+                    var myHeaders = new Headers();
+                    myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJjYzcxZDdlYS03MWU3LTRmNjEtODZmMy1hMDUzYzJmYWVlYTIiLCJlbWFpbCI6ImNoaW50YW5zdXJ5YXdhbnNoaTFAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6IjI4NGI0YjM2ZWVhZjBjZTgyMDEyIiwic2NvcGVkS2V5U2VjcmV0IjoiZWFkNjRjMTA4NzUwODdlYmY2N2Y1NjA3ODJkZTVjZWI2YWEwMTdkZGQwZmEwMDZmODUwMDIzNDhiMWJmZmY1ZCIsImlhdCI6MTY2MDgxMjc4NH0.N1WWJDiUfUA4-5LYIF0NlIwGi99Zz9GS2b54UhrwtqA");
+                    myHeaders.append("Content-Type", "application/json");
+                    var raw = JSON.stringify({
+                        "hashToPin": CID,
+                        "pinataMetadata": {
+                            "name": "MyCustomName",
+                            "keyvalues": {
+                                "customKey": "customValue",
+                                "customKey2": "customValue2"
+                            }
+                        }
+                    });
+
+                    var requestOptions = {
+                        method: 'POST',
+                        headers: myHeaders,
+                        body: raw,
+                        redirect: 'follow'
+                    };
+
+                    fetch("https://api.pinata.cloud/pinning/pinByHash", requestOptions)
+                        .then(response => response.text())
+                        .then(result => console.log("Fatching results", result))
+                        .catch(error => console.log('error', error));
+
+                })
+            return (postToken);
+        }
+        else {
+            postToken = item.token_uri;
+            console.log("Else Post Token", postToken);
+
+            try {
+                if (postToken && (postToken.endsWith('.png') || postToken.endsWith('.jpg') || postToken.endsWith('.jpeg'))) {
+                    document.getElementById('img' + index).src = postToken;
+                } else {
+                    if (index % 2 == 0) {
+                        document.getElementById('img' + index).src = process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/1top_collection01.jpg";
+                    } else {
+                        document.getElementById('img' + index).src = process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/2top_collection01.jpg";
+                    }
                 }
             }
-            }
-        catch(err) {
-            
+            catch (err) {
+
             }
 
-        return(postToken);
-    }
+            return (postToken);
+        }
     }
 
     async function providerInit() {
@@ -149,7 +150,7 @@ const FractionStep2Main = () => {
             if (modal_config.walletOpt != 'walletconnect') {
                 await Moralis.enableWeb3({ provider: modal_config.walletOpt });
                 setProvider(Moralis.provider);
-            }else{
+            } else {
                 await Moralis.enableWeb3({ connector: MyWalletConnectWeb3Connector });
                 setProvider(Moralis.provider);
             }
@@ -192,7 +193,7 @@ const FractionStep2Main = () => {
         }
         if (isAuthenticated) {
             console.log(modal_config.walletOpt);
-            console.log('===>'+JSON.parse(localStorage.getItem('walletconnect'))?.connected);
+            console.log('===>' + JSON.parse(localStorage.getItem('walletconnect'))?.connected);
             // add your logic here
             getAllNftData();
 
@@ -206,17 +207,17 @@ const FractionStep2Main = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isAuthenticated, dispatch]);
 
-    const changeMode = (newMode)=> {
-        console.log('prev mode=>'+mde);
-        dispatch(setMode({ ...fractionalize, mode: newMode })); 
-        setMde(newMode=='erc20'?0: 1);
-        console.log('mode updated ==>'+ mde);
+    const changeMode = (newMode) => {
+        console.log('prev mode=>' + mde);
+        dispatch(setMode({ ...fractionalize, mode: newMode }));
+        setMde(newMode == 'erc20' ? 0 : 1);
+        console.log('mode updated ==>' + mde);
     }
 
     const createVault = async (e) => {
-        
+
         e.preventDefault();
-        console.log('mode==='+mde);
+        console.log('mode===' + mde);
         if (nftIndex.index == -1) {
             // alert('Please select NFT to Fractionalize');
             NotificationManager.warning('Please select NFT to Fractionalize');
@@ -226,13 +227,13 @@ const FractionStep2Main = () => {
                 console.log(modal_config.walletOpt);
                 web3Provider = await Moralis.enableWeb3({ provider: modal_config.walletOpt });
                 setProvider(Moralis.provider);
-            }else{
+            } else {
                 console.log(modal_config.walletOpt);
                 web3Provider = await Moralis.enableWeb3({ connector: MyWalletConnectWeb3Connector });
                 setProvider(Moralis.provider);
             }
             let web3 = new Web3(Moralis.provider);
-            
+
             const tokenContract = new web3.eth.Contract(Abi.ERC721ABI, nftIndex.token_address);
             const factoryContract = new web3.eth.Contract(Abi.LaunchFactoryABI, Abi.LaunchFactoryAddress);
             try {
@@ -242,8 +243,8 @@ const FractionStep2Main = () => {
                 });
 
                 try {
-
-                    await factoryContract.methods.createVault(vaultName, vaultSymbol, "0x" + new BigNumber(vaultSupply).shiftedBy(18).toString(16), "0x" + new BigNumber(vaultReservePrice).shiftedBy(18).toString(16), nftIndex.token_address, nftIndex.token_id, "0x" + new BigNumber(vaultCuratorFee).shiftedBy(3).toString(16),mde).send({ from: user?.get('ethAddress') }).then(async (resp) => {
+                    const decimals = mde == 0 ? 18 : 1;
+                    await factoryContract.methods.createVault(vaultName, vaultSymbol, "0x" + new BigNumber(vaultSupply).shiftedBy(decimals).toString(16), "0x" + new BigNumber(vaultReservePrice).shiftedBy(18).toString(16), nftIndex.token_address, nftIndex.token_id, "0x" + new BigNumber(vaultCuratorFee).shiftedBy(3).toString(16), mde).send({ from: user?.get('ethAddress') }).then(async (resp) => {
                         console.log('resp===>' + JSON.stringify(resp));
                         console.log('values===>' + resp.events.Mint.returnValues);
                         NotificationManager.success('NFT successfull fractionalized...Vault created successfully');
@@ -251,7 +252,7 @@ const FractionStep2Main = () => {
 
                         // save vault in Moralis
                         const newVault = new LaunchpadModel.Vault();
-                        newVault.set('mode',mde);
+                        newVault.set('mode', mde);
                         newVault.set('name', vaultName);
                         newVault.set('symbol', vaultSymbol);
                         newVault.set('totalSupply', vaultSupply);
@@ -334,7 +335,7 @@ const FractionStep2Main = () => {
                                                                 <picture><img alt="" src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/shield.png"} /></picture>
                                                             </div>
                                                             <picture><img src={i % 2 == 0 ? process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/1top_collection01.jpg" : process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/2top_collection01.jpg"} alt="" /></picture>
-                                                            {newTokenData(item,i)}
+                                                            {newTokenData(item, i)}
                                                         </div>
                                                         <div className="collection-item-content">
                                                             <h5 className="title">{item.name} <span className="symbol">{item.symbol}</span></h5>
@@ -361,11 +362,11 @@ const FractionStep2Main = () => {
                                     <div className="activity-table-nav">
                                         <ul className="nav nav-tabs nav-fill" id="myTab" role="tablist">
                                             <li className="nav-item" role="presentation">
-                                                <button onClick={()=>changeMode('erc20')} className={fractionalize.mode == "erc20" ? "nav-link active" : "nav-link"} id="nft-tab" data-bs-toggle="tab" data-bs-target="#nft" type="button"
+                                                <button onClick={() => changeMode('erc20')} className={fractionalize.mode == "erc20" ? "nav-link active" : "nav-link"} id="nft-tab" data-bs-toggle="tab" data-bs-target="#nft" type="button"
                                                     role="tab" aria-controls="nft" aria-selected={fractionalize.mode == "erc20" ? "true" : "false"}>ERC 20</button>
                                             </li>
                                             <li className="nav-item" role="presentation">
-                                                <button onClick={()=>changeMode('erc721')} className={fractionalize.mode == "erc721" ? "nav-link active" : "nav-link"} id="month-tab" data-bs-toggle="tab" data-bs-target="#month" type="button"
+                                                <button onClick={() => changeMode('erc721')} className={fractionalize.mode == "erc721" ? "nav-link active" : "nav-link"} id="month-tab" data-bs-toggle="tab" data-bs-target="#month" type="button"
                                                     role="tab" aria-controls="month" aria-selected={fractionalize.mode == "erc721" ? "true" : "false"}>ERC 721</button>
                                             </li>
                                         </ul>
@@ -397,7 +398,16 @@ const FractionStep2Main = () => {
                                                 </div>
                                                 <div className="form-grp">
                                                     <label htmlFor="price">CURATOR FEE(%)</label>
-                                                    <input id="price" onChange={(e) => setVaultCuratorFee(e.target.value)} type="number" step="0.01" placeholder="0.0" required />
+                                                    <RangeSlider
+                                                        value={vaultCuratorFee}
+                                                        onChange={e => setVaultCuratorFee(e.target.value)}
+                                                        variant='success'
+                                                        tooltipPlacement='bottom'
+                                                        tooltip='on'
+                                                        max='20'
+                                                        size='lg'
+                                                    />
+                                                    
                                                 </div>
 
 
@@ -431,7 +441,15 @@ const FractionStep2Main = () => {
                                                 </div>
                                                 <div className="form-grp">
                                                     <label htmlFor="price">CURATOR FEE(%)</label>
-                                                    <input id="price" onChange={(e) => setVaultCuratorFee(e.target.value)} type="text" placeholder="0.0" />
+                                                    <RangeSlider
+                                                        value={vaultCuratorFee}
+                                                        onChange={e => setVaultCuratorFee(e.target.value)}
+                                                        variant='success'
+                                                        tooltipPlacement='bottom'
+                                                        tooltip='on'
+                                                        max='20'
+                                                        size='lg'
+                                                    />
                                                 </div>
 
 

@@ -1,5 +1,5 @@
 const LaunchSettingAddress = '0x3B7876ab88e0102b62EAF5A568b5c21eeA5c4c6f';
-const LaunchFactoryAddress = '0x9E65251bc7006a66856FfEd4d2b2d6Bd4f48A9f0';
+const LaunchFactoryAddress = '0xCe6a61e068A866C86ad30FE2e7d87503F0CdD053';
 const LaunchSettingABI =[
   {
     "inputs": [],

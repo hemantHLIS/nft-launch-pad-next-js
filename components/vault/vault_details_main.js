@@ -16,7 +16,10 @@ import LaunchpadModel from '../utils/launchpad_model';
 import moment from 'moment';
 import { getUser } from '../../store/user/action';
 import { getModalConfigs } from '../../store/modals/action';
+import '@uniswap/widgets/fonts.css'
 import { walletConnectProvider, wcProviderUrl } from '../utils/walletConnectProvider';
+import { darkTheme, lightTheme, Theme, SwapWidget } from '@uniswap/widgets';
+const UniswapDynamic = dynamic(() => import('../widgets/uniswap_dynamic'));
 import MyWalletConnectWeb3Connector from '../utils/myconnector';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
@@ -24,8 +27,9 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
     store.dispatch(getUser());
     store.dispatch(getModalConfigs());
 });
-const UniswapDynamic = dynamic(() => import('../widgets/uniswap_dynamic'));
+
 const VaultDetailsMain = () => {
+
     let web3Provider;
     const dispatch = useDispatch();
     const router = useRouter();
@@ -43,6 +47,18 @@ const VaultDetailsMain = () => {
     const [vaultTokenTransfers, setVaultTokenTransfers] = useState([]);
     const [owners, setOwners] = useState([]);
     const [ownersBal, setOwnersBal] = useState([]);
+    const theme = {
+        primary: '#FFF',
+        secondary: '#A9A9A9',
+        interactive: '#000',
+        container: '#4E4E5A',
+        module: '#222633',
+        accent: '#2be84b',
+        outline: '#CC1',
+        dialog: '#000',
+        // fontFamily: 'Josefin Sans',
+        borderRadius: 0.5,
+    }
     const [options, setOptions] = useState({
         chart: {
             id: "basic-bar"
@@ -54,30 +70,30 @@ const VaultDetailsMain = () => {
 
     const [tokens, setTokens] = useState(new Set([
         {
-        "name": "Dai Stablecoin",
-        "address": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
-        "symbol": "DAI",
-        "decimals": 18,
-        "chainId": 4,
-        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
-      },
+            "name": "Dai Stablecoin",
+            "address": "0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa",
+            "symbol": "DAI",
+            "decimals": 18,
+            "chainId": 4,
+            "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png"
+        },
         {
-        "name": "Tether USD",
-        "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-        "symbol": "USDT",
-        "decimals": 6,
-        "chainId": 4,
-        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"
-      },
-      {
-        "name": "USD Coin",
-        "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-        "symbol": "USDC",
-        "decimals": 6,
-        "chainId": 4,
-        "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
-      },
-      ]));
+            "name": "Tether USD",
+            "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "symbol": "USDT",
+            "decimals": 6,
+            "chainId": 4,
+            "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png"
+        },
+        {
+            "name": "USD Coin",
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "symbol": "USDC",
+            "decimals": 6,
+            "chainId": 4,
+            "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"
+        },
+    ]));
 
     const [series, setSeries] = useState([
         {
@@ -124,8 +140,8 @@ const VaultDetailsMain = () => {
 
     const fetchTokenTransfers = async () => {
         let tokensSet = tokens;
-        tokensSet.add({name: vault_config?.vault?.get('name'), address: String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase(), symbol: vault_config?.vault?.get('symbol'), decimals: 18, chainId: 4 });
-        
+        tokensSet.add({ name: vault_config?.vault?.get('name'), address: String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase(), symbol: vault_config?.vault?.get('symbol'), decimals: 18, chainId: 4 });
+
         setTokens(tokensSet);
         const tq = LaunchpadModel.EthTokenTransfersQuery;
         tq.equalTo("token_address", String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase());
@@ -343,7 +359,10 @@ const VaultDetailsMain = () => {
                                         <div id="collapse-B" className="collapse" data-bs-parent="#content" role="tabpanel"
                                             aria-labelledby="heading-B">
                                             <div className="card-body">
-                                                <UniswapDynamic tokenList={Array.from(tokens)}/>
+                                                {/* <UniswapDynamic tokenList={Array.from(tokens)} /> */}
+                                                <div className="Uniswap">
+                                                    <SwapWidget jsonRpcUrlMap={wcProviderUrl} theme={theme} width={'100%'} />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

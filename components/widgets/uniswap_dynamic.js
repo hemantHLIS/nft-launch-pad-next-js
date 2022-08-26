@@ -1,7 +1,7 @@
 import { darkTheme, lightTheme, Theme, SwapWidget } from '@uniswap/widgets';
 
-export const UniswapDynamic = (props) => {
-    const tokenList = props.tokenList;
+export const UniswapDynamic = () => {
+    // const tokenList = props.tokenList;
 
     const theme = {
         primary: '#FFF',
@@ -17,7 +17,7 @@ export const UniswapDynamic = (props) => {
       }
     return (<>
         <div className="Uniswap">
-            <SwapWidget theme={theme} width={'100%'} tokenList={tokenList} />
+            <SwapWidget theme={theme} width={'100%'}  />
         </div>
     </>)
 }
