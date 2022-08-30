@@ -20,20 +20,21 @@ const ProfileTabs = ({ userData, vault_config }) => {
         console.log(JSON.stringify(newVault));
         router.push('/vaultdetails');
     }
-    const getTransactions = async ()=>{
-        const options = {
-            chain: "rinkeby",
-            limit: "10",
-          };
-          const bscTransactions = await Web3Api.account.getTransactions(options);
-          console.log("All trancations are as Shown:",bscTransactions); 
-    }
+    
     useEffect(()=>{
-       if(isInitialized && render){
+        const getTransactions = async ()=>{
+            const options = {
+                chain: "rinkeby",
+                limit: "10",
+              };
+              const bscTransactions = await Web3Api.account.getTransactions(options);
+              console.log("All trancations are as Shown:",bscTransactions); 
+        }
+        if(isInitialized && render){
         getTransactions();
         setRender(false);
        }
-    },[isInitialized, render]);
+    },[isInitialized, render, Web3Api.account]);
 
     return (
         <>

@@ -105,14 +105,14 @@ export default function NFTTokenLIst(props) {
     <div className="row mt-5  justify-content-center">
         {props.myData && props.myData.map((item,index)=>{
       return(
-        <div className="col-xl-4 col-md-6 col-sm-6" >
+        <div className="col-xl-4 col-md-6 col-sm-6" key={index+'nfts'} >
                                         <div className="top-collection-item">
                                             <div className="collection-item-thumb">
                                                 <div className="shield-icon">
                                                     <picture><img alt="" src={process.env.NEXT_PUBLIC_APP_URL + "/assets/img/others/shield.png"} /></picture>
                                                 </div>
                                                
-                                                <a href="#"><picture><img id={"img"+index} /></picture></a>
+                                                <a href="#"><picture><img id={"img"+index} alt={''} /></picture></a>
                                                 {newTokenData(item,index)}
                                             </div>
                                             <div className="collection-item-content">

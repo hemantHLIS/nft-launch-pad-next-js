@@ -6,6 +6,10 @@ const UserQuery = new Moralis.Query(new User());
 const EthTokenTransfers = Moralis.Object.extend("EthTokenTransfers");
 const EthTokenTransfersQuery = new Moralis.Query("EthTokenTransfers");
 
+const EthNFTTransfers = Moralis.Object.extend("EthNFTTransfers");
+const EthNFTTransfersQuery = new Moralis.Query("EthNFTTransfers");
+
+
 const Vault = Moralis.Object.extend("LaunchpadVault");
 const VaultQuery = new Moralis.Query(new Vault());
 
@@ -25,7 +29,9 @@ const LaunchpadModel = {
     LaunchpadSteps,
     LaunchpadQuery,
     LaunchpadAboutUs,
-    LaunchpadAboutUsQuery
+    LaunchpadAboutUsQuery,
+    EthNFTTransfers,
+    EthNFTTransfersQuery
 };
 
 export default LaunchpadModel;

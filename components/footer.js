@@ -78,7 +78,7 @@ const Footer = () => {
                     <div className="row align-items-center">
                         <div className="col-md-6">
                             <div className="copyright-text">
-                                <p>All rights reserved © 2022 by <a href="#">NFT Fractions</a></p>
+                                <p>All rights reserved © 2022 by <a href="#">NFT Launchpad</a></p>
                             </div>
                         </div>
                         <div className="col-md-6">

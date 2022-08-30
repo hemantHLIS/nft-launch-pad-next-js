@@ -18,6 +18,7 @@ const Home = () => {
         const query = new Moralis.Query(launchpadblog);
         query.limit(3);
         const result = await query.find();
+        console.log(result);
         var blogData = [];
         for(let i=0; i<result.length; i++){
             const obj = {
@@ -344,7 +345,7 @@ const Home = () => {
                             </div>
                         </div>
                     </div>
-                    {<BlogMainComp data={blog} />}
+                    <BlogMainComp data={blog} />
                     {/* <div className="row justify-content-center">
                         <div className="col-xl-4 col-md-6 col-sm-9">
                             <div className="latest-news-item">

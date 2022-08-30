@@ -23,7 +23,7 @@ const { isInitialized } = useMoralis();
             blogDetails();
             setrender(false);
         }
-    })
+    },[render, isInitialized, cond])
 
     return (
         <>

@@ -16,10 +16,7 @@ import LaunchpadModel from '../utils/launchpad_model';
 import moment from 'moment';
 import { getUser } from '../../store/user/action';
 import { getModalConfigs } from '../../store/modals/action';
-import '@uniswap/widgets/fonts.css'
 import { walletConnectProvider, wcProviderUrl } from '../utils/walletConnectProvider';
-import { darkTheme, lightTheme, Theme, SwapWidget } from '@uniswap/widgets';
-const UniswapDynamic = dynamic(() => import('../widgets/uniswap_dynamic'));
 import MyWalletConnectWeb3Connector from '../utils/myconnector';
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
@@ -58,7 +55,8 @@ const VaultDetailsMain = () => {
         dialog: '#000',
         // fontFamily: 'Josefin Sans',
         borderRadius: 0.5,
-    }
+      }
+    
     const [options, setOptions] = useState({
         chart: {
             id: "basic-bar"
@@ -120,6 +118,10 @@ const VaultDetailsMain = () => {
 
     async function fetchTokenBalances() {
         console.log('Add==>' + vault_config?.vault?.get('vaultDetails').vault);
+        console.log('====>'+vault_config?.vault?.get('vaultDetails').vaultType);
+        if(vault_config?.vault?.get('vaultDetails').vaultType == 1){
+            setVaultTokenBalance(vault_config?.vault?.get('totalSupply'));
+        }else{
         const options = {
             chain: "rinkeby",
             token_addresses: [vault_config?.vault?.get('vaultDetails').vault],
@@ -127,6 +129,7 @@ const VaultDetailsMain = () => {
         const balances = await Web3Api.account.getTokenBalances(options);
         console.log('balancesssss' + balances[0].balance);
         setVaultTokenBalance(balances[0].balance);
+    }
     };
 
     const fetchNFTOwners = async () => {
@@ -140,39 +143,27 @@ const VaultDetailsMain = () => {
 
     const fetchTokenTransfers = async () => {
         let tokensSet = tokens;
+       if(vault_config?.vault?.get('vaultDetails').vaultType == 1){
+        const tq = LaunchpadModel.EthNFTTransfersQuery;
+        tq.equalTo("token_address", String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase());
+        tq.descending("updatedAt");
+        tq.limit(11);
+        const result = await tq.find();
+        
+        setVaultTokenTransfers(result);
+       }else{
         tokensSet.add({ name: vault_config?.vault?.get('name'), address: String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase(), symbol: vault_config?.vault?.get('symbol'), decimals: 18, chainId: 4 });
 
         setTokens(tokensSet);
+       
         const tq = LaunchpadModel.EthTokenTransfersQuery;
         tq.equalTo("token_address", String(vault_config?.vault?.get('vaultDetails').vault).toLowerCase());
         tq.descending("updatedAt");
         tq.limit(11);
         const result = await tq.find();
-        // var ownersSet = new Set();
-        // result.forEach(element => {
-        //    if(element.get('from_address') != '0x0000000000000000000000000000000000000000'){ 
-        //     ownersSet.add(element.get('from_address'));
-        //    }
-        //    if(element.get('to_address') != '0x0000000000000000000000000000000000000000'){
-        //     ownersSet.add(element.get('to_address'));
-        //    }
-        // });
-
-        // setOwners(ownersSet);
-        // var obs = new Set();
-        // ownersSet.forEach(async (element) => {
-        //     const options = {
-        //         chain: "rinkeby",
-        //         token_addresses: [vault_config?.vault?.get('vaultDetails').vault],
-        //         address: element
-        //     };
-        //     const balances = await Web3Api.account.getTokenBalances(options);
-        //     obs.add({address: element, value: balances[0]?.balance});
-        // });
-        // setOwnersBal(obs);
-        // console.log('000000000000'+JSON.stringify(obs));
-        // console.log('===========2=2'+JSON.stringify(result));
+        
         setVaultTokenTransfers(result);
+       }
     };
 
 
@@ -359,10 +350,6 @@ const VaultDetailsMain = () => {
                                         <div id="collapse-B" className="collapse" data-bs-parent="#content" role="tabpanel"
                                             aria-labelledby="heading-B">
                                             <div className="card-body">
-                                                {/* <UniswapDynamic tokenList={Array.from(tokens)} /> */}
-                                                <div className="Uniswap">
-                                                    <SwapWidget jsonRpcUrlMap={wcProviderUrl} theme={theme} width={'100%'} />
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -410,7 +397,8 @@ const VaultDetailsMain = () => {
                                                                 </th>
                                                                 <td className="text-danger">{v.get('from_address').substr(0, 5) + '..' + v.get('from_address').substr(v.get('from_address').length - 5, v.get('from_address').length)}</td>
                                                                 <td>{v.get('to_address').substr(0, 5) + '..' + v.get('to_address').substr(v.get('to_address').length - 5, v.get('to_address').length)}</td>
-                                                                <td>{(BigNumber(Moralis.Units.FromWei(v.get('value'), 18) + '').toFormat(2))} {vault_config?.vault?.get('symbol')}</td>
+                                                               {vault_config?.vault?.get('vaultDetails').vaultType == 1 ? <td>{v.get('value')} ID: {v.get('token_id')} {vault_config?.vault?.get('symbol')}</td> :
+                                                                <td>{(BigNumber(Moralis.Units.FromWei(v.get('value'), 18) + '').toFormat(2))} {vault_config?.vault?.get('symbol')}</td>}
                                                             </tr>))}
 
                                                         </tbody>

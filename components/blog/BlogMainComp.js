@@ -10,7 +10,7 @@ export default function BlogMainComp(props) {
                         <div className="latest-news-item">
                             <div className="latest-news-thumb">
                                 <picture>
-                                    <img src={item.image} alt="" />
+                                    <img src={process.env.NEXT_PUBLIC_APP_URL+item.image} alt="" />
                                 </picture>
                             </div>
                             <div className="latest-news-content">

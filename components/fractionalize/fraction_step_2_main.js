@@ -243,7 +243,7 @@ const FractionStep2Main = () => {
                 });
 
                 try {
-                    const decimals = mde == 0 ? 18 : 1;
+                    const decimals = mde == 0 ? 18 : 0;
                     await factoryContract.methods.createVault(vaultName, vaultSymbol, "0x" + new BigNumber(vaultSupply).shiftedBy(decimals).toString(16), "0x" + new BigNumber(vaultReservePrice).shiftedBy(18).toString(16), nftIndex.token_address, nftIndex.token_id, "0x" + new BigNumber(vaultCuratorFee).shiftedBy(3).toString(16), mde).send({ from: user?.get('ethAddress') }).then(async (resp) => {
                         console.log('resp===>' + JSON.stringify(resp));
                         console.log('values===>' + resp.events.Mint.returnValues);

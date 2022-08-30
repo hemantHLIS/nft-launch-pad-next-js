@@ -25,7 +25,7 @@ const { isInitialized } = useMoralis();
             blogDetails();
             setrender(false);
         }
-    })
+    },[render, isInitialized,privacy])
 
     return (
         <>
